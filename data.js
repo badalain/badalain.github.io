@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-26.2",
+  version: "2026-09-26.5",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain",
@@ -38,6 +38,7 @@ const APP_DATA = {
     "Cement & Construction",
     "Energy & Fuel",
     "Fertilizer",
+    "Insurance",
     "Real Estate",
     "Retail & Other",
   ],
@@ -52,6 +53,13 @@ const APP_DATA = {
       note: "A welfare trust whose managing directors are drawn from senior military ranks. Runs commercial businesses; profits fund welfare programs for military families.",
       officialUrl: "https://www.fauji.org.pk/",
     },
+    {
+      id: "army-welfare-trust",
+      name: "Army Welfare Trust (AWT)",
+      type: "Welfare trust",
+      note: "A Pakistan Army-run welfare trust, separate from Fauji Foundation, funding welfare for army personnel and their families through commercial businesses (also known as the Askari Group).",
+      officialUrl: "https://awt.com.pk/",
+    },
   ],
 
   // Every row here is a consumer-facing brand or company. "alternatives" is
@@ -65,18 +73,18 @@ const APP_DATA = {
       category: "Food & Dairy",
       company: "Fauji Foods Limited",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "parent (via Fauji Fertilizer Company)", stake: "not yet confirmed" },
+        { entity: "fauji-foundation", relation: "indirect parent, via Fauji Fertilizer Company", stake: "84.84% of Fauji Foods held by FFC (itself 43.51% Fauji Foundation-owned)" },
       ],
-      status: "lead",
+      status: "verified",
       sources: [
         {
-          label: "Wikipedia — Fauji Foods",
-          url: "https://en.wikipedia.org/wiki/Fauji_Foods",
+          label: "Business Recorder (BR Research) — Fauji Foods Limited, citing FFL's own shareholding pattern as of 31 Dec 2024",
+          url: "https://www.brecorder.com/news/40381578",
           accessedDate: "2026-09-26",
         },
       ],
-      primaryDate: null,
-      notes: "Wikipedia describes Fauji Foods as a subsidiary of Fauji Fertilizer Company (FFC), known for the Nurpur and Dostea brands. Needs confirmation from FFC's or Fauji Foods' own annual report pattern of shareholding before this can be marked verified.",
+      primaryDate: "31 December 2024",
+      notes: "Fauji Fertilizer Company holds 84.84% of Fauji Foods Limited directly; Fauji Foundation's link to Nurpur runs through its 43.51% stake in FFC. Stated as a chain rather than one combined percentage.",
       alternatives: [],
     },
     {
@@ -86,17 +94,17 @@ const APP_DATA = {
       category: "Food & Dairy",
       company: "Fauji Foods Limited",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "parent (via Fauji Fertilizer Company)", stake: "not yet confirmed" },
+        { entity: "fauji-foundation", relation: "indirect parent, via Fauji Fertilizer Company", stake: "84.84% of Fauji Foods held by FFC (itself 43.51% Fauji Foundation-owned)" },
       ],
-      status: "lead",
+      status: "verified",
       sources: [
         {
-          label: "Wikipedia — Fauji Foods",
-          url: "https://en.wikipedia.org/wiki/Fauji_Foods",
+          label: "Business Recorder (BR Research) — Fauji Foods Limited, citing FFL's own shareholding pattern as of 31 Dec 2024",
+          url: "https://www.brecorder.com/news/40381578",
           accessedDate: "2026-09-26",
         },
       ],
-      primaryDate: null,
+      primaryDate: "31 December 2024",
       notes: "Same chain as Nurpur — both are Fauji Foods brands.",
       alternatives: [],
     },
@@ -151,22 +159,22 @@ const APP_DATA = {
     {
       id: "mari-petroleum",
       name: "Mari Petroleum",
-      aliases: ["مری پیٹرولیم", "mari gas"],
+      aliases: ["مری پیٹرولیم", "mari gas", "mari energies"],
       category: "Energy & Fuel",
-      company: "Mari Petroleum Company Limited",
+      company: "Mari Energies Limited (formerly Mari Petroleum Company Limited)",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "shareholder", stake: "not yet confirmed (historical note: ~40% acquired in 1983)" },
+        { entity: "fauji-foundation", relation: "largest shareholder", stake: "40%" },
       ],
-      status: "lead",
+      status: "verified",
       sources: [
         {
-          label: "Wikipedia — Fauji Foundation",
-          url: "https://en.wikipedia.org/wiki/Fauji_Foundation",
+          label: "Mari Energies — Pattern of Shareholding, as at 30 June 2023 (company's own filing)",
+          url: "https://marienergies.com.pk/wp-content/uploads/2023/08/Pattern-of-Shareholders-1.pdf",
           accessedDate: "2026-09-26",
         },
       ],
-      primaryDate: null,
-      notes: "Historical stake noted from 1983; current stake not yet confirmed from a recent annual report.",
+      primaryDate: "30 June 2023",
+      notes: "Fauji Foundation acquired this 40% stake in 1983 (from Esso Eastern Incorporated) and it has stayed stable since; the remaining 60% is split 20% Government of Pakistan and 20% Oil & Gas Development Company Limited (OGDCL). The company renamed itself from Mari Petroleum Company Limited to Mari Energies Limited in 2025 — same entity, same ownership.",
       alternatives: [],
     },
     {
@@ -197,18 +205,104 @@ const APP_DATA = {
       category: "Food & Dairy",
       company: "Fauji Fresh n Freeze Limited",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "parent (via Fauji Fertilizer Company)", stake: "not yet confirmed" },
+        { entity: "fauji-foundation", relation: "wholly owned, via Fauji Fertilizer Company", stake: "100% held by FFC (itself 43.51% Fauji Foundation-owned)" },
       ],
-      status: "lead",
+      status: "verified",
       sources: [
         {
-          label: "MarketScreener — Fauji Fertilizer Company profile",
-          url: "https://www.marketscreener.com/quote/stock/FAUJI-FERTILIZER-COMPANY--6492700/company/",
+          label: "FFC corporate profile (sponsor page, ICAP/SAFA) — describes the 2013 acquisition",
+          url: "https://icap.org.pk/safa/sponsor-ffc.php",
           accessedDate: "2026-09-26",
         },
       ],
-      primaryDate: null,
-      notes: "Processes fresh/frozen fruit, vegetables, and cooked/semi-cooked food. Consumer brand names under this company not yet identified — check retail packaging or the company website.",
+      primaryDate: "profile current as of access date; acquisition dated October 2013",
+      notes: "FFC acquired 100% of Al-Hamd Foods Limited in October 2013 and renamed it Fauji Fresh n Freeze Limited. It processes fresh/frozen fruit, vegetables, and cooked/semi-cooked food (IQF plant in Sahiwal). Consumer-facing brand names under this company not yet identified — check retail packaging or freshnfreeze.com.",
+      alternatives: [],
+    },
+    {
+      id: "mal-pakistan",
+      name: "MAL Pakistan (Mobil lubricants)",
+      aliases: ["Mobil Askari Lubricants", "Mobil Pakistan", "موبل آسکری"],
+      category: "Energy & Fuel",
+      company: "MAL Pakistan Limited",
+      ownershipChain: [
+        { entity: "army-welfare-trust", relation: "wholly owned subsidiary", stake: "100%" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "PACRA credit rating report on MAL Pakistan Limited, dated 5 August 2026",
+          url: "https://pacra.com/api/rating-report/MTYwNjY=",
+          accessedDate: "2026-09-26",
+        },
+      ],
+      primaryDate: "5 August 2026 (rating report)",
+      notes: "Originally a 1996 joint venture (30% AWT / 70% Mobil International Petroleum Corporation) named Mobil Askari Lubricants; AWT acquired the remaining shares in 2007 and renamed it MAL Pakistan Limited. Still sells under the Mobil brand via a licensing agreement with ExxonMobil — engine oils, greases, transmission oils, brake fluids.",
+      alternatives: [],
+    },
+    {
+      id: "askari-general-insurance",
+      name: "Askari General Insurance (AGICO)",
+      aliases: ["AGICO", "AGICL", "عسکری جنرل انشورنس"],
+      category: "Insurance",
+      company: "Askari General Insurance Company Limited",
+      ownershipChain: [
+        { entity: "fauji-foundation", relation: "direct controlling shareholder (since 28 Aug 2026)", stake: "51%" },
+        { entity: "army-welfare-trust", relation: "remaining minority holder (previously 60.23% before the transfer)", stake: "~9.23%" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Business Recorder — Fauji Foundation acquires majority stake in Askari General Insurance",
+          url: "https://www.brecorder.com/news/40437396/fauji-foundation-acquires-majority-stake-in-askari-general-insurance",
+          accessedDate: "2026-09-26",
+        },
+      ],
+      primaryDate: "28 August 2026 (PSX filing)",
+      notes: "Until 28 August 2026 this was an Army Welfare Trust company (60.23% AWT-owned). AWT transferred 51,337,953 ordinary shares (51% of paid-up capital) to Fauji Foundation, per AGICO's own PSX disclosure. Both organizations describe this as an internal restructuring between two military welfare trusts, not a commercial acquisition.",
+      alternatives: [],
+    },
+    {
+      id: "askari-life-assurance",
+      name: "Askari Life Assurance",
+      aliases: ["Askari Life", "عسکری لائف"],
+      category: "Insurance",
+      company: "Askari Life Assurance Company Limited",
+      ownershipChain: [
+        { entity: "fauji-foundation", relation: "direct controlling shareholder (since 28 Aug 2026)", stake: "51%" },
+        { entity: "army-welfare-trust", relation: "remaining minority holder (previously 66.65% before the transfer)", stake: "~15.65%" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Pakistan Today Profit — Fauji Foundation to acquire controlling stakes in Askari General, Askari Life from Army Welfare Trust",
+          url: "https://profit.pakistantoday.com.pk/2026/07/08/fauji-foundation-to-acquire-controlling-stakes-in-askari-general-askari-life-from-army-welfare-trust",
+          accessedDate: "2026-09-26",
+        },
+      ],
+      primaryDate: "28 August 2026 (transfer completed; SECP approval 23 July 2026)",
+      notes: "Formerly known as East West Life Assurance Company Limited. Until 28 August 2026 this was an Army Welfare Trust company (66.65% AWT-owned). AWT transferred 76,587,727 shares (51% of paid-up capital) to Fauji Foundation. Same restructuring as Askari General Insurance, completed the same day.",
+      alternatives: [],
+    },
+    {
+      id: "askari-guards",
+      name: "Askari Guards",
+      aliases: ["AGL", "Askari Guards Pvt Limited", "عسکری گارڈز"],
+      category: "Retail & Other",
+      company: "Askari Guards (Pvt) Limited",
+      ownershipChain: [
+        { entity: "army-welfare-trust", relation: "subsidiary (exact stake not published)", stake: "subsidiary" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Askari Guards' own website — company footer states its AWT ownership directly",
+          url: "https://www.askariguards.com/",
+          accessedDate: "2026-09-26",
+        },
+      ],
+      primaryDate: "current as of access date",
+      notes: "Founded 1996; describes itself as the largest security company in Pakistan (20,000 guards). Services: security guards, close protection, cash-in-transit, CCTV/access control for homes and businesses. Exact ownership percentage not published — company states 'subsidiary' without a number, so this is recorded as such rather than assumed to be 100%.",
       alternatives: [],
     },
   ],
