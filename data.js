@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-26.1",
+  version: "2026-09-26.2",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain",
@@ -107,18 +107,24 @@ const APP_DATA = {
       category: "Banking & Finance",
       company: "Askari Bank Limited",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "parent", stake: "not yet confirmed" },
+        { entity: "fauji-foundation", relation: "direct holding", stake: "7.19%" },
+        { entity: "fauji-foundation", relation: "indirect, via Fauji Fertilizer Company (itself 43.51% Fauji Foundation-owned)", stake: "64.72% held by FFC" },
       ],
-      status: "lead",
+      status: "verified",
       sources: [
         {
-          label: "Wikipedia — Fauji Foundation",
-          url: "https://en.wikipedia.org/wiki/Fauji_Foundation",
+          label: "Askari Bank Annual Report 2025 (corporate profile page)",
+          url: "https://askaribank.com/gallery/Askari-AR-2025.pdf",
+          accessedDate: "2026-09-26",
+        },
+        {
+          label: "PACRA rating report, corroborating the 71.91% combined stake",
+          url: "https://pacra.com/api/rating-report/MTYyMjE=",
           accessedDate: "2026-09-26",
         },
       ],
-      primaryDate: null,
-      notes: "Listed by Wikipedia as a Fauji Foundation subsidiary. Needs confirmation from Askari Bank's own annual report pattern of shareholding.",
+      primaryDate: "2025 Annual Report",
+      notes: "Askari Bank's own annual report describes Fauji Foundation and Fauji Fertilizer Company together as 'the Fauji Consortium,' holding 71.91% combined (7.19% direct + 64.72% via FFC). Stated as two rows here rather than one combined percentage, so the direct-vs-indirect split stays visible.",
       alternatives: [],
     },
     {
@@ -128,18 +134,18 @@ const APP_DATA = {
       category: "Cement & Construction",
       company: "Fauji Cement Company Limited (FCCL)",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "parent", stake: "not yet confirmed" },
+        { entity: "fauji-foundation", relation: "collective holding, together with Committee of Admin Fauji Foundation, Fauji Fertilizer Company, and Fauji Oil Terminal & Distribution", stake: "66.81% collectively" },
       ],
-      status: "lead",
+      status: "verified",
       sources: [
         {
-          label: "Wikipedia — Fauji Cement",
-          url: "https://en.wikipedia.org/wiki/Fauji_Cement",
+          label: "Business Recorder (BR Research) — Fauji Cement performance and outlook, citing FCCL's shareholding pattern as of 30 June 2025",
+          url: "https://www.brecorder.com/news/40437287/fauji-cement-company-limited-performance-and-outlook",
           accessedDate: "2026-09-26",
         },
       ],
-      primaryDate: null,
-      notes: "Fauji Cement absorbed Askari Cement (previously an Army Welfare Trust subsidiary) via a share-swap merger sanctioned by the Lahore High Court. This is a documented example of ownership changing over time — re-verify stakes yearly.",
+      primaryDate: "30 June 2025",
+      notes: "This 66.81% is a collective figure across four related Fauji entities, not Fauji Foundation alone — stated that way deliberately rather than rounded up. Fauji Cement also absorbed Askari Cement (previously an Army Welfare Trust subsidiary) via a share-swap merger sanctioned by the Lahore High Court, a documented example of ownership changing over time. Re-verify yearly.",
       alternatives: [],
     },
     {
@@ -170,18 +176,18 @@ const APP_DATA = {
       category: "Fertilizer",
       company: "Fauji Fertilizer Company Limited",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "largest shareholder", stake: "~43% (per Wikipedia infobox, unverified)" },
+        { entity: "fauji-foundation", relation: "largest shareholder", stake: "43.51%" },
       ],
-      status: "lead",
+      status: "verified",
       sources: [
         {
-          label: "Wikipedia — Fauji Fertilizer Company",
-          url: "https://en.wikipedia.org/wiki/Fauji_Fertilizer_Company",
+          label: "FFC quarterly report, period ended 31 Mar 2025 (via MarketScreener)",
+          url: "https://www.marketscreener.com/quote/stock/FAUJI-FERTILIZER-COMPANY--6492700/news/Fauji-Fertilizer-Transmission-of-Quarterly-Report-for-the-Period-Ended-31-Mar-2025-49766796/",
           accessedDate: "2026-09-26",
         },
       ],
-      primaryDate: null,
-      notes: "43% is a large stake but not full ownership — FFC is a listed company with other shareholders. State this precisely once verified; do not round up to 'owned by'.",
+      primaryDate: "31 March 2025 (unchanged from 31 December 2024)",
+      notes: "43.51% is a large stake but not full ownership — FFC is a listed company with other shareholders holding the remainder. FFC merged with the former Fauji Fertilizer Bin Qasim Limited (FFBL) effective 1 July 2024; figures here are for the merged entity.",
       alternatives: [],
     },
     {
