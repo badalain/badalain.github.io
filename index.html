@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F6B5C">
+<title>Badalain — Who owns what you buy</title>
+<meta name="description" content="Look up who owns a brand, backed by public sources, and find alternatives.">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-apple-touch.png">
+<link rel="icon" href="icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-inner">
+    <h1 class="app-name" id="app-name-text">Badalain</h1>
+    <p class="app-tagline" id="app-tagline-text">See who owns what you buy, and find alternatives.</p>
+  </div>
+</header>
+
+<div class="disclaimer-banner" role="note">
+  <p>Every entry links to its source. Items marked <span class="badge badge-lead">Unverified lead</span> have not yet been confirmed against a primary document — treat them as a starting point, not a fact, until they show <span class="badge badge-verified">Verified</span>.</p>
+</div>
+
+<nav class="tabs" aria-label="Sections">
+  <button class="tab-btn is-active" data-view="search" aria-pressed="true">Search</button>
+  <button class="tab-btn" data-view="about" aria-pressed="false">About &amp; sources</button>
+  <button class="tab-btn" data-view="suggest" aria-pressed="false">Suggest an addition</button>
+</nav>
+
+<main id="main">
+
+  <!-- SEARCH VIEW -->
+  <section id="view-search" class="view is-active">
+    <div class="search-bar">
+      <label for="search-input" class="visually-hidden">Search by brand, company, or category</label>
+      <input type="search" id="search-input" placeholder="Search a brand or company…" autocomplete="off" inputmode="search">
+    </div>
+
+    <div class="category-chips" id="category-chips" role="group" aria-label="Filter by category"></div>
+
+    <p class="result-count" id="result-count" aria-live="polite"></p>
+
+    <ul class="brand-list" id="brand-list"></ul>
+
+    <p class="empty-state" id="empty-state" hidden>
+      No matches. If you were expecting to find something here, use
+      <button class="link-btn" id="empty-state-suggest-link">Suggest an addition</button>.
+    </p>
+  </section>
+
+  <!-- DETAIL VIEW -->
+  <section id="view-detail" class="view">
+    <button class="back-btn" id="detail-back-btn" aria-label="Back to search">&larr; Back</button>
+    <div id="detail-content"></div>
+  </section>
+
+  <!-- ABOUT VIEW -->
+  <section id="view-about" class="view">
+    <h2>About this list</h2>
+    <p>This site shows publicly documented ownership links between everyday consumer brands and their parent companies, so people can make their own informed choices about what to buy. It does not tell you what to think about any organization — only who owns what, with a source for every claim.</p>
+
+    <h3>How an entry gets added</h3>
+    <ol>
+      <li>A lead is found in a public source — a company website, a news report, or an aggregator.</li>
+      <li>It is checked against a primary document: a company annual report's pattern of shareholding, a stock exchange filing, or a regulator's record.</li>
+      <li>Only once confirmed against that primary document is it marked <span class="badge badge-verified">Verified</span>, with the exact source and date shown.</li>
+      <li>Ownership changes over time — stakes are sold, companies merge. Every entry is re-checked periodically, and the date it was last verified is always shown.</li>
+    </ol>
+
+    <h3>What this site is not</h3>
+    <p>This site makes no claims beyond documented ownership. It does not host allegations, opinions, or user comments. Suggested alternatives are offered as options to consider, not endorsements.</p>
+
+    <h3>Corrections</h3>
+    <p>If you believe an entry is inaccurate or outdated, use the "Suggest an addition" tab to tell us — the same form is used for corrections. Every submission is reviewed before anything changes.</p>
+  </section>
+
+  <!-- SUGGEST VIEW -->
+  <section id="view-suggest" class="view">
+    <h2>Suggest an addition or correction</h2>
+    <p>No account or contact information is required. Submissions are reviewed before anything is published.</p>
+
+    <form id="suggest-form">
+      <label for="s-name">Brand or company name</label>
+      <input type="text" id="s-name" name="name" required>
+
+      <label for="s-category">Category</label>
+      <select id="s-category" name="category"></select>
+
+      <label for="s-reason">What should we know? (ownership link, or a correction to an existing entry)</label>
+      <textarea id="s-reason" name="reason" rows="4" required></textarea>
+
+      <label for="s-source">Source link (a company report, filing, or news article — this is what lets us verify it)</label>
+      <input type="url" id="s-source" name="source" placeholder="https://…">
+
+      <button type="submit" class="primary-btn">Submit</button>
+    </form>
+
+    <div id="suggest-success" hidden>
+      <p>Thank you — this has been queued for review.</p>
+    </div>
+    <div id="suggest-fallback" hidden>
+      <p>We couldn't reach the review queue directly from here. You can instead send these details yourself:</p>
+      <pre id="suggest-fallback-text"></pre>
+      <button class="link-btn" id="suggest-copy-btn">Copy to clipboard</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>No accounts. No tracking. Works offline once loaded.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

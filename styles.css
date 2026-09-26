@@ -1,0 +1,384 @@
+/*
+  Design notes:
+  - System font stack only — no font downloads, so the page is fast on a
+    slow connection and on a low-end phone.
+  - No images except the two small home-screen icons.
+  - One accent color (deep teal), used sparingly. Verified/lead badges use
+    their own two colors so status is readable without color alone
+    (they also differ in the word shown, for colorblind users).
+  - prefers-reduced-motion respected; the only motion is a view fade.
+*/
+
+:root {
+  --bg: #FAFAF8;
+  --bg-raised: #FFFFFF;
+  --text: #1B1D21;
+  --text-muted: #55585E;
+  --border: #E2E1DC;
+  --accent: #0F6B5C;
+  --accent-text: #FFFFFF;
+  --verified-bg: #E3F1EC;
+  --verified-text: #146152;
+  --lead-bg: #F5EEDD;
+  --lead-text: #7A5D1E;
+  --focus-ring: #0F6B5C;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #14161A;
+    --bg-raised: #1C1F24;
+    --text: #E7E8EA;
+    --text-muted: #A7ABB3;
+    --border: #2A2D33;
+    --accent: #3FA88F;
+    --accent-text: #0A1512;
+    --verified-bg: #163A31;
+    --verified-text: #8FD9C4;
+    --lead-bg: #3A3120;
+    --lead-text: #E4C87F;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #14161A;
+  --bg-raised: #1C1F24;
+  --text: #E7E8EA;
+  --text-muted: #A7ABB3;
+  --border: #2A2D33;
+  --accent: #3FA88F;
+  --accent-text: #0A1512;
+  --verified-bg: #163A31;
+  --verified-text: #8FD9C4;
+  --lead-bg: #3A3120;
+  --lead-text: #E4C87F;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", "Noto Nastaliq Urdu", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--accent);
+  color: var(--accent-text);
+  padding: 0.75em 1em;
+  z-index: 100;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  padding: 1.25rem 1rem 0.75rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.app-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.15em;
+  letter-spacing: -0.01em;
+}
+.app-tagline {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.disclaimer-banner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1rem 0.75rem;
+}
+.disclaimer-banner p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.6em 0.8em;
+}
+
+/* ---------- Tabs ---------- */
+.tabs {
+  display: flex;
+  gap: 0.4rem;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.tab-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5em 0.1em;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.tab-btn.is-active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+.tab-btn:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ---------- Main / views ---------- */
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+.view { display: none; }
+.view.is-active { display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .view.is-active { animation: fade-in 0.15s ease-out; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- Search ---------- */
+.search-bar { margin-bottom: 0.75rem; }
+#search-input {
+  width: 100%;
+  padding: 0.75em 0.9em;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg-raised);
+  color: var(--text);
+}
+
+.category-chips {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+.chip {
+  flex: 0 0 auto;
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.4em 0.9em;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.result-count {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0.25rem 0 0.5rem;
+}
+
+.brand-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.brand-card {
+  width: 100%;
+  text-align: left;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8em 0.9em;
+  margin-bottom: 0.6rem;
+  cursor: pointer;
+  color: var(--text);
+  font: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+}
+.brand-card:hover { border-color: var(--accent); }
+.brand-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5em;
+}
+.brand-card-name { font-weight: 700; font-size: 1.02rem; }
+.brand-card-company { color: var(--text-muted); font-size: 0.88rem; }
+
+.empty-state {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+/* ---------- Badges ---------- */
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2em 0.6em;
+  border-radius: 999px;
+}
+.badge-verified { background: var(--verified-bg); color: var(--verified-text); }
+.badge-lead { background: var(--lead-bg); color: var(--lead-text); }
+
+/* ---------- Detail view ---------- */
+.back-btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.4em 0;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+.detail-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0.2em 0 0.1em;
+}
+.detail-company {
+  color: var(--text-muted);
+  margin: 0 0 0.75em;
+}
+.detail-section {
+  border-top: 1px solid var(--border);
+  padding: 0.9em 0;
+}
+.detail-section h3 {
+  font-size: 0.85rem;
+  text-transform: none;
+  color: var(--text-muted);
+  margin: 0 0 0.5em;
+  font-weight: 600;
+}
+.ownership-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75em;
+  padding: 0.4em 0;
+  font-size: 0.95rem;
+}
+.source-link {
+  display: block;
+  color: var(--accent);
+  text-decoration: underline;
+  font-size: 0.92rem;
+  margin-bottom: 0.4em;
+  word-break: break-word;
+}
+.alt-empty {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+/* ---------- Forms ---------- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+form input,
+form select,
+form textarea {
+  padding: 0.65em 0.8em;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-raised);
+  color: var(--text);
+  font: inherit;
+  width: 100%;
+}
+.primary-btn {
+  margin-top: 1rem;
+  align-self: flex-start;
+  background: var(--accent);
+  color: var(--accent-text);
+  border: none;
+  border-radius: 8px;
+  padding: 0.7em 1.4em;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--accent);
+  text-decoration: underline;
+  font: inherit;
+  padding: 0;
+  cursor: pointer;
+}
+#suggest-fallback pre {
+  white-space: pre-wrap;
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.8em;
+  font-size: 0.85rem;
+}
+
+/* ---------- About view ---------- */
+#view-about h2 { font-size: 1.25rem; }
+#view-about h3 { font-size: 1rem; margin-top: 1.2em; }
+#view-about p, #view-about li { color: var(--text-muted); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding: 1.5rem 1rem 2rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
