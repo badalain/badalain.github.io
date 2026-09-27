@@ -6,7 +6,7 @@
   visitors get the update instead of a stale cached copy.
 */
 
-const CACHE_NAME = "badalain-cache-2026-09-27.6";
+const CACHE_NAME = "badalain-cache-2026-09-27.7";
 
 const ASSETS = [
   "./",

@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.6",
+  version: "2026-09-27.7",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain (بدلیں)",
@@ -41,6 +41,7 @@ const APP_DATA = {
     "Insurance",
     "Media",
     "Real Estate",
+    "Transport",
     "Retail & Other",
   ],
 
@@ -191,18 +192,19 @@ const APP_DATA = {
       category: "Cement & Construction",
       company: "Fauji Cement Company Limited (FCCL)",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "collective holding, together with Committee of Admin Fauji Foundation, Fauji Fertilizer Company, and Fauji Oil Terminal & Distribution", stake: "66.81% collectively" },
+        { entity: "fauji-foundation", relation: "Committee of Admin. Fauji Foundation holds this directly, per FCCL's own annual report", stake: "61.65%" },
+        { entity: "fauji-foundation", relation: "collective holding together with Fauji Fertilizer Company and Fauji Oil Terminal & Distribution (the 61.65% above is part of this total)", stake: "66.81% collectively" },
       ],
       status: "verified",
       sources: [
         {
-          label: "Business Recorder (BR Research) — Fauji Cement performance and outlook, citing FCCL's shareholding pattern as of 30 June 2025",
-          url: "https://www.brecorder.com/news/40437287/fauji-cement-company-limited-performance-and-outlook",
-          accessedDate: "2026-09-26",
+          label: "Fauji Cement Company Limited — Annual Report 2026, 'Categories of Shareholders as on 30th June 2026' (company's own filing)",
+          url: "https://fccl.com.pk/eng/wp-content/uploads/2025/05/Categories-of-Shareholders-as-on-30th-June-2026.pdf",
+          accessedDate: "2026-09-27",
         },
       ],
-      primaryDate: "30 June 2025",
-      notes: "This 66.81% is a collective figure across four related Fauji entities, not Fauji Foundation alone — stated that way deliberately rather than rounded up. Fauji Cement also absorbed Askari Cement (previously an Army Welfare Trust subsidiary) via a share-swap merger sanctioned by the Lahore High Court, a documented example of ownership changing over time. Re-verify yearly.",
+      primaryDate: "30 June 2026",
+      notes: "Re-checked directly against FCCL's own annual report during a verification refresh — confirms the figure and updates the source from a secondary citation to the company's own filing. 'Committee of Admin. Fauji Foundation' alone holds 61.65% as the single largest shareholder; the broader 66.81% collective figure (with Fauji Fertilizer Company and Fauji Oil Terminal & Distribution) is essentially unchanged from a year earlier, confirming stability. Fauji Cement also absorbed Askari Cement (previously an Army Welfare Trust subsidiary) via a share-swap merger sanctioned by the Lahore High Court. Re-verify yearly.",
       alternatives: [
         {
           name: "Lucky Cement",
@@ -609,6 +611,41 @@ const APP_DATA = {
         {
           name: "Eighteen, Islamabad",
           note: "A luxury master-planned community in Islamabad developed by Ora Developers (Egyptian) and the Saif Group (Pakistani) — a genuinely independent joint venture with no military or government ownership.",
+        },
+      ],
+    },
+    {
+      id: "pia",
+      name: "Pakistan International Airlines (PIA)",
+      aliases: ["PIACL", "پاکستان انٹرنیشنل ائیرلائن"],
+      category: "Transport",
+      company: "Pakistan International Airlines Corporation Limited (PIACL)",
+      ownershipChain: [
+        { entity: "fauji-foundation", relation: "indirect, via Fauji Fertilizer Company's 34% stake in PIA Equity Limited (PIAEL), the special-purpose vehicle acquiring PIA", stake: "34% of PIAEL held by FFC (itself 43.51% Fauji Foundation-owned); PIAEL to hold 100% of PIA once the sale completes" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Business Recorder — 'New shareholder added: Fauji Fertilizer becomes part of PIA Equity Limited'",
+          url: "https://www.brecorder.com/news/40419033/new-shareholder-added-fauji-fertilizer-becomes-part-of-pia-equity-limited",
+          accessedDate: "2026-09-27",
+        },
+        {
+          label: "FFC's own Q1 2026 earnings briefing, confirming the 34% stake in PIA Equity Pvt. Ltd.",
+          url: "https://www.thenewseyes.com/fauji-fertilizer-to-take-additional-borrowing-for-acquisition-of-pia-shares/",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: "Q1 2026 earnings briefing; deal approved, not yet fully closed",
+      notes: "A genuinely new development, not something Wikipedia or older sources would show: an Arif Habib-led consortium won PIA's privatization auction in December 2025 (Rs135 billion). Fauji Fertilizer Company joined the consortium's special-purpose vehicle, PIA Equity Limited, in early 2026, taking a 34% stake — approved by the Cabinet Committee on Privatisation and cleared by the Competition Commission of Pakistan. Other PIAEL shareholders: Arif Habib Corporation, Fatima Fertilizer, Lake City Holdings, AKD Group, and The City School Group — none of them military-linked. Full ownership transfer to PIAEL (and full payment) is expected by May 2027, not complete yet. Doing the precise math: Fauji Foundation's indirect economic interest in PIA works out to roughly 43.51% × 34% ≈ 15% once the deal closes — a real but minority stake, not control. Stated this way deliberately rather than implying Fauji Foundation now 'owns' the airline.",
+      alternatives: [
+        {
+          name: "Airblue",
+          note: "A well-established private Pakistani airline with no military or government ownership — was itself a bidder in the same PIA privatization auction before withdrawing.",
+        },
+        {
+          name: "SereneAir",
+          note: "Another private Pakistani carrier, no military ownership link.",
         },
       ],
     },
