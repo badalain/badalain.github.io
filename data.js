@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.3",
+  version: "2026-09-27.4",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain (بدلیں)",
@@ -67,6 +67,13 @@ const APP_DATA = {
       type: "Welfare foundation",
       note: "A Pakistan Air Force welfare foundation, established 1977, funding welfare for PAF personnel and their families through businesses in aviation, insurance, media, and real estate.",
       officialUrl: "https://shaheenfoundation.com/",
+    },
+    {
+      id: "ministry-of-defence-pakistan",
+      name: "Ministry of Defence, Pakistan / Pakistan Army",
+      type: "Government ministry & armed forces (statutory administration, not a shareholding structure)",
+      note: "Defence Housing Authorities are government statutory bodies, legally distinct from the welfare foundations above. Each city's DHA is a separate legal entity created by its own law, governed by a Governing Body chaired by the federal Secretary of Defence and an Executive Board headed by the local Army Corps Commander. There is no 'ownership percentage' to state here, since this is direct government/military administration rather than a company with shares.",
+      officialUrl: null,
     },
     {
       id: "bahria-foundation",
@@ -517,6 +524,77 @@ const APP_DATA = {
       notes: "Established 1996. Security guarding and technical security services, licensed nationwide with offices in Islamabad, Karachi, Lahore, Multan, and Gwadar. ISO 9001:2015 and ISO 18788:2015 certified. A member of the All Pakistan Security Agencies Association.",
       alternatives: [],
       noAlternativeReason: "Alternative security firms haven't been researched to the same reputation/reviews standard yet — same gap as with Askari Guards, flagged for a future pass.",
+    },
+    {
+      id: "dha-karachi",
+      name: "DHA Karachi",
+      aliases: ["Defence Housing Authority Karachi", "Pakistan Defence Officers Housing Authority", "ڈیفنس ہاؤسنگ اتھارٹی کراچی"],
+      category: "Real Estate",
+      company: "Defence Housing Authority, Karachi",
+      ownershipChain: [
+        { entity: "ministry-of-defence-pakistan", relation: "created by Presidential Order No. 7 of 1980; Governing Body chaired by the Secretary, Ministry of Defence; Executive Board headed by the Corps Commander Karachi", stake: "government/military-administered statutory authority" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "DHA Karachi's own official website — 'About DHA Karachi'",
+          url: "https://www.dhakarachi.org/about-us/about-dha-karachi/",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: "current as of access date",
+      notes: "Originally a cooperative housing society formed by retired servicemen in the mid-1950s, taken over by the government in 1981 under President Zia-ul-Haq and placed under the Corps Commander Karachi. Spans about 8,797–8,852 acres with over 81,000 members. Not to be confused with Bahria Town, an unrelated private developer with no Navy or Army ownership.",
+      alternatives: [],
+      noAlternativeReason: "Choosing a specific private real-estate developer as 'the' alternative needs its own dedicated research pass — housing decisions are high-value and vary heavily by city, so this shouldn't be a rushed one-line recommendation.",
+    },
+    {
+      id: "dha-lahore",
+      name: "DHA Lahore",
+      aliases: ["Defence Housing Authority Lahore", "ڈیفنس ہاؤسنگ اتھارٹی لاہور"],
+      category: "Real Estate",
+      company: "Defence Housing Authority, Lahore",
+      ownershipChain: [
+        { entity: "ministry-of-defence-pakistan", relation: "created via the DHA (Lahore) Ordinance of 1999 and federalized under Chief Executive's Order No. 26 of 2002 (validated by Parliament in 2004); Governing Body chaired by the Secretary, Ministry of Defence, with Army officers on its Executive Board", stake: "government/military-administered statutory authority" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "PILDAT (Pakistan Institute of Legislative Development and Transparency) — civil-military relations monitor, citing the DHA (Lahore) Ordinance 1999 and Chief Executive's Order No. 26 of 2002",
+          url: "https://pildat.org/?p=8278",
+          accessedDate: "2026-09-27",
+        },
+        {
+          label: "DHA Lahore's own official website — 'About DHA' / history page",
+          url: "https://dhalahore.org/?p=75551",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: "current as of access date",
+      notes: "Began in 1973 as the Civil and Defence Housing Society, became the Lahore Cantonment Co-Operative Housing Society in 1975, converted to DHA Lahore in 1999, and was federalized in 2002. The Supreme Court has scrutinized DHA Lahore's governance and its resistance to audits by the Auditor General of Pakistan (Suo Moto Case No. 12 of 2015) — a documented example of the accountability concerns this structure raises.",
+      alternatives: [],
+      noAlternativeReason: "Choosing a specific private real-estate developer as 'the' alternative needs its own dedicated research pass — housing decisions are high-value and vary heavily by city, so this shouldn't be a rushed one-line recommendation.",
+    },
+    {
+      id: "dha-islamabad",
+      name: "DHA Islamabad–Rawalpindi",
+      aliases: ["Defence Housing Authority Islamabad", "ڈیفنس ہاؤسنگ اتھارٹی اسلام آباد"],
+      category: "Real Estate",
+      company: "Defence Housing Authority, Islamabad–Rawalpindi",
+      ownershipChain: [
+        { entity: "ministry-of-defence-pakistan", relation: "created via Act No. XII of 2013, passed by Parliament and published in the Gazette of Pakistan on 19 March 2013; headed by a serving Pakistan Army brigadier under the Welfare and Rehabilitation Directorate", stake: "government/military-administered statutory authority" },
+      ],
+      status: "lead",
+      sources: [
+        {
+          label: "Wikipedia — Defence Housing Authority, Islamabad, citing the Gazette of Pakistan and Act No. XII of 2013",
+          url: "https://en.wikipedia.org/wiki/Defence_Housing_Authority,_Islamabad",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: null,
+      notes: "The most recently established of the three major DHAs (1992 origin, formalized by federal Act in 2013). Recorded as a lead rather than verified because the specific Act citation hasn't yet been cross-checked against DHA Islamabad's own official site or the Gazette text directly — that check is still needed before this can be upgraded.",
+      alternatives: [],
+      noAlternativeReason: "Choosing a specific private real-estate developer as 'the' alternative needs its own dedicated research pass — housing decisions are high-value and vary heavily by city, so this shouldn't be a rushed one-line recommendation.",
     },
   ],
 };
