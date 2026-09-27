@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.7",
+  version: "2026-09-27.8",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain (بدلیں)",
@@ -635,9 +635,24 @@ const APP_DATA = {
           url: "https://www.thenewseyes.com/fauji-fertilizer-to-take-additional-borrowing-for-acquisition-of-pia-shares/",
           accessedDate: "2026-09-27",
         },
+        {
+          label: "Dawn editorial — 'PIA's privatisation,' on FFC's late entry into the winning consortium",
+          url: "https://www.dawn.com/news/1963139",
+          accessedDate: "2026-09-27",
+        },
+        {
+          label: "The Express Tribune — consortium leader Arif Habib describing why and how FFC joined",
+          url: "https://tribune.com.pk/story/2586814/pia-under-private-control-from-april",
+          accessedDate: "2026-09-27",
+        },
+        {
+          label: "India TV News — PM Shehbaz Sharif publicly thanking Army Chief Asim Munir for the SIFC's role in the privatisation",
+          url: "https://www.indiatvnews.com/news/world/how-pakistan-military-secured-back-route-control-of-pia-the-army-corporate-nexus-explained-2026-07-01-1046800",
+          accessedDate: "2026-09-27",
+        },
       ],
       primaryDate: "Q1 2026 earnings briefing; deal approved, not yet fully closed",
-      notes: "A genuinely new development, not something Wikipedia or older sources would show: an Arif Habib-led consortium won PIA's privatization auction in December 2025 (Rs135 billion). Fauji Fertilizer Company joined the consortium's special-purpose vehicle, PIA Equity Limited, in early 2026, taking a 34% stake — approved by the Cabinet Committee on Privatisation and cleared by the Competition Commission of Pakistan. Other PIAEL shareholders: Arif Habib Corporation, Fatima Fertilizer, Lake City Holdings, AKD Group, and The City School Group — none of them military-linked. Full ownership transfer to PIAEL (and full payment) is expected by May 2027, not complete yet. Doing the precise math: Fauji Foundation's indirect economic interest in PIA works out to roughly 43.51% × 34% ≈ 15% once the deal closes — a real but minority stake, not control. Stated this way deliberately rather than implying Fauji Foundation now 'owns' the airline.",
+      notes: "A genuinely new development, not something Wikipedia or older sources would show: an Arif Habib-led consortium won PIA's privatization auction in December 2025 (Rs135 billion). FFC's stake in the consortium's vehicle, PIA Equity Limited, was first reported at 25% (Express Tribune, mid-January 2026) and later confirmed at 34% by FFC's own Q1 2026 earnings briefing — the 34% figure used above is the more recent, company-confirmed one. Approved by the Cabinet Committee on Privatisation and cleared by the Competition Commission of Pakistan. Other PIAEL shareholders: Arif Habib Corporation, Fatima Fertilizer, Lake City Holdings, AKD Group, and The City School Group — none of them military-linked. Full ownership transfer to PIAEL (and full payment) is expected by May 2027, not complete yet. Doing the precise math: Fauji Foundation's indirect economic interest in PIA works out to roughly 43.51% x 34% = 15% once the deal closes — a real but minority stake, not control. Stated this way deliberately rather than implying Fauji Foundation now 'owns' the airline. Worth recording precisely, because it isn't a minor detail: FFC had withdrawn from the original bidding and was invited into the winning consortium only after the auction closed. Dawn's editorial board wrote this 'seems less for its capital needs than its desire for institutional backing.' Consortium leader Arif Habib told the Express Tribune that FFC joined at the consortium's own request, quoting himself telling FFC: 'if they wanted us to be the Imam of this prayer, they would need to offer the prayer behind us.' Separately, Prime Minister Shehbaz Sharif publicly thanked Army Chief Asim Munir for the Special Investment Facilitation Council's role in the privatisation — an on-record acknowledgment of military involvement in facilitating the sale, not a claim from unnamed sources.",
       alternatives: [
         {
           name: "Airblue",
