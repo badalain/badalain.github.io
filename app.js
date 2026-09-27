@@ -27,7 +27,9 @@
   const state = {
     query: "",
     category: "All",
+    verifiedOnly: false,
     currentDetailId: null,
+    currentEntityId: null,
   };
 
   const els = {};
@@ -45,13 +47,31 @@
     els.resultCount = document.getElementById("result-count");
     els.emptyState = document.getElementById("empty-state");
     els.detailContent = document.getElementById("detail-content");
+    els.entityContent = document.getElementById("entity-content");
     els.suggestCategory = document.getElementById("s-category");
+    els.verifiedToggle = document.getElementById("verified-only-toggle");
+    els.aboutStats = document.getElementById("about-stats");
+    els.aboutDataLink = document.getElementById("about-data-link");
 
     buildCategoryChips();
     buildSuggestCategoryOptions();
+    renderAboutStats();
     bindEvents();
     render();
     registerServiceWorker();
+  }
+
+  // ---------------------- About page stats ----------------------
+
+  function renderAboutStats() {
+    const total = APP_DATA.brands.length;
+    const verified = APP_DATA.brands.filter((b) => b.status === "verified").length;
+    const leads = total - verified;
+    els.aboutStats.textContent =
+      total + " entries so far — " + verified + " verified, " + leads + " still unverified leads.";
+    if (els.aboutDataLink) {
+      els.aboutDataLink.href = "data.js?v=" + encodeURIComponent(APP_DATA.version);
+    }
   }
 
   // ---------------------- Category chips ----------------------
@@ -105,7 +125,8 @@
   function getFilteredBrands() {
     return APP_DATA.brands.filter((b) => {
       const categoryOk = state.category === "All" || b.category === state.category;
-      return categoryOk && matchesQuery(b, state.query);
+      const verifiedOk = !state.verifiedOnly || b.status === "verified";
+      return categoryOk && verifiedOk && matchesQuery(b, state.query);
     });
   }
 
@@ -184,15 +205,32 @@
     html += badge;
     html += "</div>";
     html += '<p class="detail-company">' + escapeHtml(brand.company) + "</p>";
+    html +=
+      '<button class="link-btn share-btn" type="button" data-share-id="' +
+      escapeAttr(brand.id) +
+      '">Share this entry</button>';
 
-    // Ownership chain
+    // Ownership chain — shown as a small clickable diagram: tap the parent
+    // organization to see everything else it owns.
     html += '<div class="detail-section"><h3>Ownership</h3>';
     (brand.ownershipChain || []).forEach((link) => {
       const entity = findEntity(link.entity);
       const entityName = entity ? entity.name : link.entity;
-      html += '<div class="ownership-row"><span>' + escapeHtml(entityName);
-      if (link.relation) html += " — " + escapeHtml(link.relation);
-      html += '</span><span>' + escapeHtml(link.stake || "") + "</span></div>";
+      html += '<div class="ownership-chain-row">';
+      html +=
+        '<button class="entity-chip" type="button" data-entity-id="' +
+        escapeAttr(link.entity) +
+        '">' +
+        escapeHtml(entityName) +
+        "</button>";
+      html += '<span class="ownership-arrow" aria-hidden="true">&rarr;</span>';
+      html += '<span class="ownership-stake">' + escapeHtml(link.stake || "") + "</span>";
+      html += '<span class="ownership-arrow" aria-hidden="true">&rarr;</span>';
+      html += '<span class="ownership-target-chip">' + escapeHtml(brand.company) + "</span>";
+      html += "</div>";
+      if (link.relation) {
+        html += '<p class="ownership-relation-note">' + escapeHtml(link.relation) + "</p>";
+      }
     });
     html += "</div>";
 
@@ -231,6 +269,59 @@
     els.detailContent.innerHTML = html;
   }
 
+  // ---------------------- Entity view (tap a parent to see all its brands) ----------------------
+
+  function openEntity(entityId) {
+    const entity = findEntity(entityId);
+    if (!entity) return;
+    state.currentEntityId = entityId;
+    renderEntityDetail(entity);
+    switchView("entity");
+  }
+
+  function renderEntityDetail(entity) {
+    const linkedBrands = APP_DATA.brands.filter((b) =>
+      (b.ownershipChain || []).some((link) => link.entity === entity.id)
+    );
+
+    let html = "";
+    html += '<h2 class="detail-title">' + escapeHtml(entity.name) + "</h2>";
+    if (entity.type) html += '<p class="detail-company">' + escapeHtml(entity.type) + "</p>";
+    if (entity.note) html += '<div class="detail-section"><p>' + escapeHtml(entity.note) + "</p></div>";
+    if (entity.officialUrl) {
+      html +=
+        '<div class="detail-section"><a class="source-link" target="_blank" rel="noopener" href="' +
+        escapeAttr(entity.officialUrl) +
+        '">' +
+        escapeHtml(entity.officialUrl) +
+        "</a></div>";
+    }
+
+    html +=
+      '<div class="detail-section"><h3>' +
+      linkedBrands.length +
+      " brand" +
+      (linkedBrands.length === 1 ? "" : "s") +
+      " linked to this organization</h3></div>";
+
+    html += '<ul class="brand-list">';
+    linkedBrands.forEach((brand) => {
+      html += '<li><button class="brand-card entity-linked-brand" type="button" data-brand-id="' + escapeAttr(brand.id) + '">';
+      html += '<div class="brand-card-top"><span class="brand-card-name">' + escapeHtml(brand.name) + "</span>";
+      html +=
+        '<span class="badge ' +
+        (brand.status === "verified" ? "badge-verified" : "badge-lead") +
+        '">' +
+        (brand.status === "verified" ? "Verified" : "Unverified lead") +
+        "</span></div>";
+      html += '<span class="brand-card-company">' + escapeHtml(brand.company) + "</span>";
+      html += "</button></li>";
+    });
+    html += "</ul>";
+
+    els.entityContent.innerHTML = html;
+  }
+
   // ---------------------- View switching (tabs) ----------------------
 
   function switchView(viewName) {
@@ -262,6 +353,36 @@
       switchView("search");
     });
 
+    document.getElementById("entity-back-btn").addEventListener("click", () => {
+      switchView("search");
+    });
+
+    els.verifiedToggle.addEventListener("change", (e) => {
+      state.verifiedOnly = e.target.checked;
+      render();
+    });
+
+    // Event delegation: the detail view's content is rebuilt on every open,
+    // so these listeners are attached once to the container instead.
+    els.detailContent.addEventListener("click", (e) => {
+      const entityBtn = e.target.closest(".entity-chip");
+      if (entityBtn) {
+        openEntity(entityBtn.dataset.entityId);
+        return;
+      }
+      const shareBtn = e.target.closest(".share-btn");
+      if (shareBtn) {
+        shareBrand(shareBtn.dataset.shareId);
+      }
+    });
+
+    els.entityContent.addEventListener("click", (e) => {
+      const brandBtn = e.target.closest(".entity-linked-brand");
+      if (brandBtn) {
+        openDetail(brandBtn.dataset.brandId);
+      }
+    });
+
     document.getElementById("empty-state-suggest-link").addEventListener("click", () => {
       switchView("suggest");
     });
@@ -272,6 +393,28 @@
       const text = document.getElementById("suggest-fallback-text").textContent;
       navigator.clipboard?.writeText(text);
     });
+  }
+
+  async function shareBrand(brandId) {
+    const brand = APP_DATA.brands.find((b) => b.id === brandId);
+    if (!brand) return;
+    const shareText =
+      brand.name + " — produced by " + brand.company + ". See the sources: " + window.location.href;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: APP_DATA.appName, text: shareText, url: window.location.href });
+        return;
+      } catch (err) {
+        // user cancelled the share sheet, or it failed — fall through to clipboard
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(shareText);
+      alert("Copied to clipboard — paste it anywhere to share.");
+    } catch (err) {
+      // clipboard blocked (older browser) — nothing more we can do silently
+    }
   }
 
   async function handleSuggestSubmit(e) {

@@ -6,7 +6,7 @@
   visitors get the update instead of a stale cached copy.
 */
 
-const CACHE_NAME = "badalain-cache-2026-09-26.5";
+const CACHE_NAME = "badalain-cache-2026-09-26.6";
 
 const ASSETS = [
   "./",
@@ -18,6 +18,8 @@ const ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "./icon-apple-touch.png",
+  "./robots.txt",
+  "./sitemap.xml",
 ];
 
 self.addEventListener("install", (event) => {

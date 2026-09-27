@@ -204,6 +204,17 @@ main {
   color: var(--accent-text);
 }
 
+.verified-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+}
+.verified-toggle input { cursor: pointer; }
+
 .result-count {
   color: var(--text-muted);
   font-size: 0.85rem;
@@ -276,7 +287,12 @@ main {
 }
 .detail-company {
   color: var(--text-muted);
-  margin: 0 0 0.75em;
+  margin: 0 0 0.5em;
+}
+.share-btn {
+  display: inline-block;
+  margin-bottom: 0.75em;
+  font-size: 0.85rem;
 }
 .detail-section {
   border-top: 1px solid var(--border);
@@ -289,12 +305,47 @@ main {
   margin: 0 0 0.5em;
   font-weight: 600;
 }
-.ownership-row {
+.ownership-chain-row {
   display: flex;
-  justify-content: space-between;
-  gap: 0.75em;
-  padding: 0.4em 0;
-  font-size: 0.95rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.5em 0;
+  font-size: 0.92rem;
+}
+.entity-chip {
+  appearance: none;
+  border: 1px solid var(--accent);
+  background: var(--bg-raised);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.3em 0.8em;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: left;
+}
+.entity-chip:hover { background: var(--verified-bg); }
+.ownership-target-chip {
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  border-radius: 999px;
+  padding: 0.3em 0.8em;
+  color: var(--text);
+}
+.ownership-arrow {
+  color: var(--text-muted);
+  font-size: 1.1em;
+}
+.ownership-stake {
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+.ownership-relation-note {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0 0 0.3em;
 }
 .source-link {
   display: block;

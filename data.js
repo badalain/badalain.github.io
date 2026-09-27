@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-26.5",
+  version: "2026-09-26.6",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain",
@@ -303,6 +303,32 @@ const APP_DATA = {
       ],
       primaryDate: "current as of access date",
       notes: "Founded 1996; describes itself as the largest security company in Pakistan (20,000 guards). Services: security guards, close protection, cash-in-transit, CCTV/access control for homes and businesses. Exact ownership percentage not published — company states 'subsidiary' without a number, so this is recorded as such rather than assumed to be 100%.",
+      alternatives: [],
+    },
+    {
+      id: "askari-aviation",
+      name: "Askari Aviation",
+      aliases: ["Askari Aviation Services", "AAS", "عسکری ایوی ایشن"],
+      category: "Retail & Other",
+      company: "Askari Aviation (Pvt) Limited",
+      ownershipChain: [
+        { entity: "army-welfare-trust", relation: "described as an AWT project/company by multiple secondary sources", stake: "not yet confirmed against a primary document" },
+      ],
+      status: "lead",
+      sources: [
+        {
+          label: "Pakistan Today (Profit) — 'Askari Airline not to take off anytime soon,' describing Askari Aviation as an AWT project",
+          url: "https://profit.pakistantoday.com.pk/2020/07/02/askari-airline-not-to-take-off-anytime-soon/",
+          accessedDate: "2026-09-26",
+        },
+        {
+          label: "Wikipedia — Army Welfare Trust, listing Askari Aviation among its unlisted companies",
+          url: "https://en.wikipedia.org/wiki/Army_Welfare_Trust",
+          accessedDate: "2026-09-26",
+        },
+      ],
+      primaryDate: null,
+      notes: "Founded 1995. Offers helicopter/fixed-wing charter (weddings, tourism, air ambulance), a CAA-approved flying academy, and is reportedly the only operator permitted to fly charter routes near Pakistan's northern border areas. Consistently described as AWT-owned by several independent secondary sources, but no primary document (AWT's own filing or official site page) confirming an exact stake was found — needs that before this can be marked verified.",
       alternatives: [],
     },
   ],

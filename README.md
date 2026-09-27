@@ -18,6 +18,19 @@ before adding real content or sharing a link with anyone.
 - `manifest.json` — lets the site be "added to home screen" like an app
 - `icon-*.png` — placeholder icons (plain teal circle) — replace with a
   real icon when you have one, same file names and sizes
+- `robots.txt`, `sitemap.xml` — helps Google/Bing find and index the site,
+  since there's no app store listing driving discovery
+
+## What's in the app
+
+- Search, category filters, and a "verified only" toggle
+- Tap any parent organization (Fauji Foundation, Army Welfare Trust) in an
+  entry's ownership section to see everything else linked to it
+- A share button on each entry (uses the phone's native share sheet where
+  available, otherwise copies text to the clipboard)
+- Open Graph tags so links posted to WhatsApp/social media show a proper
+  preview instead of a bare URL
+- The full dataset is linked from the About page — nothing is hidden
 
 ## Running it locally
 

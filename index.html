@@ -6,10 +6,26 @@
 <meta name="theme-color" content="#0F6B5C">
 <title>Badalain — Who owns what you buy</title>
 <meta name="description" content="Look up who owns a brand, backed by public sources, and find alternatives.">
+<meta property="og:title" content="Badalain — Who owns what you buy">
+<meta property="og:description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives. No accounts, no ads, works offline.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://badalain.github.io/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Badalain — Who owns what you buy">
+<meta name="twitter:description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives.">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-apple-touch.png">
 <link rel="icon" href="icon-192.png">
 <link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Badalain",
+  "url": "https://badalain.github.io/",
+  "description": "Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives."
+}
+</script>
 </head>
 <body>
 
@@ -43,6 +59,11 @@
 
     <div class="category-chips" id="category-chips" role="group" aria-label="Filter by category"></div>
 
+    <label class="verified-toggle">
+      <input type="checkbox" id="verified-only-toggle">
+      Show verified entries only
+    </label>
+
     <p class="result-count" id="result-count" aria-live="polite"></p>
 
     <ul class="brand-list" id="brand-list"></ul>
@@ -57,6 +78,12 @@
   <section id="view-detail" class="view">
     <button class="back-btn" id="detail-back-btn" aria-label="Back to search">&larr; Back</button>
     <div id="detail-content"></div>
+  </section>
+
+  <!-- ENTITY VIEW: everything one parent organization owns -->
+  <section id="view-entity" class="view">
+    <button class="back-btn" id="entity-back-btn" aria-label="Back to search">&larr; Back</button>
+    <div id="entity-content"></div>
   </section>
 
   <!-- ABOUT VIEW -->
@@ -77,6 +104,10 @@
 
     <h3>Corrections</h3>
     <p>If you believe an entry is inaccurate or outdated, use the "Suggest an addition" tab to tell us — the same form is used for corrections. Every submission is reviewed before anything changes.</p>
+
+    <h3>The data, in full</h3>
+    <p id="about-stats"></p>
+    <p>This entire dataset is open — nothing is hidden behind an account or a paywall. You can read the raw data file yourself: <a class="source-link" id="about-data-link" target="_blank" rel="noopener" href="data.js">view data.js</a>.</p>
   </section>
 
   <!-- SUGGEST VIEW -->
