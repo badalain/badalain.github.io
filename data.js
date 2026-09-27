@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.4",
+  version: "2026-09-27.6",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain (بدلیں)",
@@ -399,8 +399,12 @@ const APP_DATA = {
       ],
       primaryDate: "current as of access date",
       notes: "Founded 1996; describes itself as the largest security company in Pakistan (20,000 guards). Services: security guards, close protection, cash-in-transit, CCTV/access control for homes and businesses. Exact ownership percentage not published — company states 'subsidiary' without a number, so this is recorded as such rather than assumed to be 100%.",
-      alternatives: [],
-      noAlternativeReason: "Alternative security firms haven't been researched with the same reputation/reviews standard yet — flagged for a future pass rather than guessed at.",
+      alternatives: [
+        {
+          name: "Pathfinder Group (Wackenhut Pakistan)",
+          note: "Became a 100% Pakistani-owned company in 2012, when its chairman (a retired Army officer) bought out the multinational G4S's stake. Worth knowing: like most of Pakistan's private security industry, it's led by former military personnel — that's an industry-wide pattern, not evidence of foundation ownership. It just isn't a welfare-foundation-owned business the way Askari Guards is.",
+        },
+      ],
     },
     {
       id: "askari-aviation",
@@ -501,7 +505,7 @@ const APP_DATA = {
       primaryDate: "current as of access date",
       notes: "Real-estate and property development arm, run directly as one of Bahria Foundation's four pillars (alongside Commercial Businesses, Maritime Works, and Education & Training) rather than as a separate shareholding company. Not to be confused with Bahria Town, an unrelated private developer.",
       alternatives: [],
-      noAlternativeReason: "Choosing a specific private real-estate developer as 'the' alternative needs its own dedicated research pass — housing decisions are high-value and vary heavily by city, so this shouldn't be a rushed one-line recommendation.",
+      noAlternativeReason: "Bahria Town (the obvious private, non-military alternative by name recognition) was considered and set aside — it has its own well-documented land-acquisition controversies, including Supreme Court findings against it, so recommending it as 'the good alternative' wouldn't meet this app's own bar. No other well-vetted nationwide option has been found yet.",
     },
     {
       id: "bss-and-s",
@@ -522,8 +526,12 @@ const APP_DATA = {
       ],
       primaryDate: "current as of access date",
       notes: "Established 1996. Security guarding and technical security services, licensed nationwide with offices in Islamabad, Karachi, Lahore, Multan, and Gwadar. ISO 9001:2015 and ISO 18788:2015 certified. A member of the All Pakistan Security Agencies Association.",
-      alternatives: [],
-      noAlternativeReason: "Alternative security firms haven't been researched to the same reputation/reviews standard yet — same gap as with Askari Guards, flagged for a future pass.",
+      alternatives: [
+        {
+          name: "Pathfinder Group (Wackenhut Pakistan)",
+          note: "Became a 100% Pakistani-owned company in 2012, when its chairman (a retired Army officer) bought out the multinational G4S's stake. Worth knowing: like most of Pakistan's private security industry, it's led by former military personnel — that's an industry-wide pattern, not evidence of foundation ownership. It just isn't a welfare-foundation-owned business the way BSS&S is.",
+        },
+      ],
     },
     {
       id: "dha-karachi",
@@ -545,7 +553,7 @@ const APP_DATA = {
       primaryDate: "current as of access date",
       notes: "Originally a cooperative housing society formed by retired servicemen in the mid-1950s, taken over by the government in 1981 under President Zia-ul-Haq and placed under the Corps Commander Karachi. Spans about 8,797–8,852 acres with over 81,000 members. Not to be confused with Bahria Town, an unrelated private developer with no Navy or Army ownership.",
       alternatives: [],
-      noAlternativeReason: "Choosing a specific private real-estate developer as 'the' alternative needs its own dedicated research pass — housing decisions are high-value and vary heavily by city, so this shouldn't be a rushed one-line recommendation.",
+      noAlternativeReason: "Bahria Town Karachi (the obvious private, non-military alternative by name recognition) was considered and set aside — it has its own well-documented land-acquisition controversies, including Supreme Court findings against it, so recommending it as 'the good alternative' wouldn't meet this app's own bar. No other well-vetted Karachi-specific option has been found yet.",
     },
     {
       id: "dha-lahore",
@@ -571,8 +579,12 @@ const APP_DATA = {
       ],
       primaryDate: "current as of access date",
       notes: "Began in 1973 as the Civil and Defence Housing Society, became the Lahore Cantonment Co-Operative Housing Society in 1975, converted to DHA Lahore in 1999, and was federalized in 2002. The Supreme Court has scrutinized DHA Lahore's governance and its resistance to audits by the Auditor General of Pakistan (Suo Moto Case No. 12 of 2015) — a documented example of the accountability concerns this structure raises.",
-      alternatives: [],
-      noAlternativeReason: "Choosing a specific private real-estate developer as 'the' alternative needs its own dedicated research pass — housing decisions are high-value and vary heavily by city, so this shouldn't be a rushed one-line recommendation.",
+      alternatives: [
+        {
+          name: "Lake City, Lahore",
+          note: "An independent, privately developed community on Raiwind Road, led by industrialist Gohar Ejaz's Lake City Holdings — no military or government ownership. Won 'Best Real Estate Development in Pakistan' at the FPCCI Excellence Awards.",
+        },
+      ],
     },
     {
       id: "dha-islamabad",
@@ -593,8 +605,12 @@ const APP_DATA = {
       ],
       primaryDate: null,
       notes: "The most recently established of the three major DHAs (1992 origin, formalized by federal Act in 2013). Recorded as a lead rather than verified because the specific Act citation hasn't yet been cross-checked against DHA Islamabad's own official site or the Gazette text directly — that check is still needed before this can be upgraded.",
-      alternatives: [],
-      noAlternativeReason: "Choosing a specific private real-estate developer as 'the' alternative needs its own dedicated research pass — housing decisions are high-value and vary heavily by city, so this shouldn't be a rushed one-line recommendation.",
+      alternatives: [
+        {
+          name: "Eighteen, Islamabad",
+          note: "A luxury master-planned community in Islamabad developed by Ora Developers (Egyptian) and the Saif Group (Pakistani) — a genuinely independent joint venture with no military or government ownership.",
+        },
+      ],
     },
   ],
 };
