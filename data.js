@@ -26,10 +26,10 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.1",
+  version: "2026-09-27.2",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
-  appName: "Badalain",
+  appName: "Badalain (بدلیں)",
   appTagline: "See who owns what you buy, and find alternatives.",
 
   categories: [
@@ -39,6 +39,7 @@ const APP_DATA = {
     "Energy & Fuel",
     "Fertilizer",
     "Insurance",
+    "Media",
     "Real Estate",
     "Retail & Other",
   ],
@@ -59,6 +60,13 @@ const APP_DATA = {
       type: "Welfare trust",
       note: "A Pakistan Army-run welfare trust, separate from Fauji Foundation, funding welfare for army personnel and their families through commercial businesses (also known as the Askari Group).",
       officialUrl: "https://awt.com.pk/",
+    },
+    {
+      id: "shaheen-foundation",
+      name: "Shaheen Foundation",
+      type: "Welfare foundation",
+      note: "A Pakistan Air Force welfare foundation, established 1977, funding welfare for PAF personnel and their families through businesses in aviation, insurance, media, and real estate.",
+      officialUrl: "https://shaheenfoundation.com/",
     },
   ],
 
@@ -406,6 +414,58 @@ const APP_DATA = {
       notes: "Founded 1995. Offers helicopter/fixed-wing charter (weddings, tourism, air ambulance), a CAA-approved flying academy, and is reportedly the only operator permitted to fly charter routes near Pakistan's northern border areas. Consistently described as AWT-owned by several independent secondary sources, but no primary document (AWT's own filing or official site page) confirming an exact stake was found — needs that before this can be marked verified.",
       alternatives: [],
       noAlternativeReason: "A very niche service (helicopter charter) most people never use — and Askari Aviation reportedly holds exclusive permission to fly some northern border routes, so a like-for-like alternative may not exist at all.",
+    },
+    {
+      id: "shaheen-insurance",
+      name: "Shaheen Insurance",
+      aliases: ["SICL", "شاہین انشورنس"],
+      category: "Insurance",
+      company: "Shaheen Insurance Company Limited",
+      ownershipChain: [
+        { entity: "shaheen-foundation", relation: "major shareholder (exact percentage not disclosed in filings reviewed)", stake: "major shareholding" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Shaheen Insurance Company Limited — Quarterly Report, 30 September 2025 (company's own PSX filing)",
+          url: "https://dps.psx.com.pk/download/document/264532.pdf",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: "30 September 2025",
+      notes: "The company's own PSX-filed reports state directly: 'Shaheen Insurance Company Ltd. (SICL) is a group company of Shaheen Foundation, PAF which owns major shareholding of the Company.' General insurance (motor, health, miscellaneous) plus Window Takaful. Exact percentage not given in the filings reviewed — recorded as 'major shareholding' rather than assumed to be a specific number.",
+      alternatives: [
+        {
+          name: "EFU General Insurance",
+          note: "Pakistan's largest and oldest general insurer, with the strongest independent credit ratings in the sector and repeated industry awards.",
+        },
+        {
+          name: "Jubilee General Insurance",
+          note: "A well-established, highly rated alternative.",
+        },
+      ],
+    },
+    {
+      id: "fm100",
+      name: "FM 100 (Islamabad)",
+      aliases: ["Capital FM", "ایف ایم 100"],
+      category: "Media",
+      company: "Capital FM (Pvt) Limited",
+      ownershipChain: [
+        { entity: "shaheen-foundation", relation: "largest single shareholder, per SECP company records", stake: "25%" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Media Ownership Monitor Pakistan (Reporters Without Borders / Freedom Network), citing SECP company documents",
+          url: "https://pakistan.mom-gmr.org/en/owners/individual-owners/detail/owner/owner/show/shaheen-foundation/",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: "SECP company documents, as cited by Media Ownership Monitor Pakistan (2019)",
+      notes: "Media Ownership Monitor Pakistan — a joint project of Reporters Without Borders and Freedom Network — reviewed SECP filings directly and found Shaheen Foundation holds 25% of Capital FM (Pvt) Ltd, the single largest shareholder, operating the FM 100 station in Islamabad.",
+      alternatives: [],
+      noAlternativeReason: "Ranking radio stations by 'quality' isn't the same kind of comparison as a product — other independent FM stations exist (City FM89, Hum FM, Radio1 FM91, among others) but haven't been researched to the same standard yet.",
     },
   ],
 };
