@@ -241,6 +241,30 @@ main {
   flex-direction: column;
   gap: 0.35em;
 }
+.brand-card-with-icon {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.7em;
+}
+.brand-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  min-width: 0;
+  flex: 1;
+}
+.brand-icon {
+  flex-shrink: 0;
+  width: 2.3em;
+  height: 2.3em;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
 .brand-card:hover { border-color: var(--accent); }
 .brand-card-top {
   display: flex;
@@ -279,6 +303,17 @@ main {
   padding: 0.4em 0;
   margin-bottom: 0.5rem;
   cursor: pointer;
+}
+.detail-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7em;
+}
+.brand-icon-lg {
+  width: 2.8em;
+  height: 2.8em;
+  font-size: 1.3rem;
+  margin-top: 0.2em;
 }
 .detail-title {
   font-size: 1.4rem;
@@ -354,6 +389,20 @@ main {
   font-size: 0.92rem;
   margin-bottom: 0.4em;
   word-break: break-word;
+}
+.alt-caveat {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0 0 0.6em;
+}
+.alt-list {
+  margin: 0;
+  padding-left: 1.3em;
+}
+.alt-list li {
+  margin-bottom: 0.5em;
+  font-size: 0.95rem;
 }
 .alt-empty {
   color: var(--text-muted);

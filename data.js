@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-26.6",
+  version: "2026-09-27.1",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain",
@@ -85,7 +85,16 @@ const APP_DATA = {
       ],
       primaryDate: "31 December 2024",
       notes: "Fauji Fertilizer Company holds 84.84% of Fauji Foods Limited directly; Fauji Foundation's link to Nurpur runs through its 43.51% stake in FFC. Stated as a chain rather than one combined percentage.",
-      alternatives: [],
+      alternatives: [
+        {
+          name: "Olper's (Engro Foods)",
+          note: "Widely regarded as Pakistan's most trusted milk brand in consumer surveys and reviews, and the easiest to find nationwide. Note: majority ownership passed to the Dutch dairy cooperative FrieslandCampina in 2016, so it isn't fully Pakistani-owned either — but it has no military ownership link.",
+        },
+        {
+          name: "Good Milk (Shakarganj Foods)",
+          note: "A Pakistani-owned option with a solid regional reputation, though a smaller distribution footprint than Olper's in some areas.",
+        },
+      ],
     },
     {
       id: "dostea",
@@ -106,7 +115,16 @@ const APP_DATA = {
       ],
       primaryDate: "31 December 2024",
       notes: "Same chain as Nurpur — both are Fauji Foods brands.",
-      alternatives: [],
+      alternatives: [
+        {
+          name: "Tapal Tea",
+          note: "A long-established, Pakistani-owned tea brand with strong nationwide recognition and no military ownership link.",
+        },
+        {
+          name: "Vital Tea (National Foods)",
+          note: "Another well-known Pakistani-owned option, widely available.",
+        },
+      ],
     },
     {
       id: "askari-bank",
@@ -133,7 +151,16 @@ const APP_DATA = {
       ],
       primaryDate: "2025 Annual Report",
       notes: "Askari Bank's own annual report describes Fauji Foundation and Fauji Fertilizer Company together as 'the Fauji Consortium,' holding 71.91% combined (7.19% direct + 64.72% via FFC). Stated as two rows here rather than one combined percentage, so the direct-vs-indirect split stays visible.",
-      alternatives: [],
+      alternatives: [
+        {
+          name: "Meezan Bank",
+          note: "Named Best Bank in Pakistan at the Pakistan Banking Awards in 2018, 2020, and 2023, and became the country's most profitable bank in 2022. Pakistan's leading Islamic bank, consistently well reviewed for customer service. Note: it has significant Kuwaiti institutional investment among its shareholders, so it isn't purely Pakistani-owned either — but it has no military ownership link.",
+        },
+        {
+          name: "Bank Al Habib",
+          note: "Consistently profitable with a reputation for reliable service; a solid conventional-banking alternative.",
+        },
+      ],
     },
     {
       id: "fauji-cement",
@@ -154,7 +181,16 @@ const APP_DATA = {
       ],
       primaryDate: "30 June 2025",
       notes: "This 66.81% is a collective figure across four related Fauji entities, not Fauji Foundation alone — stated that way deliberately rather than rounded up. Fauji Cement also absorbed Askari Cement (previously an Army Welfare Trust subsidiary) via a share-swap merger sanctioned by the Lahore High Court, a documented example of ownership changing over time. Re-verify yearly.",
-      alternatives: [],
+      alternatives: [
+        {
+          name: "Lucky Cement",
+          note: "Pakistan's largest cement producer by market share and the leader in exports, owned by the Pakistani-owned Yunus Brothers Group. Widely regarded as a reliable, high-quality choice for construction.",
+        },
+        {
+          name: "DG Khan Cement",
+          note: "Owned by the Pakistani-owned Nishat Group; long-established, and often preferred on larger projects for consistent quality.",
+        },
+      ],
     },
     {
       id: "mari-petroleum",
@@ -176,6 +212,7 @@ const APP_DATA = {
       primaryDate: "30 June 2023",
       notes: "Fauji Foundation acquired this 40% stake in 1983 (from Esso Eastern Incorporated) and it has stayed stable since; the remaining 60% is split 20% Government of Pakistan and 20% Oil & Gas Development Company Limited (OGDCL). The company renamed itself from Mari Petroleum Company Limited to Mari Energies Limited in 2025 — same entity, same ownership.",
       alternatives: [],
+      noAlternativeReason: "Mari Energies is a gas exploration and production company, not a retail brand — ordinary consumers don't choose their gas supplier the way they choose a grocery brand, so there's no meaningful everyday alternative to list here.",
     },
     {
       id: "fauji-fertilizer",
@@ -196,7 +233,16 @@ const APP_DATA = {
       ],
       primaryDate: "31 March 2025 (unchanged from 31 December 2024)",
       notes: "43.51% is a large stake but not full ownership — FFC is a listed company with other shareholders holding the remainder. FFC merged with the former Fauji Fertilizer Bin Qasim Limited (FFBL) effective 1 July 2024; figures here are for the merged entity.",
-      alternatives: [],
+      alternatives: [
+        {
+          name: "Engro Fertilizers",
+          note: "One of Pakistan's largest and most established fertilizer producers, part of the Engro Corporation group; widely available nationwide.",
+        },
+        {
+          name: "Fatima Fertilizer",
+          note: "A major, fast-growing Pakistani fertilizer producer and a solid alternative for farmers.",
+        },
+      ],
     },
     {
       id: "fauji-fresh-n-freeze",
@@ -218,6 +264,7 @@ const APP_DATA = {
       primaryDate: "profile current as of access date; acquisition dated October 2013",
       notes: "FFC acquired 100% of Al-Hamd Foods Limited in October 2013 and renamed it Fauji Fresh n Freeze Limited. It processes fresh/frozen fruit, vegetables, and cooked/semi-cooked food (IQF plant in Sahiwal). Consumer-facing brand names under this company not yet identified — check retail packaging or freshnfreeze.com.",
       alternatives: [],
+      noAlternativeReason: "This company's actual retail brand names on store shelves haven't been identified yet, so a fair comparison isn't possible until that research is done.",
     },
     {
       id: "mal-pakistan",
@@ -238,7 +285,16 @@ const APP_DATA = {
       ],
       primaryDate: "5 August 2026 (rating report)",
       notes: "Originally a 1996 joint venture (30% AWT / 70% Mobil International Petroleum Corporation) named Mobil Askari Lubricants; AWT acquired the remaining shares in 2007 and renamed it MAL Pakistan Limited. Still sells under the Mobil brand via a licensing agreement with ExxonMobil — engine oils, greases, transmission oils, brake fluids.",
-      alternatives: [],
+      alternatives: [
+        {
+          name: "Shell (Shell Helix / Shell Advance)",
+          note: "The most consistently preferred motor-oil brand in Pakistani car- and bike-owner surveys. A multinational brand (Shell plc), not Pakistani-owned, but no military ownership link.",
+        },
+        {
+          name: "ZIC (Hi-Tech Lubricants)",
+          note: "A Pakistani-listed company (partnered with South Korea's SK Lubricants for the oil itself). Generally good value; some owners in enthusiast forums prefer other brands for high-performance use, so it's listed second rather than first.",
+        },
+      ],
     },
     {
       id: "askari-general-insurance",
@@ -260,7 +316,16 @@ const APP_DATA = {
       ],
       primaryDate: "28 August 2026 (PSX filing)",
       notes: "Until 28 August 2026 this was an Army Welfare Trust company (60.23% AWT-owned). AWT transferred 51,337,953 ordinary shares (51% of paid-up capital) to Fauji Foundation, per AGICO's own PSX disclosure. Both organizations describe this as an internal restructuring between two military welfare trusts, not a commercial acquisition.",
-      alternatives: [],
+      alternatives: [
+        {
+          name: "EFU General Insurance",
+          note: "Pakistan's largest and oldest general insurer (since 1932), with the strongest independent credit ratings in the sector (PACRA/VIS AA++) and repeated Consumers Association of Pakistan awards for best general insurer.",
+        },
+        {
+          name: "Jubilee General Insurance",
+          note: "A well-established, highly rated alternative (PSX Top 25 Companies recognition).",
+        },
+      ],
     },
     {
       id: "askari-life-assurance",
@@ -282,7 +347,16 @@ const APP_DATA = {
       ],
       primaryDate: "28 August 2026 (transfer completed; SECP approval 23 July 2026)",
       notes: "Formerly known as East West Life Assurance Company Limited. Until 28 August 2026 this was an Army Welfare Trust company (66.65% AWT-owned). AWT transferred 76,587,727 shares (51% of paid-up capital) to Fauji Foundation. Same restructuring as Askari General Insurance, completed the same day.",
-      alternatives: [],
+      alternatives: [
+        {
+          name: "EFU Life Assurance",
+          note: "One of Pakistan's oldest and most trusted life insurers, known for a strong branch network and consistent financial performance.",
+        },
+        {
+          name: "Jubilee Life Insurance",
+          note: "A leading life insurer with a strong reputation for financial stability, and an Asiamoney award winner for the sector.",
+        },
+      ],
     },
     {
       id: "askari-guards",
@@ -304,6 +378,7 @@ const APP_DATA = {
       primaryDate: "current as of access date",
       notes: "Founded 1996; describes itself as the largest security company in Pakistan (20,000 guards). Services: security guards, close protection, cash-in-transit, CCTV/access control for homes and businesses. Exact ownership percentage not published — company states 'subsidiary' without a number, so this is recorded as such rather than assumed to be 100%.",
       alternatives: [],
+      noAlternativeReason: "Alternative security firms haven't been researched with the same reputation/reviews standard yet — flagged for a future pass rather than guessed at.",
     },
     {
       id: "askari-aviation",
@@ -330,6 +405,7 @@ const APP_DATA = {
       primaryDate: null,
       notes: "Founded 1995. Offers helicopter/fixed-wing charter (weddings, tourism, air ambulance), a CAA-approved flying academy, and is reportedly the only operator permitted to fly charter routes near Pakistan's northern border areas. Consistently described as AWT-owned by several independent secondary sources, but no primary document (AWT's own filing or official site page) confirming an exact stake was found — needs that before this can be marked verified.",
       alternatives: [],
+      noAlternativeReason: "A very niche service (helicopter charter) most people never use — and Askari Aviation reportedly holds exclusive permission to fly some northern border routes, so a like-for-like alternative may not exist at all.",
     },
   ],
 };

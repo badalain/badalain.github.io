@@ -31,6 +31,11 @@ before adding real content or sharing a link with anyone.
 - Open Graph tags so links posted to WhatsApp/social media show a proper
   preview instead of a bare URL
 - The full dataset is linked from the About page — nothing is hidden
+- Brand cards show a colored initial letter, not a real logo or product
+  photo. Deliberate: using a company's actual logo without permission is
+  copyright/trademark infringement, which gives a hostile party a fast,
+  clean way to get the GitHub repo taken down via a DMCA notice — a much
+  easier route than any defamation or PECA claim. Don't add real images.
 
 ## Running it locally
 

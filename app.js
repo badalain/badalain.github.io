@@ -150,6 +150,12 @@
       btn.type = "button";
       btn.setAttribute("aria-label", "View details for " + brand.name);
 
+      const initial = document.createElement("span");
+      initial.className = "brand-icon";
+      initial.style.background = badgeColorFor(brand.id);
+      initial.textContent = brand.name.trim().charAt(0).toUpperCase();
+      initial.setAttribute("aria-hidden", "true");
+
       const top = document.createElement("div");
       top.className = "brand-card-top";
 
@@ -168,8 +174,14 @@
       company.className = "brand-card-company";
       company.textContent = brand.company;
 
-      btn.appendChild(top);
-      btn.appendChild(company);
+      const textWrap = document.createElement("div");
+      textWrap.className = "brand-card-text";
+      textWrap.appendChild(top);
+      textWrap.appendChild(company);
+
+      btn.classList.add("brand-card-with-icon");
+      btn.appendChild(initial);
+      btn.appendChild(textWrap);
       btn.addEventListener("click", () => openDetail(brand.id));
 
       li.appendChild(btn);
@@ -178,6 +190,16 @@
   }
 
   // ---------------------- Detail view ----------------------
+
+  // A small fixed palette (not images — see README for why) so each brand
+  // gets a consistent, visually distinct initial badge without ever using
+  // a real logo or product photo.
+  const BADGE_COLORS = ["#0F6B5C", "#8A5A2B", "#3B5EA6", "#7A4A8F", "#B5501E", "#3F7A3F"];
+  function badgeColorFor(id) {
+    let hash = 0;
+    for (let i = 0; i < id.length; i++) hash = (hash * 31 + id.charCodeAt(i)) >>> 0;
+    return BADGE_COLORS[hash % BADGE_COLORS.length];
+  }
 
   function findEntity(id) {
     return APP_DATA.entities.find((e) => e.id === id);
@@ -200,10 +222,17 @@
       "</span>";
 
     let html = "";
-    html += '<div class="brand-card-top" style="align-items:flex-start;">';
+    html += '<div class="detail-header-row">';
+    html +=
+      '<span class="brand-icon brand-icon-lg" aria-hidden="true" style="background:' +
+      badgeColorFor(brand.id) +
+      '">' +
+      escapeHtml(brand.name.trim().charAt(0).toUpperCase()) +
+      "</span>";
+    html += '<div><div class="brand-card-top" style="align-items:flex-start;">';
     html += '<h2 class="detail-title">' + escapeHtml(brand.name) + "</h2>";
     html += badge;
-    html += "</div>";
+    html += "</div></div></div>";
     html += '<p class="detail-company">' + escapeHtml(brand.company) + "</p>";
     html +=
       '<button class="link-btn share-btn" type="button" data-share-id="' +
@@ -255,14 +284,23 @@
       html += '<div class="detail-section"><h3>Notes</h3><p>' + escapeHtml(brand.notes) + "</p></div>";
     }
 
-    // Alternatives
+    // Alternatives — a lighter, different kind of research than the
+    // ownership facts above: based on market reputation, awards, and
+    // consumer surveys, not primary-source filings. Listed best first.
     html += '<div class="detail-section"><h3>Alternatives to consider</h3>';
     if (brand.alternatives && brand.alternatives.length > 0) {
+      html +=
+        '<p class="alt-caveat">Ranked best first, based on market reputation and consumer surveys — not verified with the same primary-source rigor as the ownership facts above.</p>';
+      html += '<ol class="alt-list">';
       brand.alternatives.forEach((alt) => {
-        html += '<p>' + escapeHtml(alt.name) + (alt.note ? " — " + escapeHtml(alt.note) : "") + "</p>";
+        html += "<li><strong>" + escapeHtml(alt.name) + "</strong>" + (alt.note ? " — " + escapeHtml(alt.note) : "") + "</li>";
       });
+      html += "</ol>";
     } else {
-      html += '<p class="alt-empty">No alternatives researched yet for this entry.</p>';
+      html +=
+        '<p class="alt-empty">' +
+        escapeHtml(brand.noAlternativeReason || "No alternatives researched yet for this entry.") +
+        "</p>";
     }
     html += "</div>";
 
@@ -306,15 +344,21 @@
 
     html += '<ul class="brand-list">';
     linkedBrands.forEach((brand) => {
-      html += '<li><button class="brand-card entity-linked-brand" type="button" data-brand-id="' + escapeAttr(brand.id) + '">';
-      html += '<div class="brand-card-top"><span class="brand-card-name">' + escapeHtml(brand.name) + "</span>";
+      html += '<li><button class="brand-card brand-card-with-icon entity-linked-brand" type="button" data-brand-id="' + escapeAttr(brand.id) + '">';
+      html +=
+        '<span class="brand-icon" aria-hidden="true" style="background:' +
+        badgeColorFor(brand.id) +
+        '">' +
+        escapeHtml(brand.name.trim().charAt(0).toUpperCase()) +
+        "</span>";
+      html += '<div class="brand-card-text"><div class="brand-card-top"><span class="brand-card-name">' + escapeHtml(brand.name) + "</span>";
       html +=
         '<span class="badge ' +
         (brand.status === "verified" ? "badge-verified" : "badge-lead") +
         '">' +
         (brand.status === "verified" ? "Verified" : "Unverified lead") +
         "</span></div>";
-      html += '<span class="brand-card-company">' + escapeHtml(brand.company) + "</span>";
+      html += '<span class="brand-card-company">' + escapeHtml(brand.company) + "</span></div>";
       html += "</button></li>";
     });
     html += "</ul>";
