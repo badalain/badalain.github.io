@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.8",
+  version: "2026-09-27.9",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain (بدلیں)",
@@ -173,7 +173,7 @@ const APP_DATA = {
         },
       ],
       primaryDate: "2025 Annual Report",
-      notes: "Askari Bank's own annual report describes Fauji Foundation and Fauji Fertilizer Company together as 'the Fauji Consortium,' holding 71.91% combined (7.19% direct + 64.72% via FFC). Stated as two rows here rather than one combined percentage, so the direct-vs-indirect split stays visible.",
+      notes: "Askari Bank's own annual report describes Fauji Foundation and Fauji Fertilizer Company together as 'the Fauji Consortium,' holding 71.91% combined (7.19% direct + 64.72% via FFC). Stated as two rows here rather than one combined percentage, so the direct-vs-indirect split stays visible. Re-checked in a verification refresh: the 71.91% figure is unchanged and confirmed by PACRA's most recent rating action (20 July 2026), which also upgraded the bank's credit rating to AAA/A1+ from AA+/A1+, citing 'strategic support from its ownership structure.'",
       alternatives: [
         {
           name: "Meezan Bank",
