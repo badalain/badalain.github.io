@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.9",
+  version: "2026-09-27.10",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain (بدلیں)",
@@ -107,7 +107,7 @@ const APP_DATA = {
         },
       ],
       primaryDate: "31 December 2024",
-      notes: "Fauji Fertilizer Company holds 84.84% of Fauji Foods Limited directly; Fauji Foundation's link to Nurpur runs through its 43.51% stake in FFC. Stated as a chain rather than one combined percentage.",
+      notes: "Fauji Fertilizer Company holds 84.84% of Fauji Foods Limited directly; Fauji Foundation's link to Nurpur runs through its 43.51% stake in FFC. Stated as a chain rather than one combined percentage. Product range is wider than milk alone: also sells Nurpur butter, cheese (mozzarella, cheddar, American slices), desi ghee, flavoured milk, and — under the separate Fauji brand name — corn flakes and pasta. Check packaging for the Nurpur or Fauji name specifically, not just 'milk.'",
       alternatives: [
         {
           name: "Olper's (Engro Foods)",
@@ -270,8 +270,8 @@ const APP_DATA = {
     },
     {
       id: "fauji-fresh-n-freeze",
-      name: "Fauji Fresh n Freeze",
-      aliases: ["فوجی فریش این فریز"],
+      name: "OPA! (Fauji Fresh n Freeze)",
+      aliases: ["فوجی فریش این فریز", "Opa", "OPA! frozen fries"],
       category: "Food & Dairy",
       company: "Fauji Fresh n Freeze Limited",
       ownershipChain: [
@@ -284,11 +284,24 @@ const APP_DATA = {
           url: "https://icap.org.pk/safa/sponsor-ffc.php",
           accessedDate: "2026-09-26",
         },
+        {
+          label: "Fauji Foods' own exhibitor profile (Saudi Food Show), naming the Opa brand directly",
+          url: "https://thesaudifoodshow.com/exhibitors/fauji-foods-limited",
+          accessedDate: "2026-09-27",
+        },
       ],
       primaryDate: "profile current as of access date; acquisition dated October 2013",
-      notes: "FFC acquired 100% of Al-Hamd Foods Limited in October 2013 and renamed it Fauji Fresh n Freeze Limited. It processes fresh/frozen fruit, vegetables, and cooked/semi-cooked food (IQF plant in Sahiwal). Consumer-facing brand names under this company not yet identified — check retail packaging or freshnfreeze.com.",
-      alternatives: [],
-      noAlternativeReason: "This company's actual retail brand names on store shelves haven't been identified yet, so a fair comparison isn't possible until that research is done.",
+      notes: "FFC acquired 100% of Al-Hamd Foods Limited in October 2013 and renamed it Fauji Fresh n Freeze Limited. Retail brand identified in a follow-up check: frozen French fries, IQF fruits and vegetables are sold under the 'OPA!' brand — this is the name to look for on packaging, not the company name. IQF plant in Sahiwal.",
+      alternatives: [
+        {
+          name: "K&N's",
+          note: "Pakistan's best-known frozen food brand, no military ownership link. Primarily known for chicken products, but also offers a broader frozen range — the closest well-established household name as an alternative.",
+        },
+        {
+          name: "Dawn Foods",
+          note: "A Pakistani frozen food manufacturer (Ready to Cook, Ready to Eat, Ready to Bake ranges), no military ownership link.",
+        },
+      ],
     },
     {
       id: "mal-pakistan",
