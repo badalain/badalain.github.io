@@ -59,6 +59,77 @@
     bindEvents();
     render();
     registerServiceWorker();
+    initInstallBanner();
+  }
+
+  // ---------------------- Install banner ----------------------
+  // Shows a one-line install hint. iOS gets manual Share-sheet
+  // instructions (Apple doesn't support an automatic install prompt).
+  // Chrome/Android/desktop get a real "Install" button via the
+  // beforeinstallprompt event. Everything else gets a generic fallback.
+  // Dismissal is remembered locally (device-only, nothing sent anywhere).
+
+  function initInstallBanner() {
+    const banner = document.getElementById("install-banner");
+    const textEl = document.getElementById("install-banner-text");
+    const btnEl = document.getElementById("install-banner-btn");
+    const dismissEl = document.getElementById("install-banner-dismiss");
+    if (!banner) return;
+
+    const isStandalone =
+      (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
+      window.navigator.standalone === true;
+    if (isStandalone) return; // already installed — never show
+
+    try {
+      if (localStorage.getItem("badalainInstallDismissed") === "true") return;
+    } catch (e) {
+      // localStorage blocked (private browsing etc.) — fine, just show the banner anyway
+    }
+
+    const ua = navigator.userAgent || "";
+    const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
+    let deferredPrompt = null;
+
+    function show(message, showButton) {
+      textEl.textContent = message;
+      btnEl.hidden = !showButton;
+      banner.hidden = false;
+    }
+
+    if (isIOS) {
+      show("Install this app: tap the Share icon below, then \u201cAdd to Home Screen.\u201d", false);
+    } else {
+      window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        show("Install Badalain for quick, offline access.", true);
+      });
+      // If the install prompt never fires (unsupported browser), fall back
+      // to generic menu instructions rather than showing nothing.
+      setTimeout(() => {
+        if (!deferredPrompt && banner.hidden) {
+          show("Add this to your home screen (browser menu \u2192 Add to Home screen) to use it like an app.", false);
+        }
+      }, 2500);
+    }
+
+    btnEl.addEventListener("click", async () => {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      banner.hidden = true;
+    });
+
+    dismissEl.addEventListener("click", () => {
+      banner.hidden = true;
+      try {
+        localStorage.setItem("badalainInstallDismissed", "true");
+      } catch (e) {
+        // best-effort only
+      }
+    });
   }
 
   // ---------------------- About page stats ----------------------

@@ -15,7 +15,8 @@
 <meta name="twitter:description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives.">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-apple-touch.png">
-<link rel="icon" href="icon-192.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="icon-192.png" type="image/png">
 <link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
@@ -30,6 +31,12 @@
 <body>
 
 <a class="skip-link" href="#main">Skip to content</a>
+
+<div class="install-banner" id="install-banner" hidden>
+  <span id="install-banner-text"></span>
+  <button class="install-banner-btn" id="install-banner-btn" type="button" hidden>Install</button>
+  <button class="install-banner-dismiss" id="install-banner-dismiss" type="button" aria-label="Dismiss">&times;</button>
+</div>
 
 <header class="site-header">
   <div class="header-inner">

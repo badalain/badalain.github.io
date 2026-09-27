@@ -36,6 +36,12 @@ before adding real content or sharing a link with anyone.
   copyright/trademark infringement, which gives a hostile party a fast,
   clean way to get the GitHub repo taken down via a DMCA notice — a much
   easier route than any defamation or PECA claim. Don't add real images.
+- The app icon (a swap/exchange symbol, our own original design) and a
+  one-line install banner were added in a polish pass, since the site is
+  now stable enough to show to outside people. The banner detects iOS vs.
+  Android/Chrome vs. everything else and shows the right install method
+  for each — a real "Install" button where the browser supports it,
+  manual Share-sheet steps on iOS, and a generic fallback otherwise.
 
 ## Running it locally
 
