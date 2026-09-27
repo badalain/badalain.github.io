@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.2",
+  version: "2026-09-27.3",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain (بدلیں)",
@@ -67,6 +67,13 @@ const APP_DATA = {
       type: "Welfare foundation",
       note: "A Pakistan Air Force welfare foundation, established 1977, funding welfare for PAF personnel and their families through businesses in aviation, insurance, media, and real estate.",
       officialUrl: "https://shaheenfoundation.com/",
+    },
+    {
+      id: "bahria-foundation",
+      name: "Bahria Foundation",
+      type: "Welfare foundation",
+      note: "A Pakistan Navy welfare foundation, established 1982, funding welfare for Navy personnel and their families through real estate, security services, maritime/dredging works, and other commercial businesses. Not the same organization as Bahria Town, a private real-estate company with no connection to the Navy — the two share a name only, following a 2001 Supreme Court ruling that let Bahria Town keep using the word.",
+      officialUrl: "https://bahriafoundation.com/",
     },
   ],
 
@@ -466,6 +473,50 @@ const APP_DATA = {
       notes: "Media Ownership Monitor Pakistan — a joint project of Reporters Without Borders and Freedom Network — reviewed SECP filings directly and found Shaheen Foundation holds 25% of Capital FM (Pvt) Ltd, the single largest shareholder, operating the FM 100 station in Islamabad.",
       alternatives: [],
       noAlternativeReason: "Ranking radio stations by 'quality' isn't the same kind of comparison as a product — other independent FM stations exist (City FM89, Hum FM, Radio1 FM91, among others) but haven't been researched to the same standard yet.",
+    },
+    {
+      id: "bahria-estates",
+      name: "Bahria Estates",
+      aliases: ["بحریہ اسٹیٹس"],
+      category: "Real Estate",
+      company: "Bahria Foundation (internal division)",
+      ownershipChain: [
+        { entity: "bahria-foundation", relation: "one of the Foundation's four internal business pillars — not a separately incorporated company with its own published shareholding", stake: "wholly internal" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Bahria Foundation's own official website — 'About Us,' listing its four pillars including Bahria Estates",
+          url: "https://bahriafoundation.com/?page_id=5503",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: "current as of access date",
+      notes: "Real-estate and property development arm, run directly as one of Bahria Foundation's four pillars (alongside Commercial Businesses, Maritime Works, and Education & Training) rather than as a separate shareholding company. Not to be confused with Bahria Town, an unrelated private developer.",
+      alternatives: [],
+      noAlternativeReason: "Choosing a specific private real-estate developer as 'the' alternative needs its own dedicated research pass — housing decisions are high-value and vary heavily by city, so this shouldn't be a rushed one-line recommendation.",
+    },
+    {
+      id: "bss-and-s",
+      name: "BSS&S (Bahria Security Services & Systems)",
+      aliases: ["Bahria Security Services", "بحریہ سیکیورٹی سروسز"],
+      category: "Retail & Other",
+      company: "Bahria Security Services & Systems",
+      ownershipChain: [
+        { entity: "bahria-foundation", relation: "commercial business unit of the Foundation (exact stake not applicable/published — an internal business, not a separate shareholding company)", stake: "internal business unit" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Bahria Foundation's own official website — Commercial Businesses page",
+          url: "https://bahriafoundation.com/?page_id=5532",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: "current as of access date",
+      notes: "Established 1996. Security guarding and technical security services, licensed nationwide with offices in Islamabad, Karachi, Lahore, Multan, and Gwadar. ISO 9001:2015 and ISO 18788:2015 certified. A member of the All Pakistan Security Agencies Association.",
+      alternatives: [],
+      noAlternativeReason: "Alternative security firms haven't been researched to the same reputation/reviews standard yet — same gap as with Askari Guards, flagged for a future pass.",
     },
   ],
 };
