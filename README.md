@@ -88,6 +88,19 @@ before adding real content or sharing a link with anyone.
 - Search understands Urdu: it ignores vowel marks and treats the different
   keyboard spellings of the same letter (ي/ی, ك/ک, ه/ہ) as equal.
 
+## Right-to-left rules (learned the hard way)
+
+- **Never park an element off-screen with a negative `left` (or `right`) offset.**
+  In left-to-right that is harmless, but in right-to-left (Urdu) browsers treat
+  left overflow as scrollable, the page becomes thousands of pixels wide, and a
+  phone can land on an empty stretch — the page looked blank except for the
+  hidden "skip to content" link. Hide things upward (`transform`) or clip them
+  in place (`clip-path`) instead.
+- `body` has `overflow-x: hidden` as a second line of defence, and switching
+  language resets any sideways scroll.
+- Always test Urdu mode in a real browser at phone width (320, 360, 412px), not
+  only by reading the code.
+
 ## Why the app can't get stuck on an old copy
 
 GitHub Pages lets phones keep any file for up to 10 minutes and this cannot

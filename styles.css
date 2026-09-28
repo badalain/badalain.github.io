@@ -87,14 +87,15 @@ a { color: var(--accent); }
 
 .skip-link {
   position: absolute;
-  left: -999px;
+  left: 0;
   top: 0;
+  transform: translateY(-150%);   /* hidden above the page, never off to the side */
   background: var(--accent);
   color: var(--accent-text);
   padding: 0.75em 1em;
   z-index: 100;
 }
-.skip-link:focus { left: 0; }
+.skip-link:focus { transform: translateY(0); }
 
 button:focus-visible,
 a:focus-visible,
@@ -577,10 +578,18 @@ form textarea {
 }
 .hp-field {
   position: absolute;
-  left: -10000px;
+  left: 0;
+  top: 0;
   width: 1px;
   height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
   overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  opacity: 0;
+  pointer-events: none;
 }
 .form-error {
   background: var(--error-bg);
@@ -814,3 +823,7 @@ html[lang="ur"] .source-date,
 html[lang="ur"] .ownership-chain-row { line-height: 1.7; }
 html[lang="ur"] .brand-card-name { line-height: 1.8; }
 .tool-link [lang="ur"] { line-height: 1.8; }
+
+/* Never allow sideways scrolling (a stray wide element in right-to-left
+   mode once left the page scrolled to an empty stretch of screen). */
+html, body { max-width: 100%; overflow-x: hidden; }

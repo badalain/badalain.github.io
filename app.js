@@ -20,7 +20,7 @@
 
   // Must match APP_DATA.version in data.js. index.html checks this, so an old
   // saved copy of one file can never be mixed with new copies of the others.
-  const APP_VERSION = "2026-09-27.15";
+  const APP_VERSION = "2026-09-27.16";
   window.BADALAIN_APP_VERSION = APP_VERSION;
 
   // ---------------------------------------------------------------------
@@ -238,6 +238,9 @@
     if (!urdu) state.lang = "en";
     document.documentElement.lang = urdu ? "ur" : "en";
     document.documentElement.dir = urdu ? "rtl" : "ltr";
+    // Flipping direction moves where "the start of the line" is; make sure the
+    // view is never left scrolled sideways.
+    if (window.scrollX) window.scrollTo(0, window.scrollY);
 
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
