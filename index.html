@@ -4,11 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F6B5C">
+<meta name="app-version" content="2026-09-27.15">
 <title>Badalain (بدلیں) — Who owns what you buy</title>
-<meta name="description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives. Free, no accounts, works offline.">
+<meta name="description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives. Free, no accounts, works offline. English and Urdu.">
 <link rel="canonical" href="https://badalain.github.io/">
 <meta property="og:title" content="Badalain (بدلیں) — Who owns what you buy">
-<meta property="og:description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives. No accounts, no ads, works offline.">
+<meta property="og:description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives. No accounts, no ads, works offline. English and Urdu.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://badalain.github.io/">
 <meta property="og:image" content="https://badalain.github.io/og-image.png">
@@ -23,7 +24,7 @@
 <link rel="apple-touch-icon" href="icon-apple-touch.png">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="icon-192.png" type="image/png">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2026-09-27.15">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -31,40 +32,48 @@
   "name": "Badalain",
   "alternateName": "بدلیں",
   "url": "https://badalain.github.io/",
+  "inLanguage": ["en", "ur"],
   "description": "Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives."
 }
 </script>
 </head>
 <body>
 
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
 
 <div class="install-banner" id="install-banner" hidden>
   <span id="install-banner-text"></span>
-  <a class="install-banner-link" id="install-banner-link" href="#/install" hidden>See steps</a>
-  <button class="install-banner-btn" id="install-banner-btn" type="button" hidden>Install</button>
-  <button class="install-banner-dismiss" id="install-banner-dismiss" type="button" aria-label="Dismiss install message">&times;</button>
+  <a class="install-banner-link" id="install-banner-link" href="#/install" data-i18n="banner_steps" hidden>See steps</a>
+  <button class="install-banner-btn" id="install-banner-btn" type="button" data-i18n="banner_install_btn" hidden>Install</button>
+  <button class="install-banner-dismiss" id="install-banner-dismiss" type="button" data-i18n-aria="banner_dismiss_aria" aria-label="Dismiss install message">&times;</button>
 </div>
 
 <header class="site-header">
   <h1 class="app-name">
-    <a href="#/" class="home-link" id="home-link" aria-label="Badalain — go to home">
+    <a href="#/" class="home-link" id="home-link" data-i18n-aria="home_aria" aria-label="Badalain — go to home">
       <img src="icon-192.png" alt="" class="home-logo" width="32" height="32">
       <span>Badalain</span>
       <span class="app-name-urdu" lang="ur" dir="rtl">بدلیں</span>
     </a>
   </h1>
-  <p class="app-tagline">See who owns what you buy, and find alternatives.</p>
+  <p class="app-tagline" data-i18n="tagline">See who owns what you buy, and find alternatives.</p>
+  <div class="header-tools">
+    <a href="#/install" class="tool-link" id="header-install">
+      <svg class="tool-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path d="M12 3v11m0 0l-4-4m4 4l4-4M5 18v2h14v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span data-i18n="header_install">Install app</span>
+    </a>
+    <button type="button" class="tool-link" id="lang-toggle" aria-label="Read in Urdu (اردو)"><span lang="ur">اردو</span></button>
+  </div>
 </header>
 
 <div class="disclaimer-banner" id="disclaimer-banner" role="note">
-  <p>Every entry links to its source. Items marked <span class="badge badge-lead">Unverified lead</span> have not yet been confirmed against a primary document — treat them as a starting point, not a fact, until they show <span class="badge badge-verified">Verified</span>.</p>
+  <p data-i18n="disclaimer">Every entry links to its source. Items marked <span class="badge badge-lead">Unverified lead</span> have not yet been confirmed against a primary document — treat them as a starting point, not a fact, until they show <span class="badge badge-verified">Verified</span>.</p>
 </div>
 
 <nav class="tabs" aria-label="Sections">
-  <a class="tab-btn" href="#/" data-view="search">Search</a>
-  <a class="tab-btn" href="#/about" data-view="about"><span class="tab-long">About &amp; sources</span><span class="tab-short">About</span></a>
-  <a class="tab-btn" href="#/suggest" data-view="suggest"><span class="tab-long">Suggest / correct</span><span class="tab-short">Suggest</span></a>
+  <a class="tab-btn" href="#/" data-view="search"><span data-i18n="tab_search">Search</span></a>
+  <a class="tab-btn" href="#/about" data-view="about"><span class="tab-long" data-i18n="tab_about_long">About &amp; sources</span><span class="tab-short" data-i18n="tab_about_short">About</span></a>
+  <a class="tab-btn" href="#/suggest" data-view="suggest"><span class="tab-long" data-i18n="tab_suggest_long">Suggest / correct</span><span class="tab-short" data-i18n="tab_suggest_short">Suggest</span></a>
 </nav>
 
 <main id="main">
@@ -75,18 +84,18 @@
 
   <!-- SEARCH VIEW -->
   <section id="view-search" class="view is-active" aria-labelledby="search-heading">
-    <h2 id="search-heading" class="visually-hidden" tabindex="-1">Search brands</h2>
+    <h2 id="search-heading" class="visually-hidden" tabindex="-1" data-i18n="search_heading">Search brands</h2>
     <div class="search-bar">
-      <label for="search-input" class="visually-hidden">Search by brand, company, product or owner</label>
-      <input type="search" id="search-input" placeholder="Search a brand, product or owner…" autocomplete="off" inputmode="search" enterkeyhint="search">
-      <button type="button" class="search-clear" id="search-clear" aria-label="Clear search" hidden>&times;</button>
+      <label for="search-input" class="visually-hidden" data-i18n="search_label">Search by brand, company, product or owner</label>
+      <input type="search" id="search-input" placeholder="Search a brand, product or owner…" data-i18n-placeholder="search_placeholder" autocomplete="off" inputmode="search" enterkeyhint="search">
+      <button type="button" class="search-clear" id="search-clear" data-i18n-aria="search_clear_aria" aria-label="Clear search" hidden>&times;</button>
     </div>
 
-    <div class="category-chips" id="category-chips" role="group" aria-label="Filter by category"></div>
+    <div class="category-chips" id="category-chips" role="group" data-i18n-aria="filter_aria" aria-label="Filter by category"></div>
 
     <label class="verified-toggle">
       <input type="checkbox" id="verified-only-toggle">
-      Show verified entries only
+      <span data-i18n="verified_only">Show verified entries only</span>
     </label>
 
     <p class="result-count" id="result-count" aria-live="polite"></p>
@@ -94,122 +103,129 @@
     <ul class="brand-list" id="brand-list"></ul>
 
     <div class="empty-state" id="empty-state" hidden>
-      <p>No matches.</p>
-      <p>Know of a brand that should be here? <a href="#/suggest" class="inline-link">Suggest it</a> — include a source link if you can.</p>
+      <p data-i18n="no_matches">No matches.</p>
+      <p data-i18n="empty_suggest">Know of a brand that should be here? <a href="#/suggest" class="inline-link">Suggest it</a> — include a source link if you can.</p>
     </div>
   </section>
 
   <!-- DETAIL VIEW -->
   <section id="view-detail" class="view">
-    <button class="back-btn" id="detail-back-btn" type="button">&larr; Back</button>
+    <button class="back-btn" id="detail-back-btn" type="button" data-i18n="back">&larr; Back</button>
     <div id="detail-content"></div>
   </section>
 
   <!-- ORGANIZATION VIEW -->
   <section id="view-entity" class="view">
-    <button class="back-btn" id="entity-back-btn" type="button">&larr; Back</button>
+    <button class="back-btn" id="entity-back-btn" type="button" data-i18n="back">&larr; Back</button>
     <div id="entity-content"></div>
   </section>
 
   <!-- INSTALL VIEW -->
   <section id="view-install" class="view" aria-labelledby="install-heading">
-    <h2 id="install-heading" tabindex="-1">Install Badalain on your phone</h2>
-    <p>You don't have to install anything &mdash; this website works in any browser. Installing just puts an icon on your home screen and lets Badalain open with no internet connection. It is free and takes a few seconds.</p>
+    <h2 id="install-heading" tabindex="-1" data-i18n="install_h2">Install Badalain on your phone</h2>
+    <p data-i18n="install_p1">You don't have to install anything &mdash; this website works in any browser. Installing just puts an icon on your home screen and lets Badalain open with no internet connection. It is free and takes a few seconds.</p>
 
     <div class="install-now" id="install-now" hidden>
-      <p>Your browser can install it right now:</p>
-      <button type="button" class="primary-btn" id="install-now-btn">Install now</button>
+      <p data-i18n="install_now_p">Your browser can install it right now:</p>
+      <button type="button" class="primary-btn" id="install-now-btn" data-i18n="install_now_btn">Install now</button>
     </div>
 
-    <p class="install-note">Uninstalled it and don't see an Install button any more? That's normal &mdash; your browser decides when to offer it. The steps below always work.</p>
+    <p class="install-note" data-i18n="install_note">Uninstalled it and don't see an Install button any more? That's normal &mdash; your browser decides when to offer it. The steps below always work.</p>
 
-    <h3>Android &mdash; Chrome (most phones)</h3>
+    <h3 data-i18n="install_chrome_h">Android &mdash; Chrome (most phones)</h3>
     <ol class="install-steps">
-      <li>Tap the three-dot menu (&#8942;) at the top right.</li>
-      <li>Tap <strong>Install app</strong>. Some versions say <strong>Add to Home screen</strong> instead &mdash; then choose <strong>Install</strong>.</li>
-      <li>Tap <strong>Install</strong> to confirm.</li>
+      <li data-i18n="install_chrome_1">Tap the three-dot menu (&#8942;) at the top right.</li>
+      <li data-i18n="install_chrome_2">Tap <strong>Install app</strong>. Some versions say <strong>Add to Home screen</strong> instead &mdash; then choose <strong>Install</strong>.</li>
+      <li data-i18n="install_chrome_3">Tap <strong>Install</strong> to confirm.</li>
     </ol>
 
-    <h3>Android &mdash; Samsung Internet</h3>
+    <h3 data-i18n="install_samsung_h">Android &mdash; Samsung Internet</h3>
     <ol class="install-steps">
-      <li>Tap the menu button (three lines, bottom right).</li>
-      <li>Tap <strong>Add page to</strong>, then <strong>Home screen</strong>.</li>
-      <li>Tap <strong>Add</strong>.</li>
+      <li data-i18n="install_samsung_1">Tap the menu button (three lines, bottom right).</li>
+      <li data-i18n="install_samsung_2">Tap <strong>Add page to</strong>, then <strong>Home screen</strong>.</li>
+      <li data-i18n="install_samsung_3">Tap <strong>Add</strong>.</li>
     </ol>
 
-    <h3>Android &mdash; Firefox</h3>
+    <h3 data-i18n="install_ff_h">Android &mdash; Firefox</h3>
     <ol class="install-steps">
-      <li>Tap the three-dot menu (&#8942;).</li>
-      <li>Tap <strong>Install</strong>.</li>
-      <li>Confirm when asked.</li>
+      <li data-i18n="install_ff_1">Tap the three-dot menu (&#8942;).</li>
+      <li data-i18n="install_ff_2">Tap <strong>Install</strong>.</li>
+      <li data-i18n="install_ff_3">Confirm when asked.</li>
     </ol>
 
-    <h3>Android &mdash; Opera or UC Browser</h3>
-    <p>The menu wording differs between versions. Open the browser's menu and look for <strong>Add to home screen</strong> (sometimes under <strong>Add to</strong> or <strong>Home screen</strong>). If you can't find it, open this same link in Chrome and follow the Chrome steps above. Opera Mini in data-saving mode can't keep the app for offline use, but the website still works whenever you are online.</p>
+    <h3 data-i18n="install_other_h">Android &mdash; Opera or UC Browser</h3>
+    <p data-i18n="install_other_p">The menu wording differs between versions. Open the browser's menu and look for <strong>Add to home screen</strong> (sometimes under <strong>Add to</strong> or <strong>Home screen</strong>). If you can't find it, open this same link in Chrome and follow the Chrome steps above. Opera Mini in data-saving mode can't keep the app for offline use, but the website still works whenever you are online.</p>
 
-    <h3>iPhone and iPad &mdash; Safari</h3>
+    <h3 data-i18n="install_ios_h">iPhone and iPad &mdash; Safari</h3>
     <ol class="install-steps">
-      <li>Tap the <strong>Share</strong> button (a square with an arrow pointing up) at the bottom of the screen.</li>
-      <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
-      <li>Tap <strong>Add</strong>.</li>
+      <li data-i18n="install_ios_1">Tap the <strong>Share</strong> button (a square with an arrow pointing up) at the bottom of the screen.</li>
+      <li data-i18n="install_ios_2">Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+      <li data-i18n="install_ios_3">Tap <strong>Add</strong>.</li>
     </ol>
-    <p>Chrome, Firefox and Edge on iPhone don't always offer this. If you don't see <strong>Add to Home Screen</strong> in the Share menu, open this link in Safari instead.</p>
+    <p data-i18n="install_ios_p">Chrome, Firefox and Edge on iPhone don't always offer this. If you don't see <strong>Add to Home Screen</strong> in the Share menu, open this link in Safari instead.</p>
 
-    <h3>To remove it later</h3>
-    <p>Press and hold the Badalain icon on your home screen and choose <strong>Uninstall</strong> or <strong>Remove</strong>. You can install it again at any time with the steps above.</p>
+    <h3 data-i18n="install_remove_h">To remove it later</h3>
+    <p data-i18n="install_remove_p">Press and hold the Badalain icon on your home screen and choose <strong>Uninstall</strong> or <strong>Remove</strong>. You can install it again at any time with the steps above.</p>
   </section>
 
   <!-- ABOUT VIEW -->
   <section id="view-about" class="view" aria-labelledby="about-heading">
-    <h2 id="about-heading" tabindex="-1">About this list</h2>
-    <p>This site shows publicly documented ownership links between everyday consumer brands and their parent organizations, so people can make their own informed choices about what to buy. It does not tell you what to think about any organization — only who owns what, with a source for every claim.</p>
+    <h2 id="about-heading" tabindex="-1" data-i18n="about_h2">About this list</h2>
+    <p data-i18n="about_p1">This site shows publicly documented ownership links between everyday consumer brands and their parent organizations, so people can make their own informed choices about what to buy. It does not tell you what to think about any organization — only who owns what, with a source for every claim.</p>
 
     <p class="about-stats" id="about-stats"></p>
 
-    <h3>How an entry gets added</h3>
+    <h3 data-i18n="about_h3_how">How an entry gets added</h3>
     <ol>
-      <li>A lead is found in a public source — a company website, a news report, or an aggregator.</li>
-      <li>It is checked against a primary document: a company annual report's pattern of shareholding, a stock exchange filing, a credit-rating report, or an official record.</li>
-      <li>Only once confirmed against that primary document is it marked <span class="badge badge-verified">Verified</span>, with the exact source and date shown.</li>
-      <li>Ownership changes over time — stakes are sold, companies merge. Entries are re-checked periodically, and the date each source was checked is always shown.</li>
+      <li data-i18n="about_li1">A lead is found in a public source — a company website, a news report, or an aggregator.</li>
+      <li data-i18n="about_li2">It is checked against a primary document: a company annual report's pattern of shareholding, a stock exchange filing, a credit-rating report, or an official record.</li>
+      <li data-i18n="about_li3">Only once confirmed against that primary document is it marked <span class="badge badge-verified">Verified</span>, with the exact source and date shown.</li>
+      <li data-i18n="about_li4">Ownership changes over time — stakes are sold, companies merge. Entries are re-checked periodically, and the date each source was checked is always shown.</li>
     </ol>
 
-    <h3>About the alternatives</h3>
-    <p>Alternatives are ranked best first, based on market reputation, awards and consumer surveys. They are a lighter kind of research than the ownership facts and are offered as options to consider, not endorsements. Where a founder or leader has a military background, that is stated plainly.</p>
+    <h3 data-i18n="about_h3_alt">About the alternatives</h3>
+    <p data-i18n="about_alt_p">Alternatives are ranked best first, based on market reputation, awards and consumer surveys. They are a lighter kind of research than the ownership facts and are offered as options to consider, not endorsements. Where a founder or leader has a military background, that is stated plainly.</p>
 
-    <h3>What this site is not</h3>
-    <p>This site makes no claims beyond documented ownership and what named sources have said on the record. It does not host allegations, opinions, or user comments.</p>
+    <h3 data-i18n="about_h3_not">What this site is not</h3>
+    <p data-i18n="about_not_p">This site makes no claims beyond documented ownership and what named sources have said on the record. It does not host allegations, opinions, or user comments.</p>
 
-    <h3>Corrections</h3>
-    <p>If an entry is inaccurate or out of date, every entry page has a "Report a problem" link, or use the <a href="#/suggest" class="inline-link">Suggest / correct</a> tab. Every submission is reviewed before anything changes.</p>
+    <h3 data-i18n="about_h3_corr">Corrections</h3>
+    <p data-i18n="about_corr_p">If an entry is inaccurate or out of date, every entry page has a "Report a problem" link, or use the <a href="#/suggest" class="inline-link">Suggest / correct</a> tab. Every submission is reviewed before anything changes.</p>
 
-    <h3>Install it like an app</h3>
-    <p>You don't have to — the website works in any browser. Installing adds an icon to your home screen and lets it open with no internet. <a href="#/install" class="inline-link">Step-by-step instructions for your browser</a>.</p>
+    <h3 data-i18n="about_h3_lang">Languages</h3>
+    <p data-i18n="about_lang_p">Everything can be read in English or Urdu (use the button at the top). The Urdu is a translation — if the wording ever differs, the English text and the linked sources are the reference. Want another language, such as Sindhi or Pashto? Tell us through the <a href="#/suggest" class="inline-link">Suggest / correct</a> form.</p>
 
-    <h3>Privacy</h3>
-    <p>No accounts, no ads, no analytics, no tracking. Searches happen on your own phone and are never sent anywhere. The suggestion form sends only what you type into it.</p>
+    <h3 data-i18n="about_h3_install">Install it like an app</h3>
+    <p data-i18n="about_install_p">You don't have to — the website works in any browser. Installing adds an icon to your home screen and lets it open with no internet. <a href="#/install" class="inline-link">Step-by-step instructions for your browser</a>.</p>
 
-    <h3>The data, in full</h3>
-    <p>The whole dataset is open — nothing is hidden behind an account or a paywall: <a class="inline-link" id="about-data-link" target="_blank" rel="noopener" href="data.js">view the raw data file</a>.</p>
+    <h3 data-i18n="about_h3_privacy">Privacy</h3>
+    <p data-i18n="about_privacy_p">No accounts, no ads, no analytics, no tracking. Searches happen on your own phone and are never sent anywhere. Your language choice is remembered only on your own phone. The suggestion form sends only what you type into it.</p>
+
+    <h3 data-i18n="about_h3_data">The data, in full</h3>
+    <p data-i18n="about_data_p">The whole dataset is open — nothing is hidden behind an account or a paywall: <a class="inline-link" id="about-data-link" target="_blank" rel="noopener" href="data.js">view the raw data file</a>.</p>
+
+    <h3 data-i18n="about_h3_reset">Something looks out of date?</h3>
+    <p data-i18n="about_reset_p">Your phone keeps a saved copy so the app works offline. If you ever see an older version, this clears the saved copy and reloads.</p>
+    <button type="button" class="link-btn" id="reset-app" data-i18n="about_reset_btn">Clear saved copy and reload</button>
   </section>
 
   <!-- SUGGEST VIEW -->
   <section id="view-suggest" class="view" aria-labelledby="suggest-heading">
-    <h2 id="suggest-heading" tabindex="-1">Suggest an addition or correction</h2>
-    <p>No account or contact information is needed. Every submission is reviewed before anything is published.</p>
+    <h2 id="suggest-heading" tabindex="-1" data-i18n="suggest_h2">Suggest an addition or correction</h2>
+    <p data-i18n="suggest_p">No account or contact information is needed. You can write in English or Urdu. Every submission is reviewed before anything is published.</p>
 
     <form id="suggest-form" novalidate>
-      <label for="s-name">Brand or company name</label>
+      <label for="s-name" data-i18n="s_name_label">Brand or company name</label>
       <input type="text" id="s-name" name="name" required maxlength="200">
 
-      <label for="s-category">Category</label>
+      <label for="s-category" data-i18n="s_cat_label">Category</label>
       <select id="s-category" name="category"></select>
 
-      <label for="s-reason">What should we know? (an ownership link, or a correction to an existing entry)</label>
+      <label for="s-reason" data-i18n="s_reason_label">What should we know? (an ownership link, or a correction to an existing entry)</label>
       <textarea id="s-reason" name="reason" rows="4" required maxlength="3000"></textarea>
 
-      <label for="s-source">Source link (a company report, filing, or news article — this is what lets us verify it)</label>
-      <input type="url" id="s-source" name="source" placeholder="https://…" maxlength="1000">
+      <label for="s-source" data-i18n="s_source_label">Source link (a company report, filing, or news article — this is what lets us verify it)</label>
+      <input type="url" id="s-source" name="source" placeholder="https://…" maxlength="1000" dir="ltr">
 
       <!-- Spam trap: hidden from people, only bots fill this in -->
       <div class="hp-field" aria-hidden="true">
@@ -219,27 +235,57 @@
 
       <p class="form-error" id="suggest-validation" role="alert" hidden></p>
 
-      <button type="submit" class="primary-btn" id="suggest-submit">Submit</button>
+      <button type="submit" class="primary-btn" id="suggest-submit" data-i18n="s_submit">Submit</button>
     </form>
 
     <div class="form-result form-success" id="suggest-success" role="status" hidden>
-      <p><strong>Thank you — received.</strong> It will be checked against a source before anything changes.</p>
-      <button type="button" class="link-btn" id="suggest-another">Send another</button>
+      <p data-i18n="s_success"><strong>Thank you — received.</strong> It will be checked against a source before anything changes.</p>
+      <button type="button" class="link-btn" id="suggest-another" data-i18n="s_another">Send another</button>
     </div>
     <div class="form-result form-failure" id="suggest-error" role="alert" hidden>
-      <p><strong>Couldn't send right now.</strong> Your text is still in the form — please check your connection and try again in a little while.</p>
+      <p data-i18n="s_error"><strong>Couldn't send right now.</strong> Your text is still in the form — please check your connection and try again in a little while.</p>
     </div>
   </section>
 
 </main>
 
 <footer class="site-footer">
-  <p>No accounts. No tracking. Works offline once loaded.</p>
-  <p class="footer-links" id="footer-install"><a href="#/install" class="inline-link">How to install this app</a></p>
+  <p data-i18n="footer_line">No accounts. No tracking. Works offline once loaded.</p>
+  <p class="footer-links" id="footer-install"><a href="#/install" class="inline-link" data-i18n="footer_install">How to install this app</a></p>
   <p class="footer-updated" id="footer-updated"></p>
 </footer>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="data.js?v=2026-09-27.15"></script>
+<script src="app.js?v=2026-09-27.15"></script>
+<script>
+/* Safety check. If an old saved copy of a script ever gets mixed with this
+   page, clear the saved copies once and reload, so the app is never left
+   half-updated. The ?fresh= marker stops it from repeating. */
+(function () {
+  var V = "2026-09-27.15";
+  function repair() {
+    var go = function () { location.replace(location.pathname + "?fresh=" + Date.now() + location.hash); };
+    var steps = [];
+    try {
+      if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+        steps.push(navigator.serviceWorker.getRegistrations().then(function (rs) {
+          return Promise.all(rs.map(function (r) { return r.unregister(); }));
+        }));
+      }
+    } catch (e) {}
+    try {
+      if (window.caches && caches.keys) {
+        steps.push(caches.keys().then(function (ks) {
+          return Promise.all(ks.map(function (k) { return caches.delete(k); }));
+        }));
+      }
+    } catch (e) {}
+    Promise.all(steps).then(go, go);
+  }
+  window.badalainRepair = repair;
+  var ok = typeof APP_DATA !== "undefined" && APP_DATA.version === V && window.BADALAIN_APP_VERSION === V;
+  if (!ok && location.search.indexOf("fresh=") === -1) repair();
+})();
+</script>
 </body>
 </html>

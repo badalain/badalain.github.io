@@ -174,7 +174,7 @@ h2:focus:not(:focus-visible) { outline: none; }
   border-radius: 8px;
   flex-shrink: 0;
 }
-.app-name-urdu {
+.app-name-urdu, .tool-link [lang="ur"] {
   font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noto Naskh Arabic", "Segoe UI", Tahoma, sans-serif;
   font-weight: 600;
   font-size: 0.95em;
@@ -737,3 +737,80 @@ form textarea {
 .install-steps li { margin-bottom: 0.4em; }
 .install-steps strong, #view-install p strong { color: var(--text); }
 .footer-links a { font-weight: 600; }
+
+
+/* ---------- Header tools: install link + language button (always visible at the top) ---------- */
+.header-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+.tool-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.3em 0.9em;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tool-link:hover { background: var(--verified-bg); }
+.tool-icon { flex-shrink: 0; }
+
+.translation-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin: 0.4em 0 0.9em;
+}
+.detail-name-en {
+  margin: -0.1em 0 0.3em;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+/* ---------- Urdu reading mode (page is right-to-left) ---------- */
+html[lang="ur"] body {
+  font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", "Noto Naskh Arabic", "Urdu Typesetting", "Segoe UI", Tahoma, Roboto, sans-serif;
+  font-size: 17.5px;
+  line-height: 2;   /* tall enough that Nastaliq letters are never clipped */
+}
+html[lang="ur"] button,
+html[lang="ur"] input,
+html[lang="ur"] select,
+html[lang="ur"] textarea { font-family: inherit; }
+/* English names inside Urdu text keep the normal Latin font */
+html[lang="ur"] [lang="en"] {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Helvetica, Arial, sans-serif;
+}
+html[lang="ur"] .badge { line-height: 1.9; }
+
+/* Things that were pinned to the left or right must swap sides in RTL */
+html[dir="rtl"] .search-clear { right: auto; left: 0.35em; }
+html[dir="rtl"] #search-input { padding: 0.8em 0.9em 0.8em 2.6em; }
+html[dir="rtl"] .brand-card { text-align: right; }
+html[dir="rtl"] .alt-list,
+html[dir="rtl"] .install-steps { padding-left: 0; padding-right: 1.4em; }
+html[dir="rtl"] .install-note { border-left: 0; padding-left: 0; border-right: 3px solid var(--border); padding-right: 0.8em; }
+html[dir="rtl"] .ownership-arrow { display: inline-block; transform: scaleX(-1); }
+
+/* English runs inside Urdu text: keep their own direction and stop punctuation jumping sides */
+.en { unicode-bidi: embed; unicode-bidi: isolate; }
+[dir="ltr"] { unicode-bidi: isolate; }
+/* Lines that are mostly English don't need the extra-tall Urdu line spacing */
+html[lang="ur"] .brand-card-company,
+html[lang="ur"] .detail-company,
+html[lang="ur"] .detail-name-en,
+html[lang="ur"] .source-link,
+html[lang="ur"] .source-date,
+html[lang="ur"] .ownership-chain-row { line-height: 1.7; }
+html[lang="ur"] .brand-card-name { line-height: 1.8; }
+.tool-link [lang="ur"] { line-height: 1.8; }

@@ -12,11 +12,12 @@ before adding real content or sharing a link with anyone.
 
 - `index.html` — page structure
 - `styles.css` — all styling (system fonts only, no downloads)
-- `data.js` — the entire content database. Edit this to add/change entries.
+- `data.js` — the entire content database (English). Edit this to add/change entries.
+- `ur.js` — the Urdu translation of the interface and of every entry
 - `app.js` — search, filtering, view switching, the suggestion form
 - `sw.js` — offline caching (service worker)
 - `manifest.json` — lets the site be "added to home screen" like an app
-- `icon-*.png` — placeholder icons (plain teal circle) — replace with a
+- `icon-*.png` — the app icon (a swap symbol, our own design); replace with a
   real icon when you have one, same file names and sizes
 - `robots.txt`, `sitemap.xml` — helps Google/Bing find and index the site,
   since there's no app store listing driving discovery
@@ -62,6 +63,49 @@ before adding real content or sharing a link with anyone.
 - Pakistan mobile browser mix, StatCounter, August 2026: Chrome 76.9%,
   UC Browser 9.6%, Safari 7.1%, Opera 4.9%, Samsung Internet 0.8%,
   Firefox 0.3%. Opera Mini cannot keep the app for offline use.
+
+## Languages: English and Urdu
+
+- English is the reference version. Everything a person can read can also be
+  shown in Urdu with the button at the top of every page (it flips the whole
+  layout right-to-left). The choice is remembered only on that phone. If a
+  phone is set to Urdu, the site opens in Urdu by default.
+- All Urdu wording lives in ONE file, `ur.js`, loaded only when someone
+  chooses Urdu (and saved for offline use). Brand and company names, source
+  titles and the menu words people will see on their screen ("Install app",
+  "Add to Home screen") deliberately stay in English. Numbers, percentages,
+  dates and source links come from `data.js`, never re-typed in `ur.js`.
+- Every entry page in Urdu carries a note that it is a translation and that
+  the English text and the linked sources are the reference. Quotes are
+  marked as translated from English — never presented as anyone's exact words.
+- **The Urdu was written by an AI assistant and has NOT been checked by a
+  professional translator.** Someone who reads Urdu natively must read
+  `ur.js` (or click through the Urdu pages) before the site is shown widely.
+  Highest-care items: the PIA entry, the DHA Lahore Supreme Court sentence,
+  and every place a number or a legal term appears.
+- Adding a language later (Sindhi, Pashto): copy the shape of `ur.js`, add a
+  loader for it in `app.js`. Only do this with a native reviewer available.
+- Search understands Urdu: it ignores vowel marks and treats the different
+  keyboard spellings of the same letter (ي/ی, ك/ک, ه/ہ) as equal.
+
+## Why the app can't get stuck on an old copy
+
+GitHub Pages lets phones keep any file for up to 10 minutes and this cannot
+be changed. A phone could therefore hold a NEW page with an OLD script — a
+button that "does nothing" after an update. Three safeguards:
+
+1. Every script/style address carries the version (`app.js?v=2026-09-27.15`),
+   so a new page always asks for matching new files.
+2. `sw.js` fetches every file with `reload` / `no-cache`, so the offline copy is
+   never built from a stale file, and a failed download abandons the update.
+3. `index.html` checks that the page, `data.js` and `app.js` all say the same
+   version. If not, it clears the saved copies once and reloads (the
+   `?fresh=` marker stops it from ever looping). The About page has a
+   "Clear saved copy and reload" button that does the same by hand.
+
+The version must be identical in `data.js`, `app.js`, `ur.js`, `sw.js` and
+`index.html` (4 places). Claude's release tool sets them together and refuses
+to finish if any disagree. If you ever edit by hand, change all of them.
 
 ## Running it locally
 
