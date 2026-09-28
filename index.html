@@ -41,6 +41,7 @@
 
 <div class="install-banner" id="install-banner" hidden>
   <span id="install-banner-text"></span>
+  <a class="install-banner-link" id="install-banner-link" href="#/install" hidden>See steps</a>
   <button class="install-banner-btn" id="install-banner-btn" type="button" hidden>Install</button>
   <button class="install-banner-dismiss" id="install-banner-dismiss" type="button" aria-label="Dismiss install message">&times;</button>
 </div>
@@ -110,6 +111,54 @@
     <div id="entity-content"></div>
   </section>
 
+  <!-- INSTALL VIEW -->
+  <section id="view-install" class="view" aria-labelledby="install-heading">
+    <h2 id="install-heading" tabindex="-1">Install Badalain on your phone</h2>
+    <p>You don't have to install anything &mdash; this website works in any browser. Installing just puts an icon on your home screen and lets Badalain open with no internet connection. It is free and takes a few seconds.</p>
+
+    <div class="install-now" id="install-now" hidden>
+      <p>Your browser can install it right now:</p>
+      <button type="button" class="primary-btn" id="install-now-btn">Install now</button>
+    </div>
+
+    <p class="install-note">Uninstalled it and don't see an Install button any more? That's normal &mdash; your browser decides when to offer it. The steps below always work.</p>
+
+    <h3>Android &mdash; Chrome (most phones)</h3>
+    <ol class="install-steps">
+      <li>Tap the three-dot menu (&#8942;) at the top right.</li>
+      <li>Tap <strong>Install app</strong>. Some versions say <strong>Add to Home screen</strong> instead &mdash; then choose <strong>Install</strong>.</li>
+      <li>Tap <strong>Install</strong> to confirm.</li>
+    </ol>
+
+    <h3>Android &mdash; Samsung Internet</h3>
+    <ol class="install-steps">
+      <li>Tap the menu button (three lines, bottom right).</li>
+      <li>Tap <strong>Add page to</strong>, then <strong>Home screen</strong>.</li>
+      <li>Tap <strong>Add</strong>.</li>
+    </ol>
+
+    <h3>Android &mdash; Firefox</h3>
+    <ol class="install-steps">
+      <li>Tap the three-dot menu (&#8942;).</li>
+      <li>Tap <strong>Install</strong>.</li>
+      <li>Confirm when asked.</li>
+    </ol>
+
+    <h3>Android &mdash; Opera or UC Browser</h3>
+    <p>The menu wording differs between versions. Open the browser's menu and look for <strong>Add to home screen</strong> (sometimes under <strong>Add to</strong> or <strong>Home screen</strong>). If you can't find it, open this same link in Chrome and follow the Chrome steps above. Opera Mini in data-saving mode can't keep the app for offline use, but the website still works whenever you are online.</p>
+
+    <h3>iPhone and iPad &mdash; Safari</h3>
+    <ol class="install-steps">
+      <li>Tap the <strong>Share</strong> button (a square with an arrow pointing up) at the bottom of the screen.</li>
+      <li>Scroll down and tap <strong>Add to Home Screen</strong>.</li>
+      <li>Tap <strong>Add</strong>.</li>
+    </ol>
+    <p>Chrome, Firefox and Edge on iPhone don't always offer this. If you don't see <strong>Add to Home Screen</strong> in the Share menu, open this link in Safari instead.</p>
+
+    <h3>To remove it later</h3>
+    <p>Press and hold the Badalain icon on your home screen and choose <strong>Uninstall</strong> or <strong>Remove</strong>. You can install it again at any time with the steps above.</p>
+  </section>
+
   <!-- ABOUT VIEW -->
   <section id="view-about" class="view" aria-labelledby="about-heading">
     <h2 id="about-heading" tabindex="-1">About this list</h2>
@@ -135,7 +184,7 @@
     <p>If an entry is inaccurate or out of date, every entry page has a "Report a problem" link, or use the <a href="#/suggest" class="inline-link">Suggest / correct</a> tab. Every submission is reviewed before anything changes.</p>
 
     <h3>Install it like an app</h3>
-    <p><strong>Android:</strong> open the browser menu (⋮) and tap "Install app" or "Add to Home screen." <strong>iPhone:</strong> in Safari, tap the Share button, then "Add to Home Screen." Once installed, it opens without the browser bar and works with no internet.</p>
+    <p>You don't have to — the website works in any browser. Installing adds an icon to your home screen and lets it open with no internet. <a href="#/install" class="inline-link">Step-by-step instructions for your browser</a>.</p>
 
     <h3>Privacy</h3>
     <p>No accounts, no ads, no analytics, no tracking. Searches happen on your own phone and are never sent anywhere. The suggestion form sends only what you type into it.</p>
@@ -186,6 +235,7 @@
 
 <footer class="site-footer">
   <p>No accounts. No tracking. Works offline once loaded.</p>
+  <p class="footer-links" id="footer-install"><a href="#/install" class="inline-link">How to install this app</a></p>
   <p class="footer-updated" id="footer-updated"></p>
 </footer>
 

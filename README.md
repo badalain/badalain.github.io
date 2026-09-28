@@ -43,6 +43,26 @@ before adding real content or sharing a link with anyone.
   for each — a real "Install" button where the browser supports it,
   manual Share-sheet steps on iOS, and a generic fallback otherwise.
 
+## How installing works (and why the Install button can disappear)
+
+- The browser, not this site, decides when to offer "Install". Chrome on
+  Android sends the site a signal when it is ready to install; the site keeps
+  it so a real **Install** button can appear in the top banner and on the
+  `#/install` page. After someone installs and then uninstalls, Chrome may
+  not offer it again straight away — nothing on our side can force it.
+- Firefox, Safari and most other browsers never send that signal. They need
+  the written steps, which live on the `#/install` page (linked from the
+  top banner, the About page and the footer, so it is always findable).
+- The `#/install` page lists steps for Chrome, Samsung Internet, Firefox,
+  Opera/UC Browser and iPhone Safari. Browser menus change; the Opera and
+  UC Browser wording was NOT verified word for word, so that section points
+  people to Chrome as a fallback. Re-check these steps every few months.
+- "Dismissed" is remembered only on the person's own phone and expires
+  after 30 days. Nothing about installing is sent anywhere.
+- Pakistan mobile browser mix, StatCounter, August 2026: Chrome 76.9%,
+  UC Browser 9.6%, Safari 7.1%, Opera 4.9%, Samsung Internet 0.8%,
+  Firefox 0.3%. Opera Mini cannot keep the app for offline use.
+
 ## Running it locally
 
 Any static file server works. From this folder:

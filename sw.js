@@ -12,7 +12,7 @@
   in data.js. Old saved copies are deleted automatically.
 */
 
-const CACHE_NAME = "badalain-cache-2026-09-27.13";
+const CACHE_NAME = "badalain-cache-2026-09-27.14";
 
 const CORE_ASSETS = [
   "./",

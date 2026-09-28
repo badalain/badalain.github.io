@@ -1,3 +1,6 @@
+/* Safety net: anything marked hidden stays hidden, whatever other CSS says. */
+[hidden] { display: none !important; }
+
 /*
   Design notes:
   - System fonts only — no font downloads, so the page is fast on slow
@@ -701,3 +704,36 @@ form textarea {
   .tab-short { display: inline; }
   .tabs { gap: 1.25rem; }
 }
+
+/* ---------- Install banner link, install guide page ---------- */
+.install-banner { flex-wrap: wrap; row-gap: 0.3em; }
+.install-banner.is-suppressed { display: none; }
+.install-banner-link {
+  color: var(--accent-text);
+  font-weight: 700;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.install-now {
+  background: var(--verified-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8em 1em;
+  margin: 1rem 0;
+}
+.install-now p { margin: 0 0 0.6em; color: var(--text); }
+.install-now .primary-btn { margin-top: 0; }
+.install-note {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  border-left: 3px solid var(--border);
+  padding-left: 0.8em;
+  margin: 1rem 0;
+}
+#view-install h2 { font-size: 1.25rem; }
+#view-install h3 { font-size: 1rem; margin: 1.4em 0 0.4em; }
+#view-install p, #view-install li { color: var(--text-muted); }
+.install-steps { margin: 0 0 0.6em; padding-left: 1.4em; }
+.install-steps li { margin-bottom: 0.4em; }
+.install-steps strong, #view-install p strong { color: var(--text); }
+.footer-links a { font-weight: 600; }

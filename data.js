@@ -26,7 +26,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.13",
+  version: "2026-09-27.14",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
   appName: "Badalain",

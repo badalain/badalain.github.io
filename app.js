@@ -7,6 +7,7 @@
     #/brand/nurpur         one entry
     #/org/fauji-foundation everything linked to one organization
     #/about                about & sources
+    #/install              how to install it on a phone, by browser
     #/suggest              suggestion form
     #/suggest/nurpur       suggestion form, pre-filled to correct one entry
   This gives every entry its own shareable link and makes the phone's
@@ -69,7 +70,7 @@
     route();
     state.initialRouteDone = true;
     registerServiceWorker();
-    initInstallBanner();
+    initInstall();
   }
 
   // ---------------------- Helpers ----------------------
@@ -261,6 +262,7 @@
     if (parts[0] === "brand" && parts[1]) return { view: "detail", id: parts[1] };
     if (parts[0] === "org" && parts[1]) return { view: "entity", id: parts[1] };
     if (parts[0] === "about") return { view: "about" };
+    if (parts[0] === "install") return { view: "install" };
     if (parts[0] === "suggest") return { view: "suggest", id: parts[1] || null };
     return { view: "search" };
   }
@@ -284,6 +286,10 @@
       scrollToTop();
     } else if (r.view === "about") {
       showView("about", "About & sources");
+      scrollToTop();
+    } else if (r.view === "install") {
+      showView("install", "Install the app");
+      updateInstallNow();
       scrollToTop();
     } else if (r.view === "suggest") {
       prefillSuggest(r.id);
@@ -310,7 +316,11 @@
     document.getElementById("view-" + viewName).classList.add("is-active");
 
     // Entry and organization pages belong under the Search tab.
-    const tabView = viewName === "detail" || viewName === "entity" ? "search" : viewName;
+    const tabView =
+      viewName === "detail" || viewName === "entity" ? "search" : viewName === "install" ? "about" : viewName;
+    // The install banner is pointless on the page that already explains installing.
+    const installBanner = document.getElementById("install-banner");
+    if (installBanner) installBanner.classList.toggle("is-suppressed", viewName === "install");
     document.querySelectorAll(".tab-btn").forEach((tab) => {
       const isMatch = tab.dataset.view === tabView;
       tab.classList.toggle("is-active", isMatch);
@@ -645,70 +655,125 @@
     });
   }
 
-  // ---------------------- Install banner ----------------------
-  // iOS gets manual Share-sheet instructions (Apple has no automatic
-  // install prompt). Chrome/Android/desktop get a real "Install" button.
-  // Everything else gets a generic hint. Dismissal is remembered on the
-  // device only — nothing is sent anywhere.
+  // ---------------------- Install (banner + help page) ----------------------
+  // The browser — not this site — decides when installing is offered.
+  // Chrome on Android fires an event when it is ready to install the app;
+  // we keep that event so a real "Install" button can be shown (in the top
+  // banner and on the #/install page). Firefox and Safari never fire it, so
+  // they get written steps instead. Nothing here is sent anywhere; the
+  // "dismissed" choice is stored only on the person's own phone, and expires
+  // after 30 days.
 
-  function initInstallBanner() {
+  const INSTALL_DISMISS_KEY = "badalainInstallDismissed";
+  const INSTALL_DISMISS_DAYS = 30;
+  let deferredPrompt = null;
+
+  function isStandalone() {
+    return (
+      (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
+      window.navigator.standalone === true
+    );
+  }
+
+  function installDismissedRecently() {
+    try {
+      const saved = parseInt(localStorage.getItem(INSTALL_DISMISS_KEY), 10);
+      return Number.isFinite(saved) && Date.now() - saved < INSTALL_DISMISS_DAYS * 86400000;
+    } catch (e) {
+      return false; // storage blocked — just show the banner
+    }
+  }
+
+  // Shows the big "Install now" button on the help page, but only while the
+  // browser is actually offering to install.
+  function updateInstallNow() {
+    const box = document.getElementById("install-now");
+    if (box) box.hidden = !(deferredPrompt && !isStandalone());
+  }
+
+  async function runInstallPrompt() {
+    if (!deferredPrompt) return;
+    const promptEvent = deferredPrompt;
+    deferredPrompt = null; // a browser prompt can only be used once
+    promptEvent.prompt();
+    try { await promptEvent.userChoice; } catch (e) { /* ignore */ }
+    const banner = document.getElementById("install-banner");
+    if (banner) banner.hidden = true;
+    updateInstallNow();
+  }
+
+  function initInstall() {
     const banner = document.getElementById("install-banner");
     const textEl = document.getElementById("install-banner-text");
+    const linkEl = document.getElementById("install-banner-link");
     const btnEl = document.getElementById("install-banner-btn");
     const dismissEl = document.getElementById("install-banner-dismiss");
+    const footerInstall = document.getElementById("footer-install");
     if (!banner) return;
 
-    const isStandalone =
-      (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) ||
-      window.navigator.standalone === true;
-    if (isStandalone) return;
+    if (isStandalone()) {
+      // Already running as an installed app: nothing to offer.
+      if (footerInstall) footerInstall.hidden = true;
+      return;
+    }
 
-    try {
-      if (localStorage.getItem("badalainInstallDismissed") === "true") return;
-    } catch (e) { /* storage blocked — just show the banner */ }
+    const showBanner = !installDismissedRecently();
+
+    function show(message, opts) {
+      textEl.textContent = message;
+      btnEl.hidden = !opts.button;
+      linkEl.hidden = !opts.steps;
+      banner.hidden = false;
+    }
+
+    // Registered even if the banner was dismissed, so the help page can
+    // still offer the real Install button.
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      updateInstallNow();
+      if (showBanner) show("Install Badalain for quick, offline access.", { button: true, steps: false });
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredPrompt = null;
+      banner.hidden = true;
+      updateInstallNow();
+      showToast("Installed \u2014 you'll find Badalain on your home screen.", 5000);
+    });
 
     const ua = navigator.userAgent || "";
     const isIOS =
       /iPad|iPhone|iPod/.test(ua) ||
-      (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); // iPadOS reports as Mac
-    let deferredPrompt = null;
+      (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1); // iPadOS reports itself as a Mac
+    const iosOtherBrowser = isIOS && /CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua);
+    const isMobile = isIOS || /Android|Mobile/i.test(ua);
 
-    function show(message, showButton) {
-      textEl.textContent = message;
-      btnEl.hidden = !showButton;
-      banner.hidden = false;
+    if (showBanner) {
+      if (isIOS) {
+        show(
+          iosOtherBrowser
+            ? "To install on iPhone, open this page in Safari, then tap Share \u2192 \u201cAdd to Home Screen.\u201d"
+            : "Install this app: tap the Share button, then \u201cAdd to Home Screen.\u201d",
+          { button: false, steps: true }
+        );
+      } else if (isMobile) {
+        // Browsers that never send the install event (Firefox, Samsung
+        // Internet, Opera, UC…) get a pointer to the written steps.
+        setTimeout(() => {
+          if (!deferredPrompt && banner.hidden) {
+            show("Tip: you can add this to your home screen and use it like an app.", { button: false, steps: true });
+          }
+        }, 3000);
+      }
     }
 
-    if (isIOS) {
-      show("Install this app: tap the Share button, then \u201cAdd to Home Screen.\u201d", false);
-    } else {
-      window.addEventListener("beforeinstallprompt", (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        show("Install Badalain for quick, offline access.", true);
-      });
-      setTimeout(() => {
-        if (!deferredPrompt && banner.hidden) {
-          show("Tip: add this to your home screen (browser menu \u2192 \u201cAdd to Home screen\u201d) to use it like an app.", false);
-        }
-      }, 2500);
-    }
-
-    window.addEventListener("appinstalled", () => {
-      banner.hidden = true;
-    });
-
-    btnEl.addEventListener("click", async () => {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      try { await deferredPrompt.userChoice; } catch (e) { /* ignore */ }
-      deferredPrompt = null;
-      banner.hidden = true;
-    });
+    btnEl.addEventListener("click", runInstallPrompt);
+    document.getElementById("install-now-btn").addEventListener("click", runInstallPrompt);
 
     dismissEl.addEventListener("click", () => {
       banner.hidden = true;
-      try { localStorage.setItem("badalainInstallDismissed", "true"); } catch (e) { /* best effort */ }
+      try { localStorage.setItem(INSTALL_DISMISS_KEY, String(Date.now())); } catch (e) { /* best effort */ }
     });
   }
 
