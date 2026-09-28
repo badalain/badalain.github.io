@@ -26,10 +26,12 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.11",
+  version: "2026-09-27.13",
 
   // Neutral, factual app identity. Change freely — nothing else depends on it.
-  appName: "Badalain (بدلیں)",
+  appName: "Badalain",
+  appNameUrdu: "بدلیں",
+  lastUpdated: "2026-09-27",
   appTagline: "See who owns what you buy, and find alternatives.",
 
   categories: [
@@ -92,7 +94,7 @@ const APP_DATA = {
     {
       id: "nurpur",
       name: "Nurpur",
-      aliases: ["نور پور", "nur pur", "nurpur milk", "nurpur dairy"],
+      aliases: ["نور پور", "nur pur", "nurpur milk", "nurpur dairy", "milk", "doodh", "butter", "makhan", "cheese", "desi ghee", "ghee", "flavoured milk"],
       category: "Food & Dairy",
       company: "Fauji Foods Limited",
       ownershipChain: [
@@ -122,7 +124,7 @@ const APP_DATA = {
     {
       id: "dostea",
       name: "Dostea",
-      aliases: ["دوستی چائے", "dost tea"],
+      aliases: ["دوستی چائے", "dost tea", "tea", "chai", "chaye", "patti"],
       category: "Food & Dairy",
       company: "Fauji Foods Limited",
       ownershipChain: [
@@ -144,15 +146,42 @@ const APP_DATA = {
           note: "A long-established, Pakistani-owned tea brand with strong nationwide recognition and no military ownership link.",
         },
         {
-          name: "Vital Tea (National Foods)",
-          note: "Another well-known Pakistani-owned option, widely available.",
+          name: "Vital Tea (Vital Group)",
+          note: "Made by Vital Group, a Pakistani-owned company based in Karachi since 1991 — one of the most widely drunk tea brands in the country, no military ownership link.",
         },
       ],
     },
     {
+      id: "fauji-cereals",
+      name: "Fauji Corn Flakes (Fauji Cereals)",
+      aliases: ["فوجی کارن فلیکس", "fauji cereals", "corn flakes", "cornflakes", "cereal", "breakfast cereal", "fauji pasta"],
+      category: "Food & Dairy",
+      company: "Fauji Foods Limited (Fauji Cereals)",
+      ownershipChain: [
+        { entity: "fauji-foundation", relation: "indirect, via Fauji Fertilizer Company, which holds 84.84% of Fauji Foods — Fauji Foods took over Fauji Cereals from Fauji Foundation in February 2024", stake: "84.84% of Fauji Foods held by FFC (itself 43.51% Fauji Foundation-owned)" },
+      ],
+      status: "verified",
+      sources: [
+        {
+          label: "Fauji Foods' own exhibitor profile (Saudi Food Show), listing Fauji Corn Flakes among its products",
+          url: "https://thesaudifoodshow.com/exhibitors/fauji-foods-limited",
+          accessedDate: "2026-09-27",
+        },
+        {
+          label: "Business Recorder (BR Research) — Fauji Foods Limited, citing FFL's own shareholding pattern as of 31 Dec 2024",
+          url: "https://www.brecorder.com/news/40381578",
+          accessedDate: "2026-09-27",
+        },
+      ],
+      primaryDate: "31 December 2024 (shareholding); product listing current as of access date",
+      notes: "Fauji Cereals dates back to 1954. Its corn flakes are sold under the Fauji name itself, so the brand is easy to spot on the box. Same ownership chain as Nurpur, since both now sit under Fauji Foods.",
+      alternatives: [],
+      noAlternativeReason: "Breakfast-cereal alternatives haven't been researched to this site's standard yet — flagged for a future pass rather than guessed at.",
+    },
+    {
       id: "askari-bank",
       name: "Askari Bank",
-      aliases: ["عسکری بینک", "askari commercial bank"],
+      aliases: ["عسکری بینک", "askari commercial bank", "bank", "account", "atm"],
       category: "Banking & Finance",
       company: "Askari Bank Limited",
       ownershipChain: [
@@ -188,7 +217,7 @@ const APP_DATA = {
     {
       id: "fauji-cement",
       name: "Fauji Cement",
-      aliases: ["فوجی سیمنٹ", "fccl"],
+      aliases: ["فوجی سیمنٹ", "fccl", "cement", "askari cement"],
       category: "Cement & Construction",
       company: "Fauji Cement Company Limited (FCCL)",
       ownershipChain: [
@@ -241,7 +270,7 @@ const APP_DATA = {
     {
       id: "fauji-fertilizer",
       name: "Fauji Fertilizer Company (FFC)",
-      aliases: ["فوجی فرٹیلائزر", "ffc urea", "sona urea"],
+      aliases: ["فوجی فرٹیلائزر", "ffc urea", "sona urea", "urea", "khad", "fertilizer", "fertiliser", "dap", "ffbl"],
       category: "Fertilizer",
       company: "Fauji Fertilizer Company Limited",
       ownershipChain: [
@@ -271,7 +300,7 @@ const APP_DATA = {
     {
       id: "fauji-fresh-n-freeze",
       name: "OPA! (Fauji Fresh n Freeze)",
-      aliases: ["فوجی فریش این فریز", "Opa", "OPA! frozen fries"],
+      aliases: ["فوجی فریش این فریز", "opa", "opa frozen fries", "frozen fries", "french fries", "frozen vegetables", "frozen food"],
       category: "Food & Dairy",
       company: "Fauji Fresh n Freeze Limited",
       ownershipChain: [
@@ -306,7 +335,7 @@ const APP_DATA = {
     {
       id: "mal-pakistan",
       name: "MAL Pakistan (Mobil lubricants)",
-      aliases: ["Mobil Askari Lubricants", "Mobil Pakistan", "موبل آسکری"],
+      aliases: ["mobil askari lubricants", "mobil pakistan", "موبل آسکری", "mobil", "engine oil", "motor oil", "lubricant"],
       category: "Energy & Fuel",
       company: "MAL Pakistan Limited",
       ownershipChain: [
@@ -325,7 +354,7 @@ const APP_DATA = {
       alternatives: [
         {
           name: "Shell (Shell Helix / Shell Advance)",
-          note: "The most consistently preferred motor-oil brand in Pakistani car- and bike-owner surveys. A multinational brand (Shell plc), not Pakistani-owned, but no military ownership link.",
+          note: "The most consistently preferred motor-oil brand in Pakistani car- and bike-owner surveys. Worth knowing: Shell plc sold its Pakistan business in 2024 — the local company (now Wafi Energy Pakistan) is about 88% owned by Saudi Arabia's Wafi Energy, which sells under the Shell brand by licence. Not Pakistani-owned, but no military ownership link.",
         },
         {
           name: "ZIC (Hi-Tech Lubricants)",
@@ -398,7 +427,7 @@ const APP_DATA = {
     {
       id: "askari-guards",
       name: "Askari Guards",
-      aliases: ["AGL", "Askari Guards Pvt Limited", "عسکری گارڈز"],
+      aliases: ["AGL", "Askari Guards Pvt Limited", "عسکری گارڈز", "security", "security guard", "guard company", "سیکیورٹی"],
       category: "Retail & Other",
       company: "Askari Guards (Pvt) Limited",
       ownershipChain: [
@@ -481,7 +510,7 @@ const APP_DATA = {
     {
       id: "fm100",
       name: "FM 100 (Islamabad)",
-      aliases: ["Capital FM", "ایف ایم 100"],
+      aliases: ["Capital FM", "ایف ایم 100", "radio", "fm", "fm 100", "ریڈیو"],
       category: "Media",
       company: "Capital FM (Pvt) Limited",
       ownershipChain: [
@@ -503,7 +532,7 @@ const APP_DATA = {
     {
       id: "bahria-estates",
       name: "Bahria Estates",
-      aliases: ["بحریہ اسٹیٹس"],
+      aliases: ["بحریہ اسٹیٹس", "plot", "plots", "property", "housing", "پلاٹ"],
       category: "Real Estate",
       company: "Bahria Foundation (internal division)",
       ownershipChain: [
@@ -525,7 +554,7 @@ const APP_DATA = {
     {
       id: "bss-and-s",
       name: "BSS&S (Bahria Security Services & Systems)",
-      aliases: ["Bahria Security Services", "بحریہ سیکیورٹی سروسز"],
+      aliases: ["Bahria Security Services", "بحریہ سیکیورٹی سروسز", "guards", "security guard", "سیکیورٹی"],
       category: "Retail & Other",
       company: "Bahria Security Services & Systems",
       ownershipChain: [
@@ -551,7 +580,7 @@ const APP_DATA = {
     {
       id: "dha-karachi",
       name: "DHA Karachi",
-      aliases: ["Defence Housing Authority Karachi", "Pakistan Defence Officers Housing Authority", "ڈیفنس ہاؤسنگ اتھارٹی کراچی"],
+      aliases: ["Defence Housing Authority Karachi", "Pakistan Defence Officers Housing Authority", "ڈیفنس ہاؤسنگ اتھارٹی کراچی", "plot", "plots", "property", "housing society", "defence karachi", "پلاٹ"],
       category: "Real Estate",
       company: "Defence Housing Authority, Karachi",
       ownershipChain: [
@@ -573,7 +602,7 @@ const APP_DATA = {
     {
       id: "dha-lahore",
       name: "DHA Lahore",
-      aliases: ["Defence Housing Authority Lahore", "ڈیفنس ہاؤسنگ اتھارٹی لاہور"],
+      aliases: ["Defence Housing Authority Lahore", "ڈیفنس ہاؤسنگ اتھارٹی لاہور", "plot", "plots", "property", "housing society", "defence lahore", "پلاٹ"],
       category: "Real Estate",
       company: "Defence Housing Authority, Lahore",
       ownershipChain: [
@@ -604,7 +633,7 @@ const APP_DATA = {
     {
       id: "dha-islamabad",
       name: "DHA Islamabad–Rawalpindi",
-      aliases: ["Defence Housing Authority Islamabad", "ڈیفنس ہاؤسنگ اتھارٹی اسلام آباد"],
+      aliases: ["Defence Housing Authority Islamabad", "ڈیفنس ہاؤسنگ اتھارٹی اسلام آباد", "plot", "plots", "property", "housing society", "defence islamabad", "dha rawalpindi", "پلاٹ"],
       category: "Real Estate",
       company: "Defence Housing Authority, Islamabad–Rawalpindi",
       ownershipChain: [
@@ -630,7 +659,7 @@ const APP_DATA = {
     {
       id: "pia",
       name: "Pakistan International Airlines (PIA)",
-      aliases: ["PIACL", "پاکستان انٹرنیشنل ائیرلائن"],
+      aliases: ["piacl", "پاکستان انٹرنیشنل ائیرلائن", "airline", "flight", "pia"],
       category: "Transport",
       company: "Pakistan International Airlines Corporation Limited (PIACL)",
       ownershipChain: [
@@ -665,15 +694,11 @@ const APP_DATA = {
         },
       ],
       primaryDate: "Q1 2026 earnings briefing; deal approved, not yet fully closed",
-      notes: "A genuinely new development, not something Wikipedia or older sources would show: an Arif Habib-led consortium won PIA's privatization auction in December 2025 (Rs135 billion). FFC's stake in the consortium's vehicle, PIA Equity Limited, was first reported at 25% (Express Tribune, mid-January 2026) and later confirmed at 34% by FFC's own Q1 2026 earnings briefing — the 34% figure used above is the more recent, company-confirmed one. Approved by the Cabinet Committee on Privatisation and cleared by the Competition Commission of Pakistan. Other PIAEL shareholders: Arif Habib Corporation, Fatima Fertilizer, Lake City Holdings, AKD Group, and The City School Group — none of them military-linked. Full ownership transfer to PIAEL (and full payment) is expected by May 2027, not complete yet. Doing the precise math: Fauji Foundation's indirect economic interest in PIA works out to roughly 43.51% x 34% = 15% once the deal closes — a real but minority stake, not control. Stated this way deliberately rather than implying Fauji Foundation now 'owns' the airline. Worth recording precisely, because it isn't a minor detail: FFC had withdrawn from the original bidding and was invited into the winning consortium only after the auction closed. Dawn's editorial board wrote this 'seems less for its capital needs than its desire for institutional backing.' Consortium leader Arif Habib told the Express Tribune that FFC joined at the consortium's own request, quoting himself telling FFC: 'if they wanted us to be the Imam of this prayer, they would need to offer the prayer behind us.' Separately, Prime Minister Shehbaz Sharif publicly thanked Army Chief Asim Munir for the Special Investment Facilitation Council's role in the privatisation — an on-record acknowledgment of military involvement in facilitating the sale, not a claim from unnamed sources.",
+      notes: "A genuinely new development, not something Wikipedia or older sources would show: an Arif Habib-led consortium won PIA's privatization auction in December 2025 (Rs135 billion). FFC's stake in the consortium's vehicle, PIA Equity Limited, was first reported at 25% (Express Tribune, mid-January 2026) and later confirmed at 34% by FFC's own Q1 2026 earnings briefing — the 34% figure used above is the more recent, company-confirmed one. Approved by the Cabinet Committee on Privatisation and cleared by the Competition Commission of Pakistan. Other PIAEL shareholders: Arif Habib Corporation, Fatima Fertilizer, Lake City Holdings, AKD Group, and The City School Group — none of them military-linked. Full ownership transfer to PIAEL (and full payment) is expected by May 2027, not complete yet. Doing the precise math: Fauji Foundation's indirect economic interest in PIA works out to roughly 43.51% x 34% ≈ 14.8% once the deal closes — a real but minority stake, not control. Stated this way deliberately rather than implying Fauji Foundation now 'owns' the airline. Worth recording precisely, because it isn't a minor detail: FFC had withdrawn from the original bidding and was invited into the winning consortium only after the auction closed. Dawn's editorial board wrote this 'seems less for its capital needs than its desire for institutional backing.' Consortium leader Arif Habib told the Express Tribune that FFC joined at the consortium's own request, quoting himself telling FFC: 'if they wanted us to be the Imam of this prayer, they would need to offer the prayer behind us.' Separately, Prime Minister Shehbaz Sharif publicly thanked Army Chief Asim Munir for the Special Investment Facilitation Council's role in the privatisation — an on-record acknowledgment of military involvement in facilitating the sale, not a claim from unnamed sources.",
       alternatives: [
         {
           name: "Airblue",
-          note: "A well-established private Pakistani airline with no military or government ownership — was itself a bidder in the same PIA privatization auction before withdrawing.",
-        },
-        {
-          name: "SereneAir",
-          note: "Another private Pakistani carrier, no military ownership link.",
+          note: "A well-established private Pakistani airline with no military or government ownership — was itself a bidder in the same PIA privatization auction before withdrawing. (SereneAir was considered and left off: its owners are not publicly disclosed and its chief executive is a retired Air Vice Marshal, so a 'no military link' claim could not be verified.)",
         },
       ],
     },

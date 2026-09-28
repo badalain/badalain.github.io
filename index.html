@@ -5,14 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0F6B5C">
 <title>Badalain (بدلیں) — Who owns what you buy</title>
-<meta name="description" content="Look up who owns a brand, backed by public sources, and find alternatives.">
-<meta property="og:title" content="Badalain — Who owns what you buy">
+<meta name="description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives. Free, no accounts, works offline.">
+<link rel="canonical" href="https://badalain.github.io/">
+<meta property="og:title" content="Badalain (بدلیں) — Who owns what you buy">
 <meta property="og:description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives. No accounts, no ads, works offline.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://badalain.github.io/">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Badalain — Who owns what you buy">
+<meta property="og:image" content="https://badalain.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Badalain — see who owns what you buy, and find alternatives">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Badalain (بدلیں) — Who owns what you buy">
 <meta name="twitter:description" content="Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives.">
+<meta name="twitter:image" content="https://badalain.github.io/og-image.png">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-apple-touch.png">
 <link rel="icon" href="favicon.ico" sizes="any">
@@ -23,6 +29,7 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Badalain",
+  "alternateName": "بدلیں",
   "url": "https://badalain.github.io/",
   "description": "Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives."
 }
@@ -35,33 +42,43 @@
 <div class="install-banner" id="install-banner" hidden>
   <span id="install-banner-text"></span>
   <button class="install-banner-btn" id="install-banner-btn" type="button" hidden>Install</button>
-  <button class="install-banner-dismiss" id="install-banner-dismiss" type="button" aria-label="Dismiss">&times;</button>
+  <button class="install-banner-dismiss" id="install-banner-dismiss" type="button" aria-label="Dismiss install message">&times;</button>
 </div>
 
 <header class="site-header">
-  <div class="header-inner">
-    <h1 class="app-name" id="app-name-text">Badalain (بدلیں)</h1>
-    <p class="app-tagline" id="app-tagline-text">See who owns what you buy, and find alternatives.</p>
-  </div>
+  <h1 class="app-name">
+    <a href="#/" class="home-link" id="home-link" aria-label="Badalain — go to home">
+      <img src="icon-192.png" alt="" class="home-logo" width="32" height="32">
+      <span>Badalain</span>
+      <span class="app-name-urdu" lang="ur" dir="rtl">بدلیں</span>
+    </a>
+  </h1>
+  <p class="app-tagline">See who owns what you buy, and find alternatives.</p>
 </header>
 
-<div class="disclaimer-banner" role="note">
+<div class="disclaimer-banner" id="disclaimer-banner" role="note">
   <p>Every entry links to its source. Items marked <span class="badge badge-lead">Unverified lead</span> have not yet been confirmed against a primary document — treat them as a starting point, not a fact, until they show <span class="badge badge-verified">Verified</span>.</p>
 </div>
 
 <nav class="tabs" aria-label="Sections">
-  <button class="tab-btn is-active" data-view="search" aria-pressed="true">Search</button>
-  <button class="tab-btn" data-view="about" aria-pressed="false">About &amp; sources</button>
-  <button class="tab-btn" data-view="suggest" aria-pressed="false">Suggest an addition</button>
+  <a class="tab-btn" href="#/" data-view="search">Search</a>
+  <a class="tab-btn" href="#/about" data-view="about"><span class="tab-long">About &amp; sources</span><span class="tab-short">About</span></a>
+  <a class="tab-btn" href="#/suggest" data-view="suggest"><span class="tab-long">Suggest / correct</span><span class="tab-short">Suggest</span></a>
 </nav>
 
 <main id="main">
 
+  <noscript>
+    <p class="noscript-note">This site needs JavaScript turned on to search and show entries.</p>
+  </noscript>
+
   <!-- SEARCH VIEW -->
-  <section id="view-search" class="view is-active">
+  <section id="view-search" class="view is-active" aria-labelledby="search-heading">
+    <h2 id="search-heading" class="visually-hidden" tabindex="-1">Search brands</h2>
     <div class="search-bar">
-      <label for="search-input" class="visually-hidden">Search by brand, company, or category</label>
-      <input type="search" id="search-input" placeholder="Search a brand or company…" autocomplete="off" inputmode="search">
+      <label for="search-input" class="visually-hidden">Search by brand, company, product or owner</label>
+      <input type="search" id="search-input" placeholder="Search a brand, product or owner…" autocomplete="off" inputmode="search" enterkeyhint="search">
+      <button type="button" class="search-clear" id="search-clear" aria-label="Clear search" hidden>&times;</button>
     </div>
 
     <div class="category-chips" id="category-chips" role="group" aria-label="Filter by category"></div>
@@ -75,76 +92,93 @@
 
     <ul class="brand-list" id="brand-list"></ul>
 
-    <p class="empty-state" id="empty-state" hidden>
-      No matches. If you were expecting to find something here, use
-      <button class="link-btn" id="empty-state-suggest-link">Suggest an addition</button>.
-    </p>
+    <div class="empty-state" id="empty-state" hidden>
+      <p>No matches.</p>
+      <p>Know of a brand that should be here? <a href="#/suggest" class="inline-link">Suggest it</a> — include a source link if you can.</p>
+    </div>
   </section>
 
   <!-- DETAIL VIEW -->
   <section id="view-detail" class="view">
-    <button class="back-btn" id="detail-back-btn" aria-label="Back to search">&larr; Back</button>
+    <button class="back-btn" id="detail-back-btn" type="button">&larr; Back</button>
     <div id="detail-content"></div>
   </section>
 
-  <!-- ENTITY VIEW: everything one parent organization owns -->
+  <!-- ORGANIZATION VIEW -->
   <section id="view-entity" class="view">
-    <button class="back-btn" id="entity-back-btn" aria-label="Back to search">&larr; Back</button>
+    <button class="back-btn" id="entity-back-btn" type="button">&larr; Back</button>
     <div id="entity-content"></div>
   </section>
 
   <!-- ABOUT VIEW -->
-  <section id="view-about" class="view">
-    <h2>About this list</h2>
-    <p>This site shows publicly documented ownership links between everyday consumer brands and their parent companies, so people can make their own informed choices about what to buy. It does not tell you what to think about any organization — only who owns what, with a source for every claim.</p>
+  <section id="view-about" class="view" aria-labelledby="about-heading">
+    <h2 id="about-heading" tabindex="-1">About this list</h2>
+    <p>This site shows publicly documented ownership links between everyday consumer brands and their parent organizations, so people can make their own informed choices about what to buy. It does not tell you what to think about any organization — only who owns what, with a source for every claim.</p>
+
+    <p class="about-stats" id="about-stats"></p>
 
     <h3>How an entry gets added</h3>
     <ol>
       <li>A lead is found in a public source — a company website, a news report, or an aggregator.</li>
-      <li>It is checked against a primary document: a company annual report's pattern of shareholding, a stock exchange filing, or a regulator's record.</li>
+      <li>It is checked against a primary document: a company annual report's pattern of shareholding, a stock exchange filing, a credit-rating report, or an official record.</li>
       <li>Only once confirmed against that primary document is it marked <span class="badge badge-verified">Verified</span>, with the exact source and date shown.</li>
-      <li>Ownership changes over time — stakes are sold, companies merge. Every entry is re-checked periodically, and the date it was last verified is always shown.</li>
+      <li>Ownership changes over time — stakes are sold, companies merge. Entries are re-checked periodically, and the date each source was checked is always shown.</li>
     </ol>
 
+    <h3>About the alternatives</h3>
+    <p>Alternatives are ranked best first, based on market reputation, awards and consumer surveys. They are a lighter kind of research than the ownership facts and are offered as options to consider, not endorsements. Where a founder or leader has a military background, that is stated plainly.</p>
+
     <h3>What this site is not</h3>
-    <p>This site makes no claims beyond documented ownership. It does not host allegations, opinions, or user comments. Suggested alternatives are offered as options to consider, not endorsements.</p>
+    <p>This site makes no claims beyond documented ownership and what named sources have said on the record. It does not host allegations, opinions, or user comments.</p>
 
     <h3>Corrections</h3>
-    <p>If you believe an entry is inaccurate or outdated, use the "Suggest an addition" tab to tell us — the same form is used for corrections. Every submission is reviewed before anything changes.</p>
+    <p>If an entry is inaccurate or out of date, every entry page has a "Report a problem" link, or use the <a href="#/suggest" class="inline-link">Suggest / correct</a> tab. Every submission is reviewed before anything changes.</p>
+
+    <h3>Install it like an app</h3>
+    <p><strong>Android:</strong> open the browser menu (⋮) and tap "Install app" or "Add to Home screen." <strong>iPhone:</strong> in Safari, tap the Share button, then "Add to Home Screen." Once installed, it opens without the browser bar and works with no internet.</p>
+
+    <h3>Privacy</h3>
+    <p>No accounts, no ads, no analytics, no tracking. Searches happen on your own phone and are never sent anywhere. The suggestion form sends only what you type into it.</p>
 
     <h3>The data, in full</h3>
-    <p id="about-stats"></p>
-    <p>This entire dataset is open — nothing is hidden behind an account or a paywall. You can read the raw data file yourself: <a class="source-link" id="about-data-link" target="_blank" rel="noopener" href="data.js">view data.js</a>.</p>
+    <p>The whole dataset is open — nothing is hidden behind an account or a paywall: <a class="inline-link" id="about-data-link" target="_blank" rel="noopener" href="data.js">view the raw data file</a>.</p>
   </section>
 
   <!-- SUGGEST VIEW -->
-  <section id="view-suggest" class="view">
-    <h2>Suggest an addition or correction</h2>
-    <p>No account or contact information is required. Submissions are reviewed before anything is published.</p>
+  <section id="view-suggest" class="view" aria-labelledby="suggest-heading">
+    <h2 id="suggest-heading" tabindex="-1">Suggest an addition or correction</h2>
+    <p>No account or contact information is needed. Every submission is reviewed before anything is published.</p>
 
-    <form id="suggest-form">
+    <form id="suggest-form" novalidate>
       <label for="s-name">Brand or company name</label>
-      <input type="text" id="s-name" name="name" required>
+      <input type="text" id="s-name" name="name" required maxlength="200">
 
       <label for="s-category">Category</label>
       <select id="s-category" name="category"></select>
 
-      <label for="s-reason">What should we know? (ownership link, or a correction to an existing entry)</label>
-      <textarea id="s-reason" name="reason" rows="4" required></textarea>
+      <label for="s-reason">What should we know? (an ownership link, or a correction to an existing entry)</label>
+      <textarea id="s-reason" name="reason" rows="4" required maxlength="3000"></textarea>
 
       <label for="s-source">Source link (a company report, filing, or news article — this is what lets us verify it)</label>
-      <input type="url" id="s-source" name="source" placeholder="https://…">
+      <input type="url" id="s-source" name="source" placeholder="https://…" maxlength="1000">
 
-      <button type="submit" class="primary-btn">Submit</button>
+      <!-- Spam trap: hidden from people, only bots fill this in -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="s-website">Leave this empty</label>
+        <input type="text" id="s-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <p class="form-error" id="suggest-validation" role="alert" hidden></p>
+
+      <button type="submit" class="primary-btn" id="suggest-submit">Submit</button>
     </form>
 
-    <div id="suggest-success" hidden>
-      <p>Thank you — this has been queued for review.</p>
+    <div class="form-result form-success" id="suggest-success" role="status" hidden>
+      <p><strong>Thank you — received.</strong> It will be checked against a source before anything changes.</p>
+      <button type="button" class="link-btn" id="suggest-another">Send another</button>
     </div>
-    <div id="suggest-fallback" hidden>
-      <p>We couldn't reach the review queue directly from here. You can instead send these details yourself:</p>
-      <pre id="suggest-fallback-text"></pre>
-      <button class="link-btn" id="suggest-copy-btn">Copy to clipboard</button>
+    <div class="form-result form-failure" id="suggest-error" role="alert" hidden>
+      <p><strong>Couldn't send right now.</strong> Your text is still in the form — please check your connection and try again in a little while.</p>
     </div>
   </section>
 
@@ -152,6 +186,7 @@
 
 <footer class="site-footer">
   <p>No accounts. No tracking. Works offline once loaded.</p>
+  <p class="footer-updated" id="footer-updated"></p>
 </footer>
 
 <script src="data.js"></script>

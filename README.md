@@ -98,24 +98,23 @@ Keep every description factual and unemotional: "[Brand] is produced by
 [Company], which is [X]% owned by [Foundation] (source: [Annual Report
 year], p. [page])." No adjectives, no commentary.
 
-## Connecting the suggestion form to a real backend
+## The suggestion inbox (Cloudflare Worker "suggest")
 
-Right now, submitting the form on the Suggest tab either POSTs to
-`SUGGESTION_ENDPOINT_URL` (in `app.js`, currently blank) or — if that's
-blank or fails — shows the person their own submission to copy and send
-another way.
+The Suggest / correct form sends submissions to a small Cloudflare Worker
+named `suggest`, at `https://suggest.badalain.workers.dev/` (already set in
+`app.js`). Its code is kept separately in `suggest-worker.js` — it is NOT
+part of the website files and should not be uploaded to GitHub.
 
-To make submissions land somewhere reviewable without exposing your
-identity or collecting anyone's IP address by default:
-
-1. Create a Cloudflare Worker (under the anonymous identity) with a KV
-   or D1 store attached.
-2. Have it accept a POST of `{name, category, reason, source,
-   submittedAt}` and write it to storage. Add basic rate-limiting and a
-   CAPTCHA (e.g. Cloudflare Turnstile) so it can't be spammed.
-3. Put the Worker's URL into `SUGGESTION_ENDPOINT_URL` in `app.js`.
-4. Review submissions periodically from the Worker's storage, and update
-   `data.js` following the verification workflow above.
+- It stores ONLY what the person typed plus the time it arrived — no IP
+  address, no device details, nothing that identifies the sender.
+- It only accepts submissions from badalain.github.io and the Cloudflare
+  mirror, has a hidden spam-trap field, and enforces size limits.
+- Submissions are stored in a KV namespace bound to the Worker as
+  `SUGGESTIONS`. Read them in the Cloudflare dashboard: Storage & databases
+  → KV → badalain-suggestions → KV pairs. Delete each one after handling it.
+- Treat every submission as untrusted: never open attachments or unknown
+  links from it on your normal browser — check links only in the VPN-
+  connected private window, and verify everything against a primary source.
 
 ## Operational security reminders
 

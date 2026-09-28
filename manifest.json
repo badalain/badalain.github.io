@@ -1,15 +1,20 @@
 {
+  "id": "./",
   "name": "Badalain (بدلیں) — Who owns what you buy",
   "short_name": "Badalain",
-  "description": "Look up who owns a brand, backed by public sources, and find alternatives.",
-  "start_url": "./index.html",
+  "description": "Look up who owns a brand, backed by public sources, and find Pakistani-made alternatives.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "./#/",
   "scope": "./",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#FAFAF8",
   "theme_color": "#0F6B5C",
+  "categories": ["shopping", "reference", "news"],
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
