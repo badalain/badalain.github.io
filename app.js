@@ -20,7 +20,7 @@
 
   // Must match APP_DATA.version in data.js. index.html checks this, so an old
   // saved copy of one file can never be mixed with new copies of the others.
-  const APP_VERSION = "2026-10-20.18";
+  const APP_VERSION = "2026-10-20.20";
   window.BADALAIN_APP_VERSION = APP_VERSION;
 
   // ---------------------------------------------------------------------
@@ -49,7 +49,7 @@
     h_sources: "Sources",
     h_notes: "Notes",
     h_alternatives: "Alternatives to consider",
-    alt_caveat: "Ranked best first, based on market reputation and consumer surveys — not verified with the same primary-source rigor as the ownership facts above.",
+    alt_caveat: "Possible alternatives in the same category, not ranked. “No military ownership link identified” means none was found in the public documents checked; it is not a guarantee. Compare the product, price and availability yourself.",
     alt_none_default: "No alternatives researched yet for this entry.",
     btn_share: "Share this entry",
     btn_report: "Report a problem",
@@ -371,16 +371,58 @@
     });
   }
 
+  // Edit distance (insert, delete, substitute, swap neighbours), stopping
+  // early once it is clearly above `max`. Used only for typo-forgiving search.
+  function editDistance(a, b, max) {
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    let prev2 = null;
+    let prev = [];
+    for (let j = 0; j <= b.length; j++) prev.push(j);
+    for (let i = 1; i <= a.length; i++) {
+      const cur = [i];
+      let rowMin = i;
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        let v = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + cost);
+        if (prev2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+          v = Math.min(v, prev2[j - 2] + 1);
+        }
+        cur.push(v);
+        if (v < rowMin) rowMin = v;
+      }
+      if (rowMin > max) return max + 1;
+      prev2 = prev;
+      prev = cur;
+    }
+    return prev[b.length];
+  }
+
+  // A search word matches loosely if it is within one slip (two for long
+  // words) of a whole word in the entry. Words under 4 letters must be exact.
+  function fuzzyWordMatch(token, words) {
+    if (token.length < 4) return false;
+    const max = token.length >= 8 ? 2 : 1;
+    return words.some((w) => w.length >= 3 && editDistance(token, w, max) <= max);
+  }
+
   function getFilteredBrands() {
     const tokens = normalize(state.query).split(" ").filter(Boolean);
-    return searchIndex
-      .filter(({ brand, text }) => {
-        if (state.category !== "All" && brand.category !== state.category) return false;
-        if (state.verifiedOnly && brand.status !== "verified") return false;
-        return tokens.every((tk) => text.includes(tk));
-      })
-      .map(({ brand }) => brand)
-      .sort(byVerifiedThenName);
+    const passesFilters = (brand) =>
+      !(state.category !== "All" && brand.category !== state.category) &&
+      !(state.verifiedOnly && brand.status !== "verified");
+    let hits = searchIndex.filter(
+      ({ brand, text }) => passesFilters(brand) && tokens.every((tk) => text.includes(tk))
+    );
+    // Nothing found: forgive small typos (e.g. "fouji", "askri"), so a
+    // misspelling still gets people to the right entry.
+    if (!hits.length && tokens.length) {
+      hits = searchIndex.filter(({ brand, text }) => {
+        if (!passesFilters(brand)) return false;
+        const words = text.split(" ");
+        return tokens.every((tk) => text.includes(tk) || fuzzyWordMatch(tk, words));
+      });
+    }
+    return hits.map(({ brand }) => brand).sort(byVerifiedThenName);
   }
 
   // Verified entries first, then unverified leads; alphabetical within each.
