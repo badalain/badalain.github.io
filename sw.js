@@ -17,11 +17,11 @@
   (a tiny request when nothing changed).
 
   Bump CACHE_NAME whenever files change, together with APP_DATA.version in
-  data.js (release.py does this for you). Old saved copies are deleted
+  data.js. Old saved copies are deleted
   automatically.
 */
 
-const CACHE_NAME = "badalain-cache-2026-09-27.16";
+const CACHE_NAME = "badalain-cache-2026-10-20.18";
 
 const CORE_ASSETS = [
   "./",

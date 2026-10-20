@@ -20,7 +20,7 @@
 
   // Must match APP_DATA.version in data.js. index.html checks this, so an old
   // saved copy of one file can never be mixed with new copies of the others.
-  const APP_VERSION = "2026-09-27.16";
+  const APP_VERSION = "2026-10-20.18";
   window.BADALAIN_APP_VERSION = APP_VERSION;
 
   // ---------------------------------------------------------------------
@@ -28,7 +28,7 @@
   // ---------------------------------------------------------------------
 
   // Where suggestion-form submissions are sent: the Cloudflare Worker
-  // named "suggest" on the anonymous Cloudflare account. If it is
+  // named "suggest". If it is
   // unreachable, the form says so honestly and keeps the person's text.
   const SUGGESTION_ENDPOINT_URL = "https://suggest.badalain.workers.dev/";
 

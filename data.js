@@ -26,12 +26,12 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-09-27.16",
+  version: "2026-10-20.18",
 
-  // Neutral, factual app identity. Change freely — nothing else depends on it.
+  // App name used in page titles.
   appName: "Badalain",
   appNameUrdu: "بدلیں",
-  lastUpdated: "2026-09-27",
+  lastUpdated: "2026-10-20",
   appTagline: "See who owns what you buy, and find alternatives.",
 
   categories: [
@@ -257,13 +257,18 @@ const APP_DATA = {
       status: "verified",
       sources: [
         {
+          label: "Mari Energies — Pattern of Shareholding, as at 30 June 2025 (company's own filing, page 140)",
+          url: "https://www.marienergies.com.pk/wp-content/uploads/2025/10/Pattern-of-Shareholding-as-of-June-30-2025.pdf",
+          accessedDate: "2026-10-20",
+        },
+        {
           label: "Mari Energies — Pattern of Shareholding, as at 30 June 2023 (company's own filing)",
           url: "https://marienergies.com.pk/wp-content/uploads/2023/08/Pattern-of-Shareholders-1.pdf",
           accessedDate: "2026-09-26",
         },
       ],
-      primaryDate: "30 June 2023",
-      notes: "Fauji Foundation acquired this 40% stake in 1983 (from Esso Eastern Incorporated) and it has stayed stable since; the remaining 60% is split 20% Government of Pakistan and 20% Oil & Gas Development Company Limited (OGDCL). The company renamed itself from Mari Petroleum Company Limited to Mari Energies Limited in 2025 — same entity, same ownership.",
+      primaryDate: "30 June 2025",
+      notes: "Fauji Foundation acquired this 40% stake in 1983 (from Esso Eastern Incorporated) and it has stayed stable since; as at 30 June 2025 the other holders of 5% or more were Oil & Gas Development Company Limited (OGDCL) with 20.00% and the Government of Pakistan with 19.99%; no other holder reached 5%. The company renamed itself from Mari Petroleum Company Limited to Mari Energies Limited in 2025 — same entity, same ownership.",
       alternatives: [],
       noAlternativeReason: "Mari Energies is a gas exploration and production company, not a retail brand — ordinary consumers don't choose their gas supplier the way they choose a grocery brand, so there's no meaningful everyday alternative to list here.",
     },
@@ -663,10 +668,25 @@ const APP_DATA = {
       category: "Transport",
       company: "Pakistan International Airlines Corporation Limited (PIACL)",
       ownershipChain: [
-        { entity: "fauji-foundation", relation: "indirect, via Fauji Fertilizer Company's 34% stake in PIA Equity Limited (PIAEL), the special-purpose vehicle acquiring PIA", stake: "34% of PIAEL held by FFC (itself 43.51% Fauji Foundation-owned); PIAEL to hold 100% of PIA once the sale completes" },
+        { entity: "fauji-foundation", relation: "indirect, via Fauji Fertilizer Company's 34% stake in PIA Equity Limited (PIAEL), the special-purpose vehicle that took over PIA's management on 29 June 2026", stake: "34% of PIAEL held by FFC (itself 43.51% Fauji Foundation-owned); PIAEL is to hold 100% of PIA once the government's remaining 25% transfers at a second closing" },
       ],
       status: "verified",
       sources: [
+        {
+          label: "Dawn — 'Govt formally transfers management control of PIA to Arif Habib-led consortium' (29 June 2026)",
+          url: "https://www.dawn.com/news/2011655/govt-formally-transfers-management-control-of-pia-to-arif-habib-led-consortium",
+          accessedDate: "2026-10-20",
+        },
+        {
+          label: "Business Recorder — analysis of the staged takeover, listing PIAEL's shareholders (15 May 2026)",
+          url: "https://www.brecorder.com/news/amp/40421207",
+          accessedDate: "2026-10-20",
+        },
+        {
+          label: "Business Recorder — consortium stakes as stated by the AKD Group's founding chairman",
+          url: "https://www.brecorder.com/news/40418683",
+          accessedDate: "2026-10-20",
+        },
         {
           label: "Business Recorder — 'New shareholder added: Fauji Fertilizer becomes part of PIA Equity Limited'",
           url: "https://www.brecorder.com/news/40419033/new-shareholder-added-fauji-fertilizer-becomes-part-of-pia-equity-limited",
@@ -682,19 +702,9 @@ const APP_DATA = {
           url: "https://www.dawn.com/news/1963139",
           accessedDate: "2026-09-27",
         },
-        {
-          label: "The Express Tribune — consortium leader Arif Habib describing why and how FFC joined",
-          url: "https://tribune.com.pk/story/2586814/pia-under-private-control-from-april",
-          accessedDate: "2026-09-27",
-        },
-        {
-          label: "India TV News — PM Shehbaz Sharif publicly thanking Army Chief Asim Munir for the SIFC's role in the privatisation",
-          url: "https://www.indiatvnews.com/news/world/how-pakistan-military-secured-back-route-control-of-pia-the-army-corporate-nexus-explained-2026-07-01-1046800",
-          accessedDate: "2026-09-27",
-        },
       ],
-      primaryDate: "Q1 2026 earnings briefing; deal approved, not yet fully closed",
-      notes: "A genuinely new development, not something Wikipedia or older sources would show: an Arif Habib-led consortium won PIA's privatization auction in December 2025 (Rs135 billion). FFC's stake in the consortium's vehicle, PIA Equity Limited, was first reported at 25% (Express Tribune, mid-January 2026) and later confirmed at 34% by FFC's own Q1 2026 earnings briefing — the 34% figure used above is the more recent, company-confirmed one. Approved by the Cabinet Committee on Privatisation and cleared by the Competition Commission of Pakistan. Other PIAEL shareholders: Arif Habib Corporation, Fatima Fertilizer, Lake City Holdings, AKD Group, and The City School Group — none of them military-linked. Full ownership transfer to PIAEL (and full payment) is expected by May 2027, not complete yet. Doing the precise math: Fauji Foundation's indirect economic interest in PIA works out to roughly 43.51% x 34% ≈ 14.8% once the deal closes — a real but minority stake, not control. Stated this way deliberately rather than implying Fauji Foundation now 'owns' the airline. Worth recording precisely, because it isn't a minor detail: FFC had withdrawn from the original bidding and was invited into the winning consortium only after the auction closed. Dawn's editorial board wrote this 'seems less for its capital needs than its desire for institutional backing.' Consortium leader Arif Habib told the Express Tribune that FFC joined at the consortium's own request, quoting himself telling FFC: 'if they wanted us to be the Imam of this prayer, they would need to offer the prayer behind us.' Separately, Prime Minister Shehbaz Sharif publicly thanked Army Chief Asim Munir for the Special Investment Facilitation Council's role in the privatisation — an on-record acknowledgment of military involvement in facilitating the sale, not a claim from unnamed sources.",
+      primaryDate: "Management control transferred 29 June 2026; second closing (government's remaining 25%) still pending in reports dated June 2026",
+      notes: "An Arif Habib-led consortium won PIA's privatization auction in December 2025 (Rs135 billion for 75%). FFC joined the consortium after the auction. Its stake in the consortium's vehicle, PIA Equity Limited, was first reported as 25% (Express Tribune, January 2026) and later as 34% (FFC's own Q1 2026 earnings briefing, and Business Recorder citing the AKD Group's founding chairman). Dawn reported 33.9% on 30 June 2026, but its list of holders did not add up to 100%, so 34% is used here. Other PIAEL shareholders: Arif Habib Corporation and Fatima Fertilizer (34.1% jointly), Lake City Holdings, AKD Group and The City School; none was described as military-linked in the sources reviewed. Management control was formally transferred to the consortium on 29 June 2026. The government's remaining 25% is due to transfer at a second financial closing within about 12 months, for about Rs45 billion; reports differ on whether that step has already been formally completed. Fauji Foundation's indirect economic interest works out to roughly 43.51% x 34% = about 14.8% once PIAEL holds 100% of PIA. This is a minority interest, not control, and is not described here as ownership of the airline. Dawn's editorial noted that FFC joined after the auction closed.",
       alternatives: [
         {
           name: "Airblue",
