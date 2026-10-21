@@ -9,6 +9,7 @@
     #/org/fauji-foundation everything linked to one organization
     #/about                about & sources
     #/install              how to install it on a phone, by browser
+    #/facts                "Did you know" sourced facts (#/facts/<id> jumps to one)
     #/suggest              suggestion form
     #/suggest/nurpur       suggestion form, pre-filled to correct one entry
   This gives every entry its own shareable link and makes the phone's
@@ -20,7 +21,7 @@
 
   // Must match APP_DATA.version in data.js. index.html checks this, so an old
   // saved copy of one file can never be mixed with new copies of the others.
-  const APP_VERSION = "2026-10-20.20";
+  const APP_VERSION = "2026-10-20.23";
   window.BADALAIN_APP_VERSION = APP_VERSION;
 
   // ---------------------------------------------------------------------
@@ -51,6 +52,41 @@
     h_alternatives: "Alternatives to consider",
     alt_caveat: "Possible alternatives in the same category, not ranked. “No military ownership link identified” means none was found in the public documents checked; it is not a guarantee. Compare the product, price and availability yourself.",
     alt_none_default: "No alternatives researched yet for this entry.",
+    btn_alternatives: "Alternatives",
+    btn_alternatives_count: "Alternatives ({n})",
+    btn_alternatives_none: "Alternatives: none yet",
+    btn_details: "Details",
+    alt_panel_h: "Instead of {name}, you could consider:",
+    alt_none_panel: "No alternative is listed for this yet.",
+    btn_suggest_alt: "Suggest an alternative",
+    alt_know_better: "Know a good option that isn't listed?",
+    alt_full_details: "Full details and sources",
+    list_hint: "Tap “Alternatives” under any entry to see other options. Tap “Details” for owners and sources.",
+    facts_cta_title: "Did you know?",
+    facts_cta_go: "See facts",
+    t_facts: "Did you know?",
+    facts_h2: "Did you know?",
+    facts_intro: "These facts are taken from the sources shown. Each one says whether it is verified (from a primary document) or an unverified lead, and when it was checked. Estimates and organizations' own statements are labelled as such. This page reports; it does not judge.",
+    facts_suggest_p: "Know a fact that should be here? <a href=\"#/suggest\" class=\"inline-link\">Suggest it with a source link</a>.",
+    facts_kind_filing: "From a company filing",
+    facts_kind_report: "News or report",
+    facts_kind_estimate: "Researcher's estimate",
+    facts_kind_own: "Organization's own statement",
+    facts_kind_site: "From this list",
+    facts_asof: "Date or period: {d}",
+    facts_entries_h: "Related entries",
+    facts_orgs_h: "Related organizations",
+    facts_counts_label: "From this list",
+    facts_counts_teaser: "A count of how many entries on this list link to each organization.",
+    facts_counts_headline: "{n} of the {total} entries on this list are linked to {org}.",
+    facts_counts_text: "Entries linked to each organization are listed below. {verified} of the {total} are verified; the rest are unverified leads. The number of entries says nothing about how large a business is.",
+    facts_counts_item: "{org}: {n} entries",
+    facts_counts_source: "Counted from this site's own list, as shown on the home page.",
+    s_alt_h2: "Suggest an alternative to {name}",
+    s_alt_p: "No account or contact information is needed. Every suggestion is checked against a source before anything is listed.",
+    s_alt_name_label: "Name of the alternative (product, brand or company)",
+    s_alt_reason_label: "Why is it a good option? Who owns it, if you know. Please mention anything that links it to a military organization.",
+    s_alt_source_label: "Source link (optional) — a company page or report that shows who owns it",
     btn_share: "Share this entry",
     btn_report: "Report a problem",
     checked: "Checked {date}",
@@ -60,7 +96,7 @@
     entity_count: "{n} entries linked to this organization",
     entity_count_one: "1 entry linked to this organization",
     about_stats: "{total} entries linked to {orgs} organizations — {verified} verified against primary documents, {leads} still marked as unverified {leadword}.",
-    about_stats_updated: " Last updated {date}.",
+    about_stats_updated: " Last updated {date}. Version {version}.",
     footer_updated: "Data last updated {date}.",
     share_text: "{name} — {company}. Ownership and sources:",
     toast_copied: "Link copied — paste it anywhere to share.",
@@ -98,6 +134,7 @@
     lang: "en",
     bannerKey: null,
     bannerOpts: null,
+    teaserIdx: null,
   };
 
   const els = {};
@@ -123,6 +160,8 @@
     els.aboutStats = document.getElementById("about-stats");
     els.footerUpdated = document.getElementById("footer-updated");
     els.langToggle = document.getElementById("lang-toggle");
+    els.factsContent = document.getElementById("facts-content");
+    els.factsCta = document.getElementById("facts-cta");
 
     state.lang = readSavedLang();
     bindEvents();
@@ -266,6 +305,7 @@
     buildCategoryChips();
     buildSuggestCategoryOptions();
     renderAboutStats();
+    renderFactsCta();
     renderList();
     refreshBannerText();
     route({ keepScroll: true });
@@ -321,8 +361,12 @@
 
   function brandCardHtml(brand) {
     const sub = subName(brand);
+    const id = encodeURIComponent(brand.id);
+    const n = (brand.alternatives || []).length;
+    const altLabel = n > 0 ? t("btn_alternatives_count", { n: n }) : t("btn_alternatives_none");
     return (
-      '<li><a class="brand-card brand-card-with-icon" href="#/brand/' + encodeURIComponent(brand.id) + '">' +
+      '<li class="brand-item-box">' +
+      '<a class="brand-card brand-card-with-icon" href="#/brand/' + id + '">' +
       '<span class="brand-icon" aria-hidden="true" style="background:' + badgeColorFor(brand.id) + '">' +
       initialOf(displayName(brand)) +
       "</span>" +
@@ -331,8 +375,59 @@
       badgeHtml(brand) +
       "</span>" +
       '<span class="brand-card-company">' + en((sub ? sub + " · " : "") + brand.company) + "</span>" +
-      "</span></a></li>"
+      "</span></a>" +
+      '<div class="card-actions">' +
+      '<button type="button" class="card-btn card-btn-alt' + (n > 0 ? "" : " is-none") + '" data-alt-toggle="' + escapeAttr(brand.id) + '" aria-expanded="false">' +
+      escapeHtml(altLabel) + "</button>" +
+      '<a class="card-btn" href="#/brand/' + id + '">' + escapeHtml(t("btn_details")) + "</a>" +
+      "</div>" +
+      '<div class="alt-panel" hidden></div>' +
+      "</li>"
     );
+  }
+
+  // The "Alternatives" panel that opens right inside a list card.
+  function altPanelHtml(brand) {
+    const tr = trBrand(brand);
+    const id = encodeURIComponent(brand.id);
+    let html = "";
+    if (brand.alternatives && brand.alternatives.length > 0) {
+      html += '<p class="alt-panel-h">' + escapeHtml(t("alt_panel_h", { name: displayName(brand) })) + "</p>";
+      html += '<ol class="alt-list">';
+      brand.alternatives.forEach((alt, i) => {
+        const note = pick(tr && tr.alternatives && tr.alternatives[i] && tr.alternatives[i].note, alt.note || "");
+        html += "<li><strong>" + en(alt.name) + "</strong>" + (note ? " — " + note : "") + "</li>";
+      });
+      html += "</ol>";
+      html += '<p class="alt-caveat">' + escapeHtml(t("alt_caveat")) + "</p>";
+      html += '<p class="alt-know">' + escapeHtml(t("alt_know_better")) + "</p>";
+    } else {
+      const reason = brand.noAlternativeReason
+        ? pick(tr && tr.noAlternativeReason, brand.noAlternativeReason)
+        : escapeHtml(t("alt_none_default"));
+      html += '<p class="alt-panel-h">' + escapeHtml(t("alt_none_panel")) + "</p>";
+      html += '<p class="alt-empty">' + reason + "</p>";
+    }
+    html += '<div class="alt-panel-actions">';
+    html += '<a class="card-btn card-btn-alt" href="#/suggest/' + id + '/alt">' + escapeHtml(t("btn_suggest_alt")) + "</a>";
+    html += '<a class="card-btn" href="#/brand/' + id + '">' + escapeHtml(t("alt_full_details")) + "</a>";
+    html += "</div>";
+    return html;
+  }
+
+  function toggleAltPanel(btn) {
+    const box = btn.closest(".brand-item-box");
+    const panel = box && box.querySelector(".alt-panel");
+    const brand = findBrand(btn.dataset.altToggle);
+    if (!panel || !brand) return;
+    const open = panel.hidden;
+    if (open && !panel.dataset.built) {
+      panel.innerHTML = altPanelHtml(brand);
+      panel.dataset.built = "1";
+    }
+    panel.hidden = !open;
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.classList.toggle("is-open", open);
   }
 
   // ---------------------- Search ----------------------
@@ -438,6 +533,7 @@
     const filtered = state.query.trim() || state.category !== "All" || state.verifiedOnly;
 
     els.brandList.innerHTML = results.map(brandCardHtml).join("");
+    if (els.factsCta) els.factsCta.hidden = !!state.query.trim();
     els.emptyState.hidden = results.length !== 0;
     els.searchClear.hidden = !state.query;
 
@@ -513,7 +609,7 @@
     const updated = formatDate(APP_DATA.lastUpdated);
     els.aboutStats.textContent =
       t("about_stats", { total: total, orgs: orgs, verified: verified, leads: leads, leadword: leads === 1 ? "lead" : "leads" }) +
-      (updated ? t("about_stats_updated", { date: updated }) : "");
+      (updated ? t("about_stats_updated", { date: updated, version: APP_VERSION }) : "");
     const link = document.getElementById("about-data-link"); // re-found each time: the text around it gets swapped
     if (link) link.href = "data.js?v=" + encodeURIComponent(APP_DATA.version);
     if (updated) els.footerUpdated.textContent = t("footer_updated", { date: updated });
@@ -530,7 +626,8 @@
     if (parts[0] === "org" && parts[1]) return { view: "entity", id: parts[1] };
     if (parts[0] === "about") return { view: "about" };
     if (parts[0] === "install") return { view: "install" };
-    if (parts[0] === "suggest") return { view: "suggest", id: parts[1] || null };
+    if (parts[0] === "facts") return { view: "facts", id: parts[1] || null };
+    if (parts[0] === "suggest") return { view: "suggest", id: parts[1] || null, mode: parts[2] === "alt" ? "alt" : "entry" };
     return { view: "search" };
   }
 
@@ -557,12 +654,17 @@
     } else if (r.view === "about") {
       showView("about", t("t_about"));
       toTop();
+    } else if (r.view === "facts") {
+      renderFacts();
+      showView("facts", t("t_facts"));
+      const target = r.id && document.getElementById("fact-" + r.id);
+      if (target) target.scrollIntoView(); else toTop();
     } else if (r.view === "install") {
       showView("install", t("t_install"));
       updateInstallNow();
       toTop();
     } else if (r.view === "suggest") {
-      prefillSuggest(r.id);
+      prefillSuggest(r.id, r.mode);
       showView("suggest", t("t_suggest"));
       toTop();
     } else {
@@ -588,7 +690,7 @@
     // Entry and organization pages belong under the Search tab; the install
     // guide belongs under About.
     const tabView =
-      viewName === "detail" || viewName === "entity" ? "search" : viewName === "install" ? "about" : viewName;
+      viewName === "detail" || viewName === "entity" || viewName === "facts" ? "search" : viewName === "install" ? "about" : viewName;
     document.querySelectorAll(".tab-btn").forEach((tab) => {
       const isMatch = tab.dataset.view === tabView;
       tab.classList.toggle("is-active", isMatch);
@@ -649,6 +751,25 @@
     html += "</div>";
     html += translationNoteHtml();
 
+    // Alternatives sit right under the title so nobody has to scroll for them.
+    html += '<div class="detail-section alt-highlight"><h3>' + escapeHtml(t("h_alternatives")) + "</h3>";
+    if (brand.alternatives && brand.alternatives.length > 0) {
+      html += '<ol class="alt-list">';
+      brand.alternatives.forEach((alt, i) => {
+        const note = pick(tr && tr.alternatives && tr.alternatives[i] && tr.alternatives[i].note, alt.note || "");
+        html += "<li><strong>" + en(alt.name) + "</strong>" + (note ? " — " + note : "") + "</li>";
+      });
+      html += "</ol>";
+      html += '<p class="alt-caveat">' + escapeHtml(t("alt_caveat")) + "</p>";
+    } else {
+      const reason = brand.noAlternativeReason
+        ? pick(tr && tr.noAlternativeReason, brand.noAlternativeReason)
+        : escapeHtml(t("alt_none_default"));
+      html += '<p class="alt-empty">' + reason + "</p>";
+    }
+    html += '<a class="card-btn card-btn-alt alt-suggest-btn" href="#/suggest/' + encodeURIComponent(brand.id) + '/alt">' + escapeHtml(t("btn_suggest_alt")) + "</a>";
+    html += "</div>";
+
     // Ownership chain — tap the parent organization to see everything else
     // linked to it.
     html += '<div class="detail-section"><h3>' + escapeHtml(t("h_ownership")) + "</h3>";
@@ -691,25 +812,124 @@
       html += '<div class="detail-section"><h3>' + escapeHtml(t("h_notes")) + "</h3><p>" + pick(tr && tr.notes, brand.notes) + "</p></div>";
     }
 
-    // Alternatives — lighter research than the ownership facts; ranked best first.
-    html += '<div class="detail-section"><h3>' + escapeHtml(t("h_alternatives")) + "</h3>";
-    if (brand.alternatives && brand.alternatives.length > 0) {
-      html += '<p class="alt-caveat">' + escapeHtml(t("alt_caveat")) + "</p>";
-      html += '<ol class="alt-list">';
-      brand.alternatives.forEach((alt, i) => {
-        const note = pick(tr && tr.alternatives && tr.alternatives[i] && tr.alternatives[i].note, alt.note || "");
-        html += "<li><strong>" + en(alt.name) + "</strong>" + (note ? " — " + note : "") + "</li>";
-      });
-      html += "</ol>";
-    } else {
-      const reason = brand.noAlternativeReason
-        ? pick(tr && tr.noAlternativeReason, brand.noAlternativeReason)
-        : escapeHtml(t("alt_none_default"));
-      html += '<p class="alt-empty">' + reason + "</p>";
-    }
-    html += "</div>";
 
     els.detailContent.innerHTML = html;
+  }
+
+  // ---------------------- "Did you know" facts ----------------------
+
+  // The facts in data.js, plus one computed from the list itself so it can
+  // never drift out of step with the entries.
+  function countsFact() {
+    const total = APP_DATA.brands.length;
+    const verified = APP_DATA.brands.filter((b) => b.status === "verified").length;
+    const rows = APP_DATA.entities
+      .map((e) => ({
+        entity: e,
+        n: APP_DATA.brands.filter((b) => (b.ownershipChain || []).some((l) => l.entity === e.id)).length,
+      }))
+      .filter((r) => r.n > 0)
+      .sort((a, b) => b.n - a.n);
+    if (!rows.length) return null;
+    const nameOf = (e) => {
+      const te = trEntity(e);
+      return (te && te.name) || e.name;
+    };
+    return {
+      id: "counts",
+      kind: "site",
+      status: null,
+      label: t("facts_counts_label"),
+      teaser: t("facts_counts_teaser"),
+      headline: t("facts_counts_headline", { n: rows[0].n, total: total, org: nameOf(rows[0].entity) }),
+      text: t("facts_counts_text", { verified: verified, total: total }),
+      items: rows.map((r) => t("facts_counts_item", { org: nameOf(r.entity), n: r.n })),
+      asOf: formatDate(APP_DATA.lastUpdated) || "",
+      sourceNote: t("facts_counts_source"),
+      orgs: rows.map((r) => r.entity.id),
+      _computed: true,
+    };
+  }
+
+  function getFacts() {
+    const list = (APP_DATA.facts || []).slice();
+    const c = countsFact();
+    if (c) list.push(c);
+    return list;
+  }
+
+  // Wording for one fact in the chosen language (data.js is English).
+  function factWords(f) {
+    if (f._computed) return f;
+    const u = (isUrdu() && UR.facts && UR.facts[f.id]) || {};
+    return {
+      label: u.label || f.label,
+      teaser: u.teaser || f.teaser,
+      headline: u.headline || f.headline,
+      text: u.text || f.text,
+      items: u.items && u.items.length === (f.items || []).length ? u.items : f.items,
+      asOf: u.asOf || f.asOf,
+    };
+  }
+
+  // The prominent button on the home screen. It shows one fact's teaser,
+  // chosen at random when the page opens, as a reason to tap.
+  function renderFactsCta() {
+    if (!els.factsCta) return;
+    const list = getFacts().filter((f) => f.teaser);
+    if (!list.length) { els.factsCta.hidden = true; return; }
+    if (state.teaserIdx === null) state.teaserIdx = Math.floor(Math.random() * list.length);
+    const f = list[state.teaserIdx % list.length];
+    els.factsCta.querySelector(".facts-cta-teaser").textContent = factWords(f).teaser;
+  }
+
+  function renderFacts() {
+    let html = "";
+    getFacts().forEach((f) => {
+      const w = factWords(f);
+      html += '<article class="fact-card" id="fact-' + escapeAttr(f.id) + '">';
+      html += '<div class="fact-tags">';
+      html += '<span class="fact-label">' + escapeHtml(w.label || "") + "</span>";
+      if (f.status) html += '<span class="badge ' + (f.status === "verified" ? "badge-verified" : "badge-lead") + '">' + escapeHtml(t(f.status === "verified" ? "badge_verified" : "badge_lead")) + "</span>";
+      html += '<span class="fact-kind">' + escapeHtml(t("facts_kind_" + (f.kind || "report"))) + "</span>";
+      html += "</div>";
+      html += '<h3 class="fact-headline">' + escapeHtml(w.headline) + "</h3>";
+      html += '<p class="fact-text">' + escapeHtml(w.text) + "</p>";
+      if (w.items && w.items.length) {
+        html += '<ul class="fact-items">' + w.items.map((i) => "<li>" + escapeHtml(i) + "</li>").join("") + "</ul>";
+      }
+      if (w.asOf) html += '<p class="fact-asof">' + escapeHtml(t("facts_asof", { d: w.asOf })) + "</p>";
+
+      const entries = (f.entries || []).map(findBrand).filter(Boolean);
+      if (entries.length) {
+        html += '<div class="fact-links"><span class="fact-links-h">' + escapeHtml(t("facts_entries_h")) + "</span>";
+        entries.forEach((b) => { html += '<a class="entity-chip" href="#/brand/' + encodeURIComponent(b.id) + '">' + escapeHtml(displayName(b)) + "</a>"; });
+        html += "</div>";
+      }
+      const orgs = (f.orgs || []).map(findEntity).filter(Boolean);
+      if (orgs.length && !f._computed) {
+        html += '<div class="fact-links"><span class="fact-links-h">' + escapeHtml(t("facts_orgs_h")) + "</span>";
+        orgs.forEach((e) => {
+          const te = trEntity(e);
+          html += '<a class="entity-chip" href="#/org/' + encodeURIComponent(e.id) + '">' + escapeHtml((te && te.name) || e.name) + "</a>";
+        });
+        html += "</div>";
+      }
+
+      if (f.sources && f.sources.length) {
+        html += '<div class="fact-sources"><h4>' + escapeHtml(t("h_sources")) + "</h4>";
+        f.sources.forEach((src) => {
+          html +=
+            '<a class="source-link" target="_blank" rel="noopener noreferrer" href="' + escapeAttr(src.url) + '">' + en(src.label) + "</a>" +
+            (src.accessedDate ? '<span class="source-date">' + escapeHtml(t("checked", { date: formatDate(src.accessedDate) })) + "</span>" : "");
+        });
+        html += "</div>";
+      } else if (f.sourceNote) {
+        html += '<p class="fact-asof">' + escapeHtml(f.sourceNote) + "</p>";
+      }
+      html += "</article>";
+    });
+    els.factsContent.innerHTML = html;
   }
 
   // ---------------------- Organization view ----------------------
@@ -772,17 +992,57 @@
     return document.getElementById("s-" + n);
   }
 
-  function prefillSuggest(brandId) {
+  // Sets a piece of the form's text: the normal (translated) wording, or the
+  // "suggest an alternative" wording.
+  function setFormText(el, normalKey, altKey, alt, vars) {
+    if (!el) return;
+    if (el.dataset.en === undefined) el.dataset.en = el.innerHTML;
+    if (alt) {
+      el.textContent = t(altKey, vars);
+    } else {
+      const v = isUrdu() && UR.ui && UR.ui[normalKey];
+      el.innerHTML = v ? v : el.dataset.en;
+    }
+  }
+
+  function prefillSuggest(brandId, mode) {
     document.getElementById("suggest-success").hidden = true;
     document.getElementById("suggest-error").hidden = true;
     els.suggestForm.hidden = false;
-    if (!brandId) return;
-    const brand = findBrand(brandId);
+    const brand = brandId ? findBrand(brandId) : null;
+    const alt = mode === "alt" && !!brand;
+    state.suggestAltFor = alt ? brand.id : null;
+
+    const vars = brand ? { name: displayName(brand) } : {};
+    setFormText(document.getElementById("suggest-heading"), "suggest_h2", "s_alt_h2", alt, vars);
+    setFormText(document.querySelector("#view-suggest > p[data-i18n='suggest_p']"), "suggest_p", "s_alt_p", alt, vars);
+    setFormText(document.querySelector("label[for='s-name']"), "s_name_label", "s_alt_name_label", alt, vars);
+    setFormText(document.querySelector("label[for='s-reason']"), "s_reason_label", "s_alt_reason_label", alt, vars);
+    setFormText(document.querySelector("label[for='s-source']"), "s_source_label", "s_alt_source_label", alt, vars);
+
+    // Clear text we filled in earlier for a different entry or a different
+    // kind of suggestion, but never anything the person typed themselves.
+    const key = (alt ? "alt:" : "entry:") + (brand ? brand.id : "");
+    if (state.lastPrefillKey && state.lastPrefillKey !== key && state.lastAuto) {
+      if (field("name").value === state.lastAuto.name) field("name").value = "";
+      if (field("reason").value === state.lastAuto.reason) field("reason").value = "";
+    }
+    state.lastPrefillKey = key;
+    state.lastAuto = { name: "", reason: "" };
     if (!brand) return;
+
+    if (alt) {
+      // The name box is for the alternative itself; the entry it replaces is
+      // added to the message when it is sent.
+      if (APP_DATA.categories.includes(brand.category)) field("category").value = brand.category;
+      return;
+    }
     if (field("name").value.trim() && field("name").value !== brand.name) return; // don't overwrite someone's typing
     field("name").value = brand.name;
     if (APP_DATA.categories.includes(brand.category)) field("category").value = brand.category;
-    if (!field("reason").value.trim()) field("reason").value = t("s_prefill", { name: brand.name });
+    const auto = t("s_prefill", { name: brand.name });
+    if (!field("reason").value.trim()) field("reason").value = auto;
+    state.lastAuto = { name: brand.name, reason: field("reason").value };
   }
 
   async function handleSuggestSubmit(e) {
@@ -804,7 +1064,13 @@
       website: field("website").value, // spam trap — should always be empty
     };
 
-    if (!payload.name || !payload.reason) {
+    // A suggested alternative always says which entry it is an alternative to.
+    if (state.suggestAltFor) {
+      const forBrand = findBrand(state.suggestAltFor);
+      if (forBrand) payload.reason = "[Alternative to: " + forBrand.name + "] " + payload.reason;
+    }
+
+    if (!payload.name || !field("reason").value.trim()) {
       validation.textContent = t("s_val_missing");
       validation.hidden = false;
       (payload.name ? field("reason") : field("name")).focus();
@@ -940,10 +1206,16 @@
 
     document.getElementById("detail-back-btn").addEventListener("click", goBack);
     document.getElementById("entity-back-btn").addEventListener("click", goBack);
+    document.getElementById("facts-back-btn").addEventListener("click", goBack);
 
     els.detailContent.addEventListener("click", (e) => {
       const shareBtn = e.target.closest(".share-btn");
       if (shareBtn) shareBrand(shareBtn.dataset.shareId);
+    });
+
+    document.addEventListener("click", (e) => {
+      const altBtn = e.target.closest("[data-alt-toggle]");
+      if (altBtn) toggleAltPanel(altBtn);
     });
 
     els.suggestForm.addEventListener("submit", handleSuggestSubmit);

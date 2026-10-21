@@ -334,14 +334,23 @@ main {
   margin: 0;
   padding: 0;
 }
-.brand-card {
-  width: 100%;
-  text-align: left;
+.brand-item-box {
   background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 0.8em 0.9em;
   margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+.brand-item-box:hover { border-color: var(--accent); }
+.brand-card {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0.8em 0.9em 0.55em;
+  margin-bottom: 0;
   cursor: pointer;
   color: var(--text);
   font: inherit;
@@ -350,7 +359,6 @@ main {
   flex-direction: column;
   gap: 0.35em;
 }
-.brand-card:hover { border-color: var(--accent); }
 .brand-card:active { transform: scale(0.995); }
 .brand-card-with-icon {
   flex-direction: row;
@@ -827,3 +835,152 @@ html[lang="ur"] .brand-card-name { line-height: 1.8; }
 /* Never allow sideways scrolling (a stray wide element in right-to-left
    mode once left the page scrolled to an empty stretch of screen). */
 html, body { max-width: 100%; overflow-x: hidden; }
+
+/* ---------- Alternatives / Details buttons on every card ---------- */
+.card-actions {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 0.9em 0.8em;
+}
+.card-btn {
+  appearance: none;
+  flex: 1 1 0;
+  min-height: 44px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.45em 0.7em;
+  border-radius: 8px;
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+  cursor: pointer;
+}
+.card-btn-alt { background: var(--accent); color: var(--accent-text); }
+.card-btn-alt.is-none { background: transparent; color: var(--accent); }
+.card-btn-alt.is-open { box-shadow: inset 0 0 0 2px var(--accent-text); }
+.card-btn:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.alt-panel {
+  border-top: 1px solid var(--border);
+  padding: 0.8em 0.9em 0.9em;
+  background: var(--bg);
+}
+.alt-panel-h { margin: 0 0 0.5em; font-weight: 700; font-size: 0.95rem; }
+.alt-panel .alt-list { margin-bottom: 0.4em; }
+.alt-know { margin: 0.2em 0 0.6em; font-size: 0.9rem; color: var(--text-muted); }
+.alt-panel-actions { display: flex; gap: 0.5rem; margin-top: 0.5em; flex-wrap: wrap; }
+.alt-panel-actions .card-btn { min-width: 9em; }
+.alt-highlight {
+  background: var(--verified-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8em 0.9em 0.9em;
+  margin: 0.8rem 0;
+}
+.alt-highlight h3 { margin-top: 0; }
+.alt-suggest-btn { margin-top: 0.7em; max-width: 22em; }
+.list-hint { margin: 0.4em 0 0.2em; font-size: 0.88rem; color: var(--text-muted); }
+html[dir="rtl"] .brand-card { text-align: right; }
+@media (max-width: 380px) {
+  .card-btn { font-size: 0.86rem; padding: 0.4em 0.4em; }
+}
+
+/* ---------- "Did you know" button and facts page ---------- */
+.facts-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  box-sizing: border-box;
+  min-height: 64px;
+  margin: 0.2rem 0 0.9rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0A5448 0%, #0F7A66 100%);
+  color: #FFFFFF;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(10, 84, 72, 0.35);
+}
+.facts-cta[hidden] { display: none; }
+.facts-cta:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.facts-cta-icon {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #F2B632;
+  color: #3A2A00;
+}
+.facts-cta-body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 0.15em; }
+.facts-cta-title { font-size: 1.1rem; font-weight: 800; line-height: 1.25; }
+.facts-cta-teaser {
+  font-size: 0.86rem;
+  line-height: 1.35;
+  opacity: 0.95;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.facts-cta-go {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.4em 0.75em;
+  border-radius: 999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 0.82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+html[dir="rtl"] .facts-cta-arrow { display: inline-block; transform: scaleX(-1); }
+@media (max-width: 400px) {
+  .facts-cta-go-text { display: none; }
+  .facts-cta-go { padding: 0.4em 0.6em; font-size: 1rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .facts-cta-icon { animation: factsGlow 2.6s ease-in-out infinite; }
+  @keyframes factsGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(242, 182, 50, 0.55); }
+    50% { box-shadow: 0 0 0 8px rgba(242, 182, 50, 0); }
+  }
+}
+.facts-intro { margin: 0.4em 0 1em; color: var(--text-muted); font-size: 0.95rem; }
+.fact-card {
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.9em 0.95em 1em;
+  margin: 0 0 0.9rem;
+}
+.fact-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin-bottom: 0.5em; }
+.fact-label { font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--accent); }
+html[lang="ur"] .fact-label { text-transform: none; letter-spacing: 0; font-size: 0.9rem; }
+.fact-kind {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.1em 0.6em;
+}
+.fact-headline { margin: 0 0 0.45em; font-size: 1.08rem; line-height: 1.35; }
+.fact-text { margin: 0 0 0.6em; }
+.fact-items { margin: 0 0 0.6em; padding-inline-start: 1.2em; }
+.fact-items li { margin: 0.25em 0; }
+.fact-asof { margin: 0.2em 0 0.6em; font-size: 0.86rem; color: var(--text-muted); }
+.fact-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; margin: 0.5em 0; }
+.fact-links-h { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); }
+.fact-sources { margin-top: 0.6em; padding-top: 0.5em; border-top: 1px solid var(--border); }
+.fact-sources h4 { margin: 0 0 0.3em; font-size: 0.9rem; }
+.facts-suggest { margin: 1rem 0 0.5rem; color: var(--text-muted); font-size: 0.93rem; }

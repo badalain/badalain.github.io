@@ -25,7 +25,7 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-10-20.20",
+  version: "2026-10-20.23",
 
   // App name used in page titles.
   appName: "Badalain",
@@ -48,6 +48,123 @@ const APP_DATA = {
 
   // The parent organizations. Kept separate from brands so the ownership
   // chain (brand -> company -> ... -> foundation) can be shown clearly.
+  // "Did you know" facts. Same rules as entries: every fact carries a status
+  // ("verified" = from a primary document, "lead" = secondary source), a kind
+  // (what sort of source it is), exact wording, and dated sources. Estimates
+  // and organizations' own statements are labelled as such. A count computed
+  // from this list itself is added by app.js (id "counts").
+  facts: [
+    {
+      id: "urea-share",
+      label: "Fertilizer",
+      kind: "filing",
+      status: "verified",
+      teaser: "Fauji Fertilizer Company reports a 56% share of Pakistan's urea sales for January–June 2026.",
+      headline: "Fauji Fertilizer Company reports a 56% share of Pakistan's urea sales in January–June 2026.",
+      text: "In its corporate briefing of 5 August 2026, Fauji Fertilizer Company (FFC) says it sold 1,404 thousand tonnes of urea out of 2,512 thousand tonnes sold by the whole industry in the six months to 30 June 2026. That is a 56% share, up from 48% in the same period of 2025. Fauji Foundation holds 44.32% of FFC (30 June 2026); the remaining shares are held by other shareholders.",
+      asOf: "Six months to 30 June 2026",
+      entries: ["fauji-fertilizer"],
+      sources: [
+        { label: "Fauji Fertilizer Company — corporate briefing, 5 August 2026, urea market share slide (company's own PSX filing)", url: "https://dps.psx.com.pk/download/document/280736.pdf", accessedDate: "2026-10-20" },
+        { label: "Fauji Fertilizer Company — half-year report, six months ended 30 June 2026 (company's own PSX filing)", url: "https://dps.psx.com.pk/download/document/281738.pdf", accessedDate: "2026-10-20" },
+      ],
+    },
+    {
+      id: "exact-stakes",
+      label: "Exact stakes",
+      kind: "filing",
+      status: "verified",
+      teaser: "Exact percentages found in company filings, such as 44.32% and 40.00%.",
+      headline: "Exact stakes found in the companies' own filings.",
+      text: "These figures come from each company's own shareholder report. A stake is a share of one company, not control of an industry, and a minority stake is not ownership.",
+      items: [
+        "Fauji Fertilizer Company: Fauji Foundation holds 44.32% (30 June 2026).",
+        "Mari Energies (Mari Petroleum): Fauji Foundation holds 40.00%, OGDCL 20.00% and the Government of Pakistan 19.99% (30 June 2025).",
+        "Fauji Cement Company: Fauji Foundation holds 61.6492% directly, and 66.8091% together with Fauji Fertilizer Company and Fauji Oil Terminal & Distribution (30 June 2026).",
+        "Askari Bank: Fauji Foundation holds 7.19% directly and Fauji Fertilizer Company holds 64.72% (Annual Report 2025).",
+      ],
+      asOf: "30 June 2025 to 30 June 2026, as listed",
+      entries: ["fauji-fertilizer", "mari-petroleum", "fauji-cement", "askari-bank"],
+      sources: [
+        { label: "Fauji Fertilizer Company — half-year report, six months ended 30 June 2026 (company's own PSX filing)", url: "https://dps.psx.com.pk/download/document/281738.pdf", accessedDate: "2026-10-20" },
+        { label: "Mari Energies — Pattern of Shareholding, as at 30 June 2025 (company's own filing)", url: "https://www.marienergies.com.pk/wp-content/uploads/2025/10/Pattern-of-Shareholding-as-of-June-30-2025.pdf", accessedDate: "2026-10-20" },
+        { label: "Fauji Cement Company Limited — Annual Report 2026, 'Categories of Shareholders as on 30th June 2026' (company's own filing)", url: "https://fccl.com.pk/eng/wp-content/uploads/2025/05/Categories-of-Shareholders-as-on-30th-June-2026.pdf", accessedDate: "2026-10-20" },
+        { label: "Askari Bank Annual Report 2025 (corporate profile page)", url: "https://askaribank.com/gallery/Askari-AR-2025.pdf", accessedDate: "2026-10-20" },
+      ],
+    },
+    {
+      id: "mari-gas",
+      label: "Gas",
+      kind: "report",
+      status: "lead",
+      teaser: "A rating agency puts Mari Petroleum at 29% of Pakistan's natural gas production.",
+      headline: "A rating agency says Mari Petroleum holds 29% of Pakistan's total gas production.",
+      text: "PACRA, a credit rating agency, says in its rating report on Mari that the company holds 29% of Pakistan's total gas production. The report does not date that figure; the figures around it are for the year to 30 June 2024. Fauji Foundation holds 40.00% of Mari, OGDCL 20.00% and the Government of Pakistan 19.99% (30 June 2025).",
+      asOf: "Rating report; figure undated (nearby figures are for the year to 30 June 2024)",
+      entries: ["mari-petroleum"],
+      sources: [
+        { label: "PACRA — rating report on Mari Petroleum (a rating agency's report, not a company filing)", url: "https://www.pacra.com/rating-report/MTA0MTE=", accessedDate: "2026-10-20" },
+        { label: "Mari Energies — Pattern of Shareholding, as at 30 June 2025 (company's own filing, page 140)", url: "https://www.marienergies.com.pk/wp-content/uploads/2025/10/Pattern-of-Shareholding-as-of-June-30-2025.pdf", accessedDate: "2026-10-20" },
+      ],
+    },
+    {
+      id: "pia-stakes",
+      label: "Airline",
+      kind: "filing",
+      status: "verified",
+      teaser: "PIA's new management group includes Fauji Fertilizer Company.",
+      headline: "The group that took over PIA's management on 29 June 2026 includes Fauji Fertilizer Company.",
+      text: "Fauji Fertilizer Company says it holds 33.99% of PIA Equity Limited, the vehicle that held 66.7% of PIA; FFC calculates this as 22.6% of PIA. Because Fauji Foundation holds 44.32% of FFC, its indirect interest is smaller: about 10.0% by this site's own calculation (22.6% × 44.32%). The consortium also includes other companies. A second closing was reported as pending; sources differ on whether it has happened.",
+      asOf: "30 June 2026 (management handover 29 June 2026)",
+      entries: ["pia"],
+      sources: [
+        { label: "Fauji Fertilizer Company — half-year report, six months ended 30 June 2026, note 4.1 (company's own PSX filing)", url: "https://dps.psx.com.pk/download/document/281738.pdf", accessedDate: "2026-10-20" },
+        { label: "Dawn — 'Govt formally transfers management control of PIA to Arif Habib-led consortium' (29 June 2026)", url: "https://www.dawn.com/news/2011655/govt-formally-transfers-management-control-of-pia-to-arif-habib-led-consortium", accessedDate: "2026-10-20" },
+      ],
+    },
+    {
+      id: "senate-2016",
+      label: "2016 Senate reply",
+      kind: "report",
+      status: "lead",
+      teaser: "A 2016 written Senate reply cited nearly 50 commercial entities run by armed-forces departments.",
+      headline: "In 2016 the Defence Minister told the Senate that nearly 50 commercial entities were being managed by various departments of the armed forces.",
+      text: "Daily Pakistan reported on 21 July 2016 that Defence Minister Khawaja Asif, replying in writing to a question from Senator Farhatullah Babar, said that nearly 50 commercial entities were being managed by various departments of the armed forces. The reported list names projects under Army Welfare Trust, Fauji Foundation and Shaheen Foundation. This is a ten-year-old news report of a ministerial reply, not a current register; many of the names on it appear on this site as unverified leads.",
+      asOf: "Reported 21 July 2016",
+      orgs: ["army-welfare-trust", "fauji-foundation", "shaheen-foundation"],
+      sources: [
+        { label: "Daily Pakistan — 'List of businesses run by the army presented to the Senate' (21 July 2016; reports the Defence Minister's written reply to the Senate)", url: "https://en.dailypakistan.com.pk/21-Jul-2016/list-of-businesses-run-by-the-army-presented-to-the-senate", accessedDate: "2026-10-20" },
+      ],
+    },
+    {
+      id: "siddiqa-estimate",
+      label: "Researcher's estimate",
+      kind: "estimate",
+      status: "lead",
+      teaser: "One researcher's 2008 estimate, and the Foundation's reply.",
+      headline: "One researcher's estimate of the size of military business in Pakistan, and the reply of the Fauji Foundation's managing director.",
+      text: "Researcher Ayesha Siddiqa, author of Military Inc: Inside Pakistan's Military Economy, said the military's private wealth could be as high as US$20 billion, which she called a \"rough figure\", and that the military controls about one-third of the country's heavy manufacturing and up to seven per cent of private assets (Al Jazeera, 17 February 2008). This is one researcher's estimate from around 2007–08, not an audited figure. In the same article, the managing director of the Fauji Foundation defended the army's commercial investments as necessary for veterans' welfare.",
+      asOf: "Published 17 February 2008",
+      sources: [
+        { label: "Al Jazeera — 'Pakistani army's $20bn business' (17 February 2008)", url: "https://www.aljazeera.com/news/2008/2/17/pakistani-armys-20bn-business", accessedDate: "2026-10-20" },
+      ],
+    },
+    {
+      id: "foundation-own-words",
+      label: "In their own words",
+      kind: "own",
+      status: "lead",
+      teaser: "What the Fauji Foundation says about how it uses its income.",
+      headline: "The Fauji Foundation describes itself as a charitable trust whose income goes mainly to welfare for ex-servicemen and their dependents.",
+      text: "A page titled \"About Fauji Foundation\" on fwel.com.pk describes the Foundation as a charitable trust for the welfare of ex-servicemen and their dependents, says \"more than 80 percent of the income\" goes to welfare activities every year, and gives \"about 9 million beneficiaries (5 % of country's population)\". A report by the Associated Press of Pakistan (4 January 2026) gives different figures: more than 70 percent of annual income, about 10 million beneficiaries, and Rs 325.7 billion in tax paid in 2024–25. The report does not say who supplied these figures. These are the organization's own statements and have not been independently audited here.",
+      asOf: "Pages checked 20 October 2026; APP report dated 4 January 2026",
+      orgs: ["fauji-foundation"],
+      sources: [
+        { label: "fwel.com.pk — 'About Fauji Foundation' (a page on a website of a company linked to the Foundation; the Foundation's own description)", url: "https://fwel.com.pk/?p=2356", accessedDate: "2026-10-20" },
+        { label: "Associated Press of Pakistan — 'Fauji Foundation paid over Rs 1.6 trillion tax in last seven years' (4 January 2026)", url: "https://www.app.com.pk/?p=1140861", accessedDate: "2026-10-20" },
+      ],
+    },
+  ],
   entities: [
     {
       id: "fauji-foundation",
