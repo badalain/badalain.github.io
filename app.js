@@ -21,7 +21,7 @@
 
   // Must match APP_DATA.version in data.js. index.html checks this, so an old
   // saved copy of one file can never be mixed with new copies of the others.
-  const APP_VERSION = "2026-10-20.23";
+  const APP_VERSION = "2026-10-21.24";
   window.BADALAIN_APP_VERSION = APP_VERSION;
 
   // ---------------------------------------------------------------------
@@ -852,7 +852,10 @@
   }
 
   function getFacts() {
-    const list = (APP_DATA.facts || []).slice();
+    // Verified facts first, then unverified leads (each group keeps the order
+    // in data.js), then the count computed from this list.
+    const all = APP_DATA.facts || [];
+    const list = all.filter((f) => f.status === "verified").concat(all.filter((f) => f.status !== "verified"));
     const c = countsFact();
     if (c) list.push(c);
     return list;

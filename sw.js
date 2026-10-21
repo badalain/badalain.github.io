@@ -21,7 +21,7 @@
   automatically.
 */
 
-const CACHE_NAME = "badalain-cache-2026-10-20.23";
+const CACHE_NAME = "badalain-cache-2026-10-21.24";
 
 const CORE_ASSETS = [
   "./",

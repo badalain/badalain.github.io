@@ -25,12 +25,12 @@
 const APP_DATA = {
   // Bump this string whenever you change this file. The service worker
   // uses it to know a new version of the data exists and refresh the cache.
-  version: "2026-10-20.23",
+  version: "2026-10-21.24",
 
   // App name used in page titles.
   appName: "Badalain",
   appNameUrdu: "بدلیں",
-  lastUpdated: "2026-10-20",
+  lastUpdated: "2026-10-21",
   appTagline: "See who owns what you buy, and find alternatives.",
 
   categories: [
@@ -54,6 +54,62 @@ const APP_DATA = {
   // and organizations' own statements are labelled as such. A count computed
   // from this list itself is added by app.js (id "counts").
   facts: [
+    {
+      id: "dap-share",
+      label: "Fertilizer",
+      kind: "filing",
+      status: "verified",
+      teaser: "Fauji Fertilizer Company reports a 66% share of Pakistan's DAP fertilizer sales for January–June 2026.",
+      headline: "Fauji Fertilizer Company reports a 66% share of Pakistan's DAP fertilizer sales in January–June 2026.",
+      text: "In its half-year report for the six months to 30 June 2026 (page 4), Fauji Fertilizer Company (FFC) says its DAP sales, including imported product, rose from 288 thousand tonnes to 318 thousand tonnes, and that its \"DAP market share registered a growth of 3% to 66%\". This is the company's own statement of its share. DAP is a different product from urea, so it is separate from the urea share on this page.",
+      asOf: "Six months to 30 June 2026",
+      entries: ["fauji-fertilizer"],
+      sources: [
+        { label: "Fauji Fertilizer Company — half-year report, six months ended 30 June 2026 (company's own PSX filing)", url: "https://dps.psx.com.pk/download/document/281738.pdf", accessedDate: "2026-10-21" },
+      ],
+    },
+    {
+      id: "ffbl-power",
+      label: "Ownership change",
+      kind: "filing",
+      status: "verified",
+      teaser: "In 2026 FFC raised its stake in FFBL Power Company from 75% to 100%.",
+      headline: "In the first half of 2026, Fauji Fertilizer Company raised its stake in FFBL Power Company from 75% to 100%.",
+      text: "FFC's half-year report (note 10.2, page 22) says its shareholding in FFBL Power Company Limited \"has increased from 75% to 100% during the period\". FFC acquired 214,687,500 shares and, in exchange, issued 15,914,566 new FFC shares to Fauji Foundation, at one FFC share for every 13.49 FFBL Power shares. Over the same period, Fauji Foundation's holding in FFC went from 43.70% (31 December 2025) to 44.32% (30 June 2026).",
+      asOf: "Six months to 30 June 2026",
+      orgs: ["fauji-foundation"],
+      sources: [
+        { label: "Fauji Fertilizer Company — half-year report, six months ended 30 June 2026 (company's own PSX filing)", url: "https://dps.psx.com.pk/download/document/281738.pdf", accessedDate: "2026-10-21" },
+      ],
+    },
+    {
+      id: "askari-bank-size",
+      label: "Banking",
+      kind: "filing",
+      status: "verified",
+      teaser: "Askari Bank reports 788 branches and Rs 3.247 trillion in assets at 30 June 2026.",
+      headline: "Askari Bank reports 788 branches and about Rs 3.247 trillion in assets at 30 June 2026.",
+      text: "Askari Bank's half-year report says it had 788 branches at 30 June 2026 (757 at 31 December 2025), including 396 Islamic banking branches. Of these, 787 are in Pakistan and Azad Kashmir and one is in Bahrain. Its own balance sheet shows total assets of Rs 3,246,748,707 thousand, up 12.15% from Rs 2,895,001,568 thousand at 31 December 2025. The report also says Fauji Foundation and Fauji Fertilizer Company together own 71.91% of the bank's shares. These are the bank's own figures, not a ranking among Pakistani banks.",
+      asOf: "30 June 2026, compared with 31 December 2025",
+      entries: ["askari-bank"],
+      sources: [
+        { label: "Askari Bank Limited — Half Yearly Report, 30 June 2026, note 1 (page 14) and statement of financial position (page 9) (company's own report)", url: "https://askaribank.com/gallery/Half%20Yearly%20Report%20June%2030,%202026.pdf", accessedDate: "2026-10-21" },
+      ],
+    },
+    {
+      id: "shaheen-governance",
+      label: "Governance",
+      kind: "own",
+      status: "verified",
+      teaser: "Shaheen Foundation says the Chief of the Air Staff chairs its governing committee.",
+      headline: "Shaheen Foundation says it was set up in 1977 and that the Chief of the Air Staff chairs its Committee of Administration.",
+      text: "Shaheen Foundation's own overview page says it was established in 1977 under the Charitable Endowment Act 1890, that its purpose is welfare for Pakistan Air Force personnel, including civilians, and their dependents, and that the Chief of the Air Staff is Chairman of its Committee of Administration. It says it raises funds through industrial and commercial enterprises in sectors including education, health, engineering, services, construction works, housing and advertising.",
+      asOf: "Page read 21 October 2026",
+      orgs: ["shaheen-foundation"],
+      sources: [
+        { label: "Shaheen Foundation — Overview page on its own website", url: "https://www.shaheenfoundation.com/overview.php", accessedDate: "2026-10-21" },
+      ],
+    },
     {
       id: "urea-share",
       label: "Fertilizer",
@@ -938,11 +994,20 @@ const APP_DATA = {
           url: "https://dps.psx.com.pk/download/document/281738.pdf",
           accessedDate: "2026-10-20",
         },
+        {
+          label: "Competition Commission of Pakistan — press release, 13 July 2026 (Lotte Group restructuring; names Lotte Kolson)",
+          url: "https://cc.gov.pk/home/viewpressreleases/757",
+          accessedDate: "2026-10-21",
+        },
       ],
       primaryDate: "31 December 2025 (Fauji Foods Annual Report 2025); FFC's own holding as at 30 June 2026",
       notes: "Opa Pasta is listed as one of Fauji Foods Limited's own brands on the company's website (pasta shapes: penne, large and small elbow, shell, spiral). The frozen-food range sold as 'OPA!' is listed separately on this site under Fauji Fresh n Freeze Limited. The ownership chain is the same as Nurpur (see that entry for the full Fauji Foods shareholder list).",
-      alternatives: [],
-      noAlternativeReason: "Alternatives haven't been researched to this site's standard yet — flagged for a future pass rather than guessed at.",
+      alternatives: [
+        {
+          name: "Kolson (Lotte Kolson)",
+          note: "A pasta brand sold in Pakistan by Lotte Kolson. The Competition Commission of Pakistan's decision of 13 July 2026 describes Lotte Kolson as part of South Korea's Lotte Group, so it is foreign-owned, not Pakistani-owned. No military ownership link was identified in the documents checked.",
+        },
+      ],
     },
     {
       id: "army-welfare-sugar-mills",
@@ -992,11 +1057,20 @@ const APP_DATA = {
           url: "https://en.wikipedia.org/wiki/Army_Welfare_Trust",
           accessedDate: "2026-10-20",
         },
+        {
+          label: "Service Industries Limited — Pattern of Shareholding as at 31 December 2025 (the alternative's own filing, on its website)",
+          url: "https://servisgroup.com/wp-content/uploads/2026/04/Pattern-of-Shareholding-SIL.pdf",
+          accessedDate: "2026-10-21",
+        },
       ],
       primaryDate: null,
       notes: "Listed under Army Welfare Trust (AWT) in a written reply the Defence Minister gave the Senate, as reported by Daily Pakistan on 21 July 2016 (listed as: \"Askari Project (shoe and woollen), Lahore\"). Wikipedia (secondary) says the Lahore shoe factory was founded in 1990. Current ownership, legal structure, stake and whether it is still operating have not been confirmed. Treat as an unverified lead until a primary document (company report, SECP or PSX filing, or the organization's own website) is found.",
-      alternatives: [],
-      noAlternativeReason: "Alternatives haven't been researched to this site's standard yet — flagged for a future pass rather than guessed at.",
+      alternatives: [
+        {
+          name: "Servis (Service Industries Limited)",
+          note: "A Pakistani footwear brand of Service Industries Limited, a listed company. Its own shareholding report (31 December 2025) lists Hassan Javed 19.2914%, the National Investment (Unit) Trust 10.6217%, Omar Saeed 10.1428% and Arif Saeed 10.1428% among holders of 5% or more. No military ownership link was identified in the documents checked.",
+        },
+      ],
     },
     {
       id: "askari-woollen-mills",
@@ -1046,11 +1120,20 @@ const APP_DATA = {
           url: "https://en.wikipedia.org/wiki/Army_Welfare_Trust",
           accessedDate: "2026-10-20",
         },
+        {
+          label: "Gul Ahmed Textile Mills Limited — Annual Report 2026, year ended 30 June 2026 (the alternative's own PSX filing)",
+          url: "https://dps.psx.com.pk/download/document/284724.pdf",
+          accessedDate: "2026-10-21",
+        },
       ],
       primaryDate: null,
       notes: "Listed under Army Welfare Trust (AWT) in a written reply the Defence Minister gave the Senate, as reported by Daily Pakistan on 21 July 2016 (listed as: \"Askari Apparel, Lahore\"). Wikipedia (secondary) says it was established in 2014. Current ownership, legal structure, stake and whether it is still operating have not been confirmed. Treat as an unverified lead until a primary document (company report, SECP or PSX filing, or the organization's own website) is found.",
-      alternatives: [],
-      noAlternativeReason: "Alternatives haven't been researched to this site's standard yet — flagged for a future pass rather than guessed at.",
+      alternatives: [
+        {
+          name: "Ideas by Gul Ahmed (Gul Ahmed Textile Mills)",
+          note: "A Pakistani clothing and textile retailer of the listed Gul Ahmed Textile Mills. Its Annual Report 2026 says Gul Ahmed Holdings (Private) Limited holds 55.86% of the company. No military ownership link was identified in the documents checked.",
+        },
+      ],
     },
     {
       id: "askari-seeds",
@@ -1384,11 +1467,20 @@ const APP_DATA = {
           url: "https://en.wikipedia.org/wiki/Army_Welfare_Trust",
           accessedDate: "2026-10-20",
         },
+        {
+          label: "PACRA — rating report on Al Meezan Investment Management Limited, 15 May 2026 (a rating agency's report, not a company filing)",
+          url: "https://www.pacra.com/finalPr/MTU3NTQ=",
+          accessedDate: "2026-10-21",
+        },
       ],
       primaryDate: null,
       notes: "Listed on Wikipedia's Army Welfare Trust page (a secondary source) as an AWT business. Wikipedia (secondary) says it was founded in 2017 as a joint venture with Pak Brunei Investment Company. Current ownership, legal structure, stake and whether it is still operating have not been confirmed. Treat as an unverified lead until a primary document (company report, SECP or PSX filing, or the organization's own website) is found.",
-      alternatives: [],
-      noAlternativeReason: "Alternatives haven't been researched to this site's standard yet — flagged for a future pass rather than guessed at.",
+      alternatives: [
+        {
+          name: "Al Meezan Investment Management",
+          note: "A Pakistani investment-management company. PACRA's rating report of 15 May 2026 says Meezan Bank holds 65% and Pakistan Kuwait Investment Company 30%. This is a different company from Meezan Bank, which is listed as an alternative to Askari Bank. No military ownership link was identified in the documents checked.",
+        },
+      ],
     },
     {
       id: "noon-pakistan",
